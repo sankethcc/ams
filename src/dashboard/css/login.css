@@ -1,0 +1,113 @@
+:root {
+  --black: rgba(56, 56, 56, 1);
+  --blue: rgba(79, 120, 254, 1);
+  --dark-grey: rgba(192, 192, 192, 1);
+  --dark-grey-2: rgba(112, 112, 112, 1);
+  --green: rgba(144, 241, 189, 1);
+  --light-grey: rgba(169, 169, 177, 1);
+  --main: rgba(79, 120, 254, 1);
+  --purple: rgba(205, 195, 255, 1);
+  --stroke: rgba(216, 216, 216, 1);
+}
+
+.screen {
+  background-color: #eff3f4;
+  height: 100vh;
+  position: relative;
+  background-color: #eff3f4;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.left {
+  background-image: url("/src/dashboard/img/left.png"); 
+  background-size: cover;
+  width: 58vw;
+}
+
+.box {
+  background-color: #ffffff;
+  width: 42vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Added position relative */
+}
+
+.main-title {
+  color: #383838;
+  font-family: "Poppins", Helvetica;
+  font-size: 40px;
+  font-weight: 600;
+  position: absolute;
+  top: 22.7vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.text {
+  color: #707070;
+  font-family: "Poppins", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 32.2vh;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  top: 42vh;
+  gap: 2.5vh; 
+}
+
+.box2 {
+  background-color: #eff3f4;
+  border: none;
+  border-radius: 14px;
+  height: 8vh;
+  width: 24.3vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 0 10px; 
+}
+.login {
+  background-color:  #4F78FE;
+  border: none;
+  border-radius: 14px;
+  color: white;
+  height: 8.1vh;
+  width: 24.3vw;
+  position: absolute;
+  top: 69vh;
+  align-items: center; 
+}
+
+.text-wrapper-2 {
+  color: #00000033;
+  font-family: "Poppins", Helvetica;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.forgot {
+  color: var(--blue);
+  font-family: "Poppins", Helvetica;
+  font-size: 12px;
+  font-weight: 700;
+  right: 8.6vw;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 20vh;
+}

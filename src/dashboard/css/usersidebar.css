@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.top_section {
+   display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    gap: 5px;
+}
+.logo {
+    font-size: 25px;
+    margin-top: 65px;
+    margin-left: -28px;
+    margin-bottom: 20px;
+    color:#7331d5;
+    font-weight: bold;
+}
+
+.logo_pen {
+    font-size: 25px;
+    font-weight: 300;
+    margin-top: 65px;
+    margin-bottom: 20px;
+    color:#7331d5;
+}
+.logo_icon {
+    height: 85px;
+    transform: rotate(-15deg);
+}

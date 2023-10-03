@@ -1,0 +1,235 @@
+:root {
+    --black: rgba(56, 56, 56, 1);
+    --blue: rgba(79, 120, 254, 1);
+    --dark-grey: rgba(192, 192, 192, 1);
+    --dark-grey-2: rgba(112, 112, 112, 1);
+    --green: rgba(144, 241, 189, 1);
+    --light-grey: rgba(169, 169, 177, 1);
+    --main: rgba(79, 120, 254, 1);
+    --purple: rgba(205, 195, 255, 1);
+    --stroke: rgba(216, 216, 216, 1);
+  }
+  
+   .billing_screen {
+    background-color: #eff3f4;
+    height: 100vh;
+    position: relative;  
+    background-color: #eff3f4;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  .billing_group-11 {
+    height: 6.3vh;
+    left: 87.5vw;
+    position: absolute;
+    top: 3.8vh;
+    width: 8.5vw;
+  }
+  
+   .billing_profile {
+    height: 6.3vh;
+    left: 5.4vw;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 3.2vw;
+  }
+  
+   .billing_notification-wrapper {
+    background-color: #ffffff;
+    border-radius: 16px;
+    height: 6.3vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 3.3vw;
+  }
+  
+   .billing_notification {
+    left: 0.8vw;
+    position: absolute;
+    top: 1.45vh;
+    width: 1.6vw;
+  }
+  .billing_text-wrapper-7 {
+    color: var(--dark-grey-2);
+    font-family: "Poppins", Helvetica; 
+    font-size: 28px;
+    font-weight: 700;
+    left: 19.6vw;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 4.3vh;
+  }
+  
+  .billing_text-wrapper {
+    background-color: #ffffff;
+    border-radius: 24px;
+    height: 47vh;
+    width: 28.5vw;
+    left: 19.6vw;
+    position: absolute;
+    top: 14vh;
+    
+  }
+  .billing_text-wrapper-1 {
+    color: var(--dark-grey-2);
+    font-family: "Poppins";
+    font-size: 14px;
+    font-weight: 700;
+    left: 2vw;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 2.7vh;
+  }
+  .billing_text-wrapper-2 {
+    color: #444444;
+    font-family: "Poppins";
+    font-size: 32px;
+    font-weight: 700;
+    left: 2vw;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 6.8vh;
+    /* border: 1px solid red; */
+  }
+  .billing_text-wrapper-3 {
+    color: var(--dark-grey-2);
+    font-family: "Poppins", Helvetica;
+    font-size: 14px;
+    font-weight: 700;
+    left: 2vw;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 16vh;
+  }
+  .billing_text-wrapper-4 {
+    color: #444444;
+    font-family: "Poppins", Helvetica;
+    font-size: 27px;
+    font-weight: 700;
+    left: 2vw;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 20.5vh;
+  }
+
+  .billing_text-wrapper-5 {
+    background-color: #eff3f4;
+    border-radius: 24px;
+    height: 14.5vh;
+    left: 1.5vw;
+    position: absolute;
+    top: 30vh;
+    width: 12vw;
+  }
+
+  .billing_text-wrapper-5_1{
+    color: var(--dark-grey-2);
+    font-family: "Poppins";
+    font-size: 13px;
+    font-weight: 700;
+    left: 3.1vw;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 2.4vh;
+  }
+
+  .billing_text-wrapper-5_2{
+    color: #444444;
+    font-family: "Poppins", Helvetica;
+    font-size: 29px;
+    font-weight: 700;
+    left: 2.7vw;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 5.7vh;
+  }
+
+  .billing_text-wrapper-6 {
+    background-color: #eff3f4;
+    border-radius: 24px;
+    height: 14.5vh;
+    left: 15vw;
+    position: absolute;
+    top: 30vh;
+    width: 12vw;
+  }
+
+
+  .billing_outer-group-wrapper {
+    height: 47vh;
+    left: 50vw;
+    position: absolute;
+    top: 14vh;
+    width: 46vw;
+  }
+  .billing_text-wrapper-3-1 {
+    color: var(--dark-grey-2);
+    font-family: "Poppins", Helvetica;
+    font-size: 16px;
+    font-weight: 700;
+    left: 1.66vw;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 3.2vh;
+  }
+
+  .billing_outer-group-2 {
+    background-color: #fdfdfd;
+    border-radius: 24px;
+    /* height: 47vh; */
+    position: relative;
+    width: 46vw;
+    border: 1px solid white;
+    padding: 10px;
+  }
+
+
+
+
+  .billing_outer {
+    background-color: #ffffff;
+    border-radius: 24px;
+    height: 35.4vh;
+    width: 28.5vw;
+    left: 19.6vw;
+    position: absolute;
+    top: 63.3vh; 
+  }
+
+
+  .billing_outer-3{
+    background-color: #ffffff;
+    border-radius: 24px;
+    height: 35.4vh;
+    left: 50vw;
+    position: absolute;
+    top: 63.3vh;
+    width: 46vw;
+  }
+
+
+  .billing_piechart{
+    height: 30vh;
+    position: absolute;
+   width: 30vw;
+   
+  }
+
+  .billing_barchart{
+    height: 30vh;
+    position: absolute;
+   width: 40vw;
+   top: 3vh;
+  }
