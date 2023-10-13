@@ -7,7 +7,7 @@ export default function Total() {
   const [teachers, setTeachers] = useState(0);
   const [students, setStudents] = useState(0);
   const [parents, setParents] = useState(0);
-
+//dmd sjj
   useEffect(() => {
     // Fetch data for Total Management
     getAllmanagement()

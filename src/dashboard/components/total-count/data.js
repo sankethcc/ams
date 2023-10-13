@@ -11,7 +11,7 @@ export const studentData = {
     values : [5, 1, 0, 5, 3, 2, 4]
 
   };
-  
+  //ljn wj
   export const teacherData = {
     requests: 40,
     documentVerification: 25,
