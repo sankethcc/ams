@@ -13,8 +13,8 @@ import Management1 from "./dashboard/Management1";
 import Student from "./dashboard/Student";
 import Student1 from "./dashboard/Student1";
 import Teacher from "./dashboard/Teacher";
-
-
+//ekmekek
+//sjnjdnjdddidn
 function App() {
   return (
     
