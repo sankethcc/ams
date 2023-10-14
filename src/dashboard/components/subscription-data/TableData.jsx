@@ -10,26 +10,46 @@ import {
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { getAllPlatformUsers } from "../../../API/apis.js";
-
+import axios from 'axios'
 const { Column } = Table;
 
 export default function MyTable() {
   // Define state variables for label text and active status
   const [activeButton, setActiveButton] = useState("Active");
   const [userData, setUserData] = useState([]);
+  const [allData, setallData] = useState([]);
+  const [activeData, setactiveData] = useState([]);
+  const [InactiveData, setInactiveData] = useState([]);
+
 
   useEffect(() => {
     // Fetch user data from the API
     getAllPlatformUsers()
       .then((data) => {
         setUserData(data);
+        const act = data.filter((data) => ((data.subscription=="Active")))
+        const inact = data.filter((data) => ((data.subscription=="InActive")))
+        setallData(data);
+        setactiveData(act);
+        setInactiveData(inact);
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
+    
+   
   }, []);
   // Function to handle button clicks and update the active button
   const handleButtonClick = (buttonText) => {
+    if(buttonText=="Active"){
+      setUserData(allData)
+    }
+    else if(buttonText=="Inactive"){
+      setUserData(activeData)
+    }
+    else{
+      setUserData(InactiveData)
+    }
     setActiveButton(buttonText);
   };
 
@@ -51,7 +71,7 @@ export default function MyTable() {
 
   const handleEdit = (record) => {
     // Handle the edit action here
-    console.log(`Edit user with ID: ${record.userid}`);
+    console.log(`Edit user with ID: ${record}`);
   };
 
   const rowSelection = {
@@ -69,7 +89,7 @@ export default function MyTable() {
           }
           onClick={() => handleButtonClick("Active")}
         >
-          All {`(2.5 lakh)`}
+          All {allData.length}
         </button>
         <button
           className={
@@ -77,7 +97,7 @@ export default function MyTable() {
           }
           onClick={() => handleButtonClick("Inactive")}
         >
-          Active (2 lakh)
+          Active {activeData.length}
         </button>
         <button
           className={
@@ -85,7 +105,7 @@ export default function MyTable() {
           }
           onClick={() => handleButtonClick("Other")}
         >
-          Inactive (50,000)
+          Inactive {InactiveData.length}
         </button>
         <div className="input-container">
           <i className="fa fa-search search-icon"></i>
@@ -98,22 +118,22 @@ export default function MyTable() {
       </div>
       <div className="table-wrapper">
         <Table rowSelection={rowSelection} dataSource={userData}>
-          <Column title="User ID" dataIndex="user_Id" key="user_Id" />
-          <Column title="Name" dataIndex="name" key="name" />
+          <Column title="User ID" dataIndex="user_id" key="user_id" />
+          <Column title="Name" dataIndex="username" key="username" />
           <Column title="Email" dataIndex="email" key="email" />
           <Column title="Mobile" dataIndex="phone" key="phone" />
           <Column
             title="Subscription Status"
-            dataIndex="subscriptionStatus"
-            key="subscriptionStatus"
+            dataIndex="subscription"
+            key="subscription"
             render={(subscriptionStatus) => (
               <Tag color={subscriptionStatus === "Active" ? "green" : "red"}>{subscriptionStatus}</Tag>
             )}
           />
           <Column
             title="Subscription Expiry"
-            dataIndex="subscriptionExpiry"
-            key="subscriptionExpiry"
+            dataIndex="subscription_expiry"
+            key="subscription_expiry"
           />
           <Column
             title="Action"
@@ -143,7 +163,7 @@ export default function MyTable() {
                 <div>
                   <FontAwesomeIcon
                     icon={faEdit}
-                    onClick={() => handleEdit(record)}
+                    onClick={() => handleEdit(text)}
                     style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
                   />
                   <div>Edit</div>

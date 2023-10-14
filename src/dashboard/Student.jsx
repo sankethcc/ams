@@ -1,4 +1,3 @@
-import React from 'react'
 import './Student.css'
 import SideNav from './SideNav'
 import boy from './img/rectangle-54.png'
@@ -7,7 +6,80 @@ import block from './img/block.png'
 import suspend from './img/suspend.png'
 import edit from './img/edit.png'
 import search from './img/searchsymbol.png'
+import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import { getAllStudents } from "../API/apis.js";
+import { Table, Tag, Space, Button, Checkbox } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBan,
+  faPause,
+  faEdit,
+  faExclamationCircle,
+} from "@fortawesome/free-solid-svg-icons";
+const { Column } = Table;
+
+
 const Student = () => {
+  const [userData, setUserData] = useState([]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [allData, setallData] = useState([]);
+  const [activeData, setactiveData] = useState([]);
+  const [InactiveData, setInactiveData] = useState([]);
+  const [activeButton, setActiveButton] = useState("Active");
+  useEffect(() => {
+    
+    getAllStudents()
+      .then((data) => {
+        setUserData(data);
+        // console.log(data)
+        const act = data.filter((data) => ((data.subscription=="Active")))
+        const inact = data.filter((data) => ((data.subscription=="InActive")))
+        setallData(data);
+        setactiveData(act);
+        setInactiveData(inact);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+    
+  }, []);
+
+  const handleButtonClick = (buttonText) => {
+    if(buttonText=="Active"){
+      setUserData(allData)
+    }
+    else if(buttonText=="Inactive"){
+      setUserData(activeData)
+    }
+    else{
+      setUserData(InactiveData)
+    }
+    setActiveButton(buttonText);
+  };
+
+   const onSelectChange = (selectedKeys) => {
+    setSelectedRowKeys(selectedKeys);
+  };
+  const handleBlock = (record) => {
+    // Handle the block action here
+    console.log(`Block users with IDs: ${selectedRowKeys}`);
+  };
+
+  const handleSuspend = (record) => {
+    // Handle the suspend action here
+    console.log(`Suspend users with IDs: ${selectedRowKeys}`);
+  };
+
+  const handleEdit = (record) => {
+    // Handle the edit action here
+    console.log(`Edit user with ID: ${record.userid}`);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
   return (
     
     <div className="AMS-1">
@@ -23,17 +95,17 @@ const Student = () => {
         <img className="search-black-done" alt="Search black" src={search}/>
       </div>
       <div className="overlap-group-harsh">
-        <button className="text-wrapper-3rd" style={{backgroundColor:'#4f78fe'}}>All (2.5 lakh)</button>
+        <button onClick={() => handleButtonClick("Active")}  className="text-wrapper-3rd" style={{backgroundColor:'#4f78fe'}}>All {allData.length}</button>
       </div>
       <div className="text-wrapper-4th">Subscription analytics</div>
       <div className="groupism">
         <div className="active-crore-wrapper">
-          <button className="text-wrapper-5th">Active&nbsp;&nbsp;(2 lakh)</button>
+          <button onClick={() => handleButtonClick("Inactive")} className="text-wrapper-5th">Active&nbsp;&nbsp;{activeData.length}</button>
         </div>
       </div>
       <div className="overlap-wrapper-rider">
         <div className="div-wrapper-rider">
-          <button className="text-wrapper-5th">Inactive (50,000)</button>
+          <button onClick={() => handleButtonClick("Other")} className="text-wrapper-5th">Inactive {InactiveData.length}</button>
         </div>
       </div>
      
@@ -82,7 +154,7 @@ const Student = () => {
         <div className="gold-31">95 K</div>
         <div className="gold-32">5000</div>
       </div>
-      <div className="itachi">
+      {/* <div className="itachi">
         <div className="itachi-33">User Id</div>
         <div className="itachi-34">Name</div>
         <div className="itachi-35">Subscription status:</div>
@@ -141,6 +213,64 @@ const Student = () => {
             <div className="itachi-50">Edit</div>
           </div>
         </div>
+      </div> */}
+      
+      <div className="itachi">
+        <Table rowSelection={rowSelection} dataSource={userData}>
+          <Column title="User ID" dataIndex="user_id" key="user_id" />
+          <Column title="Name" dataIndex="username" key="username" />
+          <Column title="Email" dataIndex="email" key="email" />
+          <Column title="Mobile" dataIndex="phone" key="phone" />
+          <Column
+            title="Subscription Status"
+            dataIndex="subscription"
+            key="subscription"
+            render={(subscriptionStatus) => (
+              <Tag color={subscriptionStatus === "Active" ? "green" : "red"}>{subscriptionStatus}</Tag>
+            )}
+          />
+          <Column
+            title="Subscription Expiry"
+            dataIndex="subscription_expiry"
+            key="subscription_expiry"
+          />
+          <Column
+            title="Action"
+            key="action"
+            render={(text, record) => (
+              <Space size="middle" className="middle">
+                <div>
+                  <FontAwesomeIcon
+                    icon={faBan}
+                    onClick={() => handleBlock(record)}
+                    style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
+                  />
+                  <div>Block</div>
+                </div>
+                <div>
+                  <FontAwesomeIcon
+                    icon={faExclamationCircle}
+                    onClick={() => handleSuspend(record)}
+                    style={{
+                      cursor: "pointer",
+                      backgroundColor: "white",
+                      color: "rgba(79, 120, 254, 1",
+                    }}
+                  />
+                  <div>Suspend</div>
+                </div>
+                <div>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    onClick={() => handleEdit(record)}
+                    style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
+                  />
+                  <div>Edit</div>
+                </div>
+              </Space>
+            )}
+          />
+        </Table>
       </div>
     
     </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { createSubscription} from "../API/apis.js";
 
 import Select from "react-select";
 
@@ -24,19 +25,35 @@ const SubscriptionModal = (props) => {
     // console.log(lines);
     // Filter out empty lines
     const nonEmptyLines = await lines.filter((line) => line !== '');
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('amount', amount);
+    formData.append('period', period);
+    formData.append('description', description);
+    formData.append('feature_offering', nonEmptyLines);
+    formData.append('tax_regime', tax);
+    formData.append('tax_excluded', selectedOption);
 
-
+    createSubscription(formData)
+      .then((data) => {
+        // setUserData(data);
+        console.log(data)
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
     const obj = {
       name,
       amount,
       period,
-      nonEmptyLines,
+      feature_offering: nonEmptyLines,
       description,
-      tax,
-      TotalAmount,
+      tax_regime: tax,
+      total: TotalAmount,
       selectedOption
     };
-    console.log(obj);
+    // console.log(obj);
+
     dataHandler(obj);
     setName("");
     setAmount("");

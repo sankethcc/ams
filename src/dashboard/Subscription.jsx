@@ -4,6 +4,7 @@ import { Card, Col, Row } from "react-bootstrap";
 import SubscriptionModal from "./SubscriptionModal";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import { getSubscriptions} from "../API/apis.js";
 import Head from "./Head";
 import SideNav from "./SideNav";
 const Subscription = () => {
@@ -13,13 +14,24 @@ const Subscription = () => {
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([]);
   const [activeCardIndex, setActiveCardIndex] = useState(null);
-  console.log(data);
+  // console.log(data);
   const dataHandler = (submitData) => {
     const updatedArray = [...data, submitData];
 
     setData(updatedArray);
   };
 
+  useEffect(() => {
+    
+    getSubscriptions()
+      .then((data) => {
+        setData(data);
+        console.log(data)
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, []);
   const toggleButton = (button) => {
     setAllActive(button === "All");
     setActive(button === "Active");
@@ -171,9 +183,10 @@ const Subscription = () => {
                 >
 
                   <ul style={{ padding: "0px" }}>
-                    {couponData?.nonEmptyLines.map((item, index1) => (
+                    {couponData.feature_offering}
+                    {/* {couponData?.feature_offering.map((item, index1) => (
                       <li className="li" key={index1}><span style={{ marginRight: "10px" }}><IoIosCheckmarkCircleOutline /></span>{item}</li>
-                    ))}
+                    ))} */}
                   </ul>
 
 
@@ -183,12 +196,12 @@ const Subscription = () => {
                 <p className="left1-entry1">
                   <small>Tax regime</small>
                   <br />
-                  {couponData?.tax ?? "0"}%  {couponData?.selectedOption ?? '-'}
+                  {couponData?.tax_regime ?? "0"}%  {couponData?.selectedOption ?? '-'}
                 </p>
                 <p className="right1-entry1">
                   <small>Total amount</small>
                   <br />
-                  <span style={{ fontSize: "16px" }}>&#8377;{couponData?.TotalAmount ?? "0"}</span>
+                  <span style={{ fontSize: "16px" }}>&#8377;{couponData?.total ?? "0"}</span>
                 </p>
                   </div>
                 

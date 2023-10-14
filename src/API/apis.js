@@ -25,7 +25,7 @@ export const getAllPlatformUsers = () => {
 
 // Fetch all users on the platform
 export const getAllStudents = () => {
-  return axios.get(`${apiUrl}/get_all_students`)
+  return axios.get(`${apiUrl}/get_all_platform/users/student`)
     .then((response) => {
       return response.data; // Return the response data
     })
@@ -34,7 +34,7 @@ export const getAllStudents = () => {
     });
 };// Fetch all users on the platform
 export const getAllTeachers = () => {
-  return axios.get(`${apiUrl}/get_all_teachers`)
+  return axios.get(`${apiUrl}/get_all_platform/users/teacher`)
     .then((response) => {
       return response.data; // Return the response data
     })
@@ -43,7 +43,7 @@ export const getAllTeachers = () => {
     });
 };// Fetch all users on the platform
 export const getAllParents = () => {
-  return axios.get(`${apiUrl}/get_all_parents`)
+  return axios.get(`${apiUrl}/get_all_platform/users/parent`)
     .then((response) => {
       return response.data; // Return the response data
     })
