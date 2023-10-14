@@ -44,8 +44,8 @@ export default function MyTable() {
     const searchTerm = e.target.value;
     setSearchItem(searchTerm)
 
-    const filteredItems = userData.filter((user) =>
-    user.user_name.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredItems = allData.filter((user) =>
+    user.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     setUserData(filteredItems);
@@ -71,17 +71,17 @@ export default function MyTable() {
 
   const handleBlock = (record) => {
     // Handle the block action here
-    console.log(`Block users with IDs: ${selectedRowKeys}`);
+    console.log(`Block users with IDs: ${record.user_id}`);
   };
 
   const handleSuspend = (record) => {
     // Handle the suspend action here
-    console.log(`Suspend users with IDs: ${selectedRowKeys}`);
+    console.log(`Suspend users with IDs: ${record.user_id}`);
   };
 
   const handleEdit = (record) => {
     // Handle the edit action here
-    console.log(`Edit user with ID: ${record}`);
+    console.log(`Edit user with ID: ${record.user_id}`);
   };
 
   const rowSelection = {
@@ -175,7 +175,7 @@ export default function MyTable() {
                 <div>
                   <FontAwesomeIcon
                     icon={faEdit}
-                    onClick={() => handleEdit(text)}
+                    onClick={() => handleEdit(record)}
                     style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
                   />
                   <div>Edit</div>
