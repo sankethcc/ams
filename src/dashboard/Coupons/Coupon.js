@@ -21,7 +21,11 @@ const Coupon = () => {
 
   const [discount, setDiscount] = useState("");
   const [validity, setValidity] = useState("");
+  const [start, setstart] = useState("");
+  const [discountv, setdiscountv] = useState("");
+  const [limits, setlimit] = useState("");
   const [type, setType] = useState("Percentage");
+  const [ctype, setcType] = useState("One time apply");
   const [code, setCode] = useState("");
   const [description, setDescription] = useState("");
   const [limit, setLimit] = useState("");
@@ -44,16 +48,18 @@ const Coupon = () => {
 
     const formData = new FormData()
     formData.append('coupon_code', submitData.code);
-    formData.append('coupon_type', submitData.type);
-    formData.append('discount', '20');
-    formData.append('start_date', submitData.validity);
+    formData.append('coupon_type', submitData.ctype);
+    formData.append('discount', submitData.discountv);
+    formData.append('assign_limit', submitData.limits);
+    formData.append('discount_type', submitData.type);
+    formData.append('start_date', submitData.start);
     formData.append('expire_date', submitData.validity);
     formData.append('description', submitData.description)
-    console.log(submitData)
-    console.log("Data being sent to server:", submitData); 
+    // console.log(submitData)
+    // console.log("Data being sent to server:", submitData); 
     try {
       const response = await createCoupon(formData);
-      setCoupons((prev) => [response, ...prev]);
+      console.log(response)
       console.log("Coupon created successfully.");
     } catch (error) {
       console.error("Error creating coupon:", error);
@@ -85,15 +91,31 @@ const Coupon = () => {
       description,
       limit, 
       limit_type,
+      discountv,
+      start,
+      limits,
+      ctype
     };
     dataHandler(obj);
-    setDiscount("");
+    setCoupons((prev) => [{
+        '_id': code,
+        'discount': discountv,
+        'coupon_type': ctype,
+        'assign_limit': limits,
+        'start_date': start,
+        'expire_date': validity,
+        'discount_type':type,
+          description
+      }, ...prev]);
+    setdiscountv("");
     setValidity("");
-    setType("");
+    setType("Percentage");
     setCode("");
     setDescription("");
+    setlimit("")
     setLimit(""); 
-    setLimitType("first users"); 
+    setcType("One time apply"); 
+    setstart("")
     setShowModal(false);
   };
 
@@ -108,8 +130,9 @@ const Coupon = () => {
   const [showModalUpdate, setShowModalUpdate] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = (e) => {
+
+    setAnchorEl(e.target._id);
   };
   const handleCloseMenu = () => {
     setAnchorEl(null);
@@ -177,19 +200,29 @@ const Coupon = () => {
                         className="modal-discount"
                         placeholder="example"
                         onChange={(e) => {
-                          setDiscount(e.target.value);
+                          setType(e.target.value);
                           
                         }}
                       >
-                       <option>Example</option>
                       <option>Percentage</option>
                       <option>Number</option>
 
                       </select>
                     </div>
                     
-                    
+                    {/* <br/> */}
                         <div className="modal-validity-div" style={{marginLeft:'2rem'}}>
+                    <h5 className="modal-validity-name">Start Date</h5>
+                      <input placeholder="PerMonth"
+                        type="date"
+                        className="modal-validity"
+                        onChange={(e) => {
+                          setstart(e.target.value);
+                        }}
+                      />
+                    </div> 
+
+                     <div className="modal-validity-div" style={{marginLeft:'2rem'}}>
                     <h5 className="modal-validity-name">Validity</h5>
                       <input placeholder="PerMonth"
                         type="date"
@@ -209,13 +242,18 @@ const Coupon = () => {
                
                    
                   </div>
+                  <input placeholder="Discount" style={{marginTop:10}}
+                        onChange={(e) => {
+                          setdiscountv(e.target.value);
+                        }}
+                    />
                   <div className="content-wrapper-3">
-                    <h5 className="modal-code-name">Type</h5>
+                    <h5 className="modal-code-name">Coupon Type</h5>
                     <select style={{backgroundColor:'#d3d3d342',border:'none'}}
                       type="text"
                       className="modal-code"
                       onChange={(e) => {
-                        setCode(e.target.value);
+                        setcType(e.target.value);
                       }}
                      
                     >
@@ -224,6 +262,12 @@ const Coupon = () => {
                       <option>First limited users</option>
                     </select>
                   </div>
+                  
+                  <input placeholder="limit" style={{marginTop:10}}
+                        onChange={(e) => {
+                          setlimit(e.target.value);
+                        }}
+                    />
                   <div className="content-wrapper-3">
                     <h5 className="modal-code-name">Create Code</h5>
                     <input
@@ -287,7 +331,7 @@ const Coupon = () => {
                 >
                   
                   <b>
-                    {couponData?.type === "Percentage"
+                    {couponData?.discount_type === "Percentage"
                       ? `${couponData?.discount ?? ""}%`
                       : `₹${couponData?.discount ?? ""}`}
                   </b>
@@ -310,29 +354,31 @@ const Coupon = () => {
                     marginLeft: "30px",
                   }}
                 >
-                  <b>{couponData?.coupon_code ?? "-"}</b>{" "}
+                  <b>{couponData?._id ?? "-"}</b>{" "}
                 </p>
                 <p className="left-entry">
                   <small>Count</small>
                   <br />
-                  {couponData?.limit ?? 0} {couponData?.limit_type ?? "-"}
+                  {couponData?.assign_limit ?? 0} {couponData?.coupon_type ?? "-"}
+
                 </p>
+                
                 <p className="right-entry">
                   <small>Validity</small>
                   <br />
-                  {couponData?.validity ?? 0}
+                  {couponData?.expire_date ?? 0}
                 </p>
               </Card>
 
-
+                    {/* id="long-button" */}
               <div style={{position:'absolute', top:'30px', right:'10px'}}>
                   <IconButton
-                    aria-label="more"
-                    id="long-button"
-                    aria-controls={open ? 'long-menu' : undefined}
-                    aria-expanded={open ? 'true' : undefined}
-                    aria-haspopup="true"
-                    onClick={handleClick}
+                  aria-label="more"
+                  id="long-button"
+                  aria-controls={open ? 'long-menu' : undefined}
+                  aria-expanded={open ? 'true' : undefined}
+                  aria-haspopup="true"
+                  
                   >
                     <MoreVertIcon />
                   </IconButton>
@@ -362,7 +408,7 @@ const Coupon = () => {
                   showModalUpdate={showModalUpdate}
                   setShowModalUpdate={setShowModalUpdate}
                   submitHandler={submitHandler}
-                  
+                  id={index}
                   />
                   :null}
 

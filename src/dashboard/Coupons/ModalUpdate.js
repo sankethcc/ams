@@ -1,11 +1,39 @@
 import React, { useState } from 'react'
+import { updateCoupon} from "../../API/apis";
 
-const ModalUpdate = ({submitHandler, setShowModalUpdate}) => {
-    const [discount, setDiscount] = useState("");
+const ModalUpdate = ({ setShowModalUpdate,id}) => {
+    const [discountv, setdiscountv] = useState("");
     const [validity, setValidity] = useState("");
-    const [type, setType] = useState("Percentage");
-    const [code, setCode] = useState("");
-    const [description, setDescription] = useState("");
+  const [type, setType] = useState("Percentage");
+  const [ctype, setcType] = useState("One time apply");
+  const [code, setCode] = useState("");
+  const [limits, setlimit] = useState("");
+  const [description, setDescription] = useState("");
+  const [start, setstart] = useState("");
+
+  console.log(id)
+
+
+
+  const submitHandler = async () => {
+    const formData = new FormData()
+      formData.append('coupon_code', code);
+    formData.append('coupon_type', ctype);
+    formData.append('discount', discountv);
+    formData.append('assign_limit', limits);
+    formData.append('discount_type', type);
+    formData.append('start_date', start);
+    formData.append('expire_date', validity);
+    formData.append('description', description)
+    try {
+      const response = await updateCoupon(id,formData);
+      console.log(response)
+      console.log("Coupon updated successfully.");
+    } catch (error) {
+      console.error("Error creating coupon:", error);
+    }
+      // setShowModal(false);
+  }
   return (
     <div className="modal-wrapper">
                 <div className="modal-content">
@@ -18,19 +46,28 @@ const ModalUpdate = ({submitHandler, setShowModalUpdate}) => {
                         className="modal-discount"
                         placeholder="example"
                         onChange={(e) => {
-                          setDiscount(e.target.value);
+                          setType(e.target.value);
                           
                         }}
                       >
-                       <option>Example</option>
                       <option>Percentage</option>
                       <option>Number</option>
 
                       </select>
                     </div>
                     
-                    
-                        <div className="modal-validity-div" style={{marginLeft:'2rem'}}>
+                    <div className="modal-validity-div" style={{marginLeft:'2rem'}}>
+                    <h5 className="modal-validity-name">Start Date</h5>
+                      <input placeholder="PerMonth"
+                        type="date"
+                        className="modal-validity"
+                        onChange={(e) => {
+                          setstart(e.target.value);
+                        }}
+                      />
+                    </div> 
+
+                     <div className="modal-validity-div" style={{marginLeft:'2rem'}}>
                     <h5 className="modal-validity-name">Validity</h5>
                       <input placeholder="PerMonth"
                         type="date"
@@ -39,7 +76,7 @@ const ModalUpdate = ({submitHandler, setShowModalUpdate}) => {
                           setValidity(e.target.value);
                         }}
                       />
-                    </div> 
+                    </div>
                     
                   </div>
                   <div className="content-wrapper-1">
@@ -48,7 +85,11 @@ const ModalUpdate = ({submitHandler, setShowModalUpdate}) => {
                   </div>
                   <div className="content-wrapper-2">
                
-                   
+                    <input placeholder="Discount" style={{marginTop:10}}
+                        onChange={(e) => {
+                          setdiscountv(e.target.value);
+                        }}
+                    />
                   </div>
                   <div className="content-wrapper-3">
                     <h5 className="modal-code-name">Type</h5>
@@ -56,7 +97,7 @@ const ModalUpdate = ({submitHandler, setShowModalUpdate}) => {
                       type="text"
                       className="modal-code"
                       onChange={(e) => {
-                        setCode(e.target.value);
+                        setcType(e.target.value);
                       }}
                      
                     >
@@ -64,7 +105,12 @@ const ModalUpdate = ({submitHandler, setShowModalUpdate}) => {
                       <option>Assign limit</option>
                       <option>First limited users</option>
                     </select>
-                  </div>
+        </div>
+                  <input placeholder="limit" style={{marginTop:10}}
+                        onChange={(e) => {
+                          setlimit(e.target.value);
+                        }}
+                    />
                   <div className="content-wrapper-3">
                     <h5 className="modal-code-name">Create Code</h5>
                     <input
@@ -74,7 +120,8 @@ const ModalUpdate = ({submitHandler, setShowModalUpdate}) => {
                         setCode(e.target.value);
                       }}
                     />
-                  </div>
+        </div>
+                  
                   <div className="content-wrapper-4">
                     <h5 className="modal-desc-name">Description</h5>
                     <input
@@ -87,7 +134,7 @@ const ModalUpdate = ({submitHandler, setShowModalUpdate}) => {
                   </div>
                   <div className="modal-buttons">
                     <button className="modal-create" onClick={submitHandler}>
-                      Create
+                      Update
                     </button>
                     <button
                       className="modal-cancel"
