@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 import "./css/subscription1.css";
 import { Card, Col, Row } from "react-bootstrap";
 import SubscriptionModal from "./SubscriptionModal";
+import SubscriptionModalUpdate from './SubscriptionModalUpdate'
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { getSubscriptions} from "../API/apis.js";
 import Head from "./Head";
 import SideNav from "./SideNav";
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Fade from '@mui/material/Fade';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { IconButton } from "@mui/material";
 const Subscription = () => {
   const [allActive, setAllActive] = useState(true);
   const [Active, setActive] = useState(false);
@@ -45,6 +52,21 @@ const Subscription = () => {
     } else {
       setActiveCardIndex(index);
     }
+  };
+  const [showModalUpdate, setShowModalUpdate] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleOpenUpdate = (index) => {
+    setShowModalUpdate(prevShowModalUpdate => ({
+      ...prevShowModalUpdate,
+      [index]: true
+    }));
   };
 
   return (
@@ -103,9 +125,9 @@ const Subscription = () => {
                 key={index}
                 className={`subscription1-card1 ${activeCardIndex === index ? "active" : ""
                   }`}
-                onClick={() => setShowModal(true)}
+                // onClick={() => setShowModal(true)}
               >
-                <p
+                <div
                   style={{
                     color: "#707070",
                     fontSize: "20px",
@@ -114,11 +136,47 @@ const Subscription = () => {
 
                   }}
                 >
-                  <BsThreeDotsVertical />
-                </p>
-
-
-
+                  <div>
+                  <IconButton
+                    aria-label="more"
+                    id="long-button"
+                    aria-controls={open ? 'long-menu' : undefined}
+                    aria-expanded={open ? 'true' : undefined}
+                    aria-haspopup="true"
+                    onClick={handleClick}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                      <Menu
+                        id="fade-menu"
+                        MenuListProps={{
+                          'aria-labelledby': 'fade-button',
+                        }}
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        TransitionComponent={Fade}
+                      >
+                        <MenuItem 
+                        onClick={()=>{
+                          handleClose()
+                          handleOpenUpdate(index)
+                        }}>
+                          Update
+                        </MenuItem>
+                        <MenuItem onClick={handleClose}>Delete</MenuItem>
+                      </Menu>
+                    </div>
+                </div>
+                  
+                  {showModalUpdate[index] && showModalUpdate?
+                  <SubscriptionModalUpdate 
+                  showModalUpdate={showModalUpdate}
+                  setShowModalUpdate={setShowModalUpdate}
+                  dataHandler={dataHandler}
+                  
+                  />
+                  :null}
 
 
                 <p
