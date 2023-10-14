@@ -20,7 +20,7 @@ export default function MyTable() {
   const [allData, setallData] = useState([]);
   const [activeData, setactiveData] = useState([]);
   const [InactiveData, setInactiveData] = useState([]);
-
+  const [searchItem, setSearchItem] = useState('')
 
   useEffect(() => {
     // Fetch user data from the API
@@ -40,6 +40,16 @@ export default function MyTable() {
    
   }, []);
   // Function to handle button clicks and update the active button
+  const handleInputChange = (e) => { 
+    const searchTerm = e.target.value;
+    setSearchItem(searchTerm)
+
+    const filteredItems = userData.filter((user) =>
+    user.user_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    setUserData(filteredItems);
+  }
   const handleButtonClick = (buttonText) => {
     if(buttonText=="Active"){
       setUserData(allData)
@@ -113,6 +123,8 @@ export default function MyTable() {
             type="text"
             placeholder="Search User"
             className="input-field"
+            value={searchItem}
+            onChange={handleInputChange}
           />
         </div>
       </div>

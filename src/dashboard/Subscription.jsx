@@ -40,6 +40,7 @@ const Subscription = () => {
 
   const handleCardClick = (index) => {
     if (index === activeCardIndex) {
+      console.log("ji")
       setActiveCardIndex(null); // Deselect the card if clicked again
     } else {
       setActiveCardIndex(index);
@@ -102,7 +103,7 @@ const Subscription = () => {
                 key={index}
                 className={`subscription1-card1 ${activeCardIndex === index ? "active" : ""
                   }`}
-                onClick={() => handleCardClick(index)}
+                onClick={() => setShowModal(true)}
               >
                 <p
                   style={{
