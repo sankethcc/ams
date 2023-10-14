@@ -4,6 +4,12 @@ import { Card, Col, Row } from "react-bootstrap";
 import SideNav from "../SideNav";
 import Head from "../Head";
 import { getAllCoupons, createCoupon } from "../../API/apis";
+import { IconButton } from "@mui/material";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Fade from '@mui/material/Fade';
+import ModalUpdate from "./ModalUpdate";
 
 const Coupon = () => {
   const [allActive, setAllActive] = useState(true);
@@ -35,15 +41,24 @@ const Coupon = () => {
   const handleShow = () => setShowModal(true);
 
   const dataHandler = async (submitData) => {
+
+    const formData = new FormData()
+    formData.append('coupon_code', submitData.code);
+    formData.append('coupon_type', submitData.type);
+    formData.append('discount', '20');
+    formData.append('start_date', submitData.validity);
+    formData.append('expire_date', submitData.validity);
+    formData.append('description', submitData.description)
+    console.log(submitData)
     console.log("Data being sent to server:", submitData); 
-    handleClose();
     try {
-      const response = await createCoupon(submitData);
+      const response = await createCoupon(formData);
       setCoupons((prev) => [response, ...prev]);
       console.log("Coupon created successfully.");
     } catch (error) {
       console.error("Error creating coupon:", error);
     }
+    handleClose();
   };
 
   const toggleButton = (button) => {
@@ -88,6 +103,26 @@ const Coupon = () => {
       document.body.style.overflow = "scroll";
     };
   }, []);
+
+
+  const [showModalUpdate, setShowModalUpdate] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+  const handleDotMenu = ()=>{
+    setShowModalUpdate(!showModalUpdate)
+  }
+  const handleOpenUpdate = (index) => {
+    setShowModalUpdate(prevShowModalUpdate => ({
+      ...prevShowModalUpdate,
+      [index]: true
+    }));
+  };
 
   return (
     <div className="coupon-screen">
@@ -231,7 +266,7 @@ const Coupon = () => {
         {coupons &&
           coupons.length > 0 &&
           coupons.map((couponData, index) => (
-            <Col key={index} className="coupon-items">
+            <Col key={index} className="coupon-items" style={{position:'relative'}}>
               <Card
                 key={index}
                 className={`subscription-card ${
@@ -250,12 +285,15 @@ const Coupon = () => {
                     fontFamily: "Poppins",
                   }}
                 >
+                  
                   <b>
                     {couponData?.type === "Percentage"
                       ? `${couponData?.discount ?? ""}%`
                       : `₹${couponData?.discount ?? ""}`}
                   </b>
                 </p>
+                
+                
                 <p
                   style={{
                     color: "#A9A9B1",
@@ -285,7 +323,52 @@ const Coupon = () => {
                   {couponData?.validity ?? 0}
                 </p>
               </Card>
+
+
+              <div style={{position:'absolute', top:'30px', right:'10px'}}>
+                  <IconButton
+                    aria-label="more"
+                    id="long-button"
+                    aria-controls={open ? 'long-menu' : undefined}
+                    aria-expanded={open ? 'true' : undefined}
+                    aria-haspopup="true"
+                    onClick={handleClick}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                      <Menu
+                        id="fade-menu"
+                        MenuListProps={{
+                          'aria-labelledby': 'fade-button',
+                        }}
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleCloseMenu}
+                        TransitionComponent={Fade}
+                      >
+                        <MenuItem 
+                        onClick={()=>{
+                          handleCloseMenu()
+                          handleOpenUpdate(index)
+                        }}>
+                          Update
+                        </MenuItem>
+                        <MenuItem onClick={handleCloseMenu}>Delete</MenuItem>
+                      </Menu>
+                    </div>
+
+                    {showModalUpdate[index] && showModalUpdate?
+                  <ModalUpdate 
+                  showModalUpdate={showModalUpdate}
+                  setShowModalUpdate={setShowModalUpdate}
+                  submitHandler={submitHandler}
+                  
+                  />
+                  :null}
+
+
             </Col>
+            
           ))}
       </div>
     </div>

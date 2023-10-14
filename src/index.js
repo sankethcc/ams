@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { ThemeProvider } from '@mui/material';
+import { theme } from './theme';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <App/>
+  <ThemeProvider theme = {theme}>
+
+    <App/>
+  </ThemeProvider>
 );
 reportWebVitals();
