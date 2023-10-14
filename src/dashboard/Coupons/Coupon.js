@@ -35,15 +35,24 @@ const Coupon = () => {
   const handleShow = () => setShowModal(true);
 
   const dataHandler = async (submitData) => {
+
+    const formData = new FormData()
+    formData.append('coupon_code', submitData.code);
+    formData.append('coupon_type', submitData.type);
+    formData.append('discount', '20');
+    formData.append('start_date', submitData.validity);
+    formData.append('expire_date', submitData.validity);
+    formData.append('description', submitData.description)
+    console.log(submitData)
     console.log("Data being sent to server:", submitData); 
-    handleClose();
     try {
-      const response = await createCoupon(submitData);
+      const response = await createCoupon(formData);
       setCoupons((prev) => [response, ...prev]);
       console.log("Coupon created successfully.");
     } catch (error) {
       console.error("Error creating coupon:", error);
     }
+    handleClose();
   };
 
   const toggleButton = (button) => {
