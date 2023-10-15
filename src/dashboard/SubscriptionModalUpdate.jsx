@@ -3,8 +3,9 @@ import { createSubscription} from "../API/apis.js";
 
 import Select from "react-select";
 
-const SubscriptionModal = (props) => {
-  const { showModalUpdate, setShowModalUpdate, dataHandler } = props;
+const SubscriptionModalUpdate = (props) => {
+  const { showModalUpdate, setShowModalUpdate, dataHandler, index } = props;
+  console.log(index)
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [period, setPeriod] = useState("");
@@ -198,4 +199,4 @@ const SubscriptionModal = (props) => {
   );
 };
 
-export default SubscriptionModal;
+export default SubscriptionModalUpdate;
