@@ -13,6 +13,7 @@ import Management1 from "./dashboard/Management1";
 import Student from "./dashboard/Student";
 import Student1 from "./dashboard/Student1";
 import Teacher from "./dashboard/Teacher";
+import ManagementDocument from "./dashboard/ManagementDocument";
 //ekmekek
 //sjnjdnjdddidn
 function App() {
@@ -30,6 +31,7 @@ function App() {
        <Route path="/coupon" element={<Coupon />} />
         <Route path="/subscription" element={<Subscription />} /> 
         <Route path="/management" element={<Management1/>}/>
+        <Route path="/management/document" element={<ManagementDocument/>}/>
          <Route path='/student' element={<Student/>}/> 
          <Route path="/parent" element={<Student1/>}/>
          <Route path="/teacher" element={<Teacher/>}/>

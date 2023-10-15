@@ -125,18 +125,24 @@ const Subscription = () => {
                 key={index}
                 className={`subscription1-card1 ${activeCardIndex === index ? "active" : ""
                   }`}
+                  style={{position:'relative', paddingTop:'20px'}}
                 // onClick={() => setShowModal(true)}
               >
                 <div
                   style={{
+                    position:'absolute',
                     color: "#707070",
                     fontSize: "20px",
-                    marginLeft: "208px",
-                    paddingTop: "20px"
+                    right:'10px',
+                    top:'0px'
+
 
                   }}
                 >
-                  <div>
+                  <select placeholder='Update'
+                  style={{border:'none'}}
+                  onChange={()=>handleOpenUpdate(index, couponData?._id)}
+                >
                   <IconButton
                     aria-label="more"
                     id="long-button"
@@ -145,28 +151,14 @@ const Subscription = () => {
                     aria-haspopup="true"
                     onClick={handleClick}
                   >
-                    <MoreVertIcon />
+                    
                   </IconButton>
-                      <Menu
-                        id="fade-menu"
-                        MenuListProps={{
-                          'aria-labelledby': 'fade-button',
-                        }}
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        TransitionComponent={Fade}
-                      >
-                        <MenuItem 
-                        onClick={()=>{
-                          handleClose()
-                          handleOpenUpdate(index)
-                        }}>
-                          Update
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>Delete</MenuItem>
-                      </Menu>
-                    </div>
+                      
+                        <option> <MoreVertIcon /> </option>
+                        <option> Update </option>
+                        <option>Delete</option>
+                     
+                    </select>
                 </div>
                   
                   {showModalUpdate[index] && showModalUpdate?
@@ -174,6 +166,7 @@ const Subscription = () => {
                   showModalUpdate={showModalUpdate}
                   setShowModalUpdate={setShowModalUpdate}
                   dataHandler={dataHandler}
+                  index={index}
                   
                   />
                   :null}

@@ -53,7 +53,7 @@ export const getAllParents = () => {
 };
 // Fetch all users on the platform
 export const getAllmanagement = () => {
-  return axios.get(`${apiUrl}/get_all_managements`)
+  return axios.get(`${apiUrl}/get_all_platform/users/management`)
     .then((response) => {
       return response.data; // Return the response data
     })
