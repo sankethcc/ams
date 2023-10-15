@@ -1,19 +1,36 @@
-import React, { useState } from 'react'
-import { updateCoupon} from "../../API/apis";
+import React, { useState,useEffect } from 'react'
+import { updateCoupon,getSingleCoupons} from "../../API/apis";
 
 const ModalUpdate = ({ setShowModalUpdate,id}) => {
     const [discountv, setdiscountv] = useState("");
     const [validity, setValidity] = useState("");
-  const [type, setType] = useState("Percentage");
-  const [ctype, setcType] = useState("One time apply");
+  const [type, setType] = useState("");
+  const [ctype, setcType] = useState("");
   const [code, setCode] = useState("");
   const [limits, setlimit] = useState("");
   const [description, setDescription] = useState("");
   const [start, setstart] = useState("");
 
-  console.log(id)
+  // console.log(id)
 
 
+  useEffect(() => {
+    getSingleCoupons(id)
+      .then((response) => {
+        console.log(response.data.discount)
+        setdiscountv(response.data.discount)
+        setValidity(response.data.expire_date)
+        setstart(response.data.start_date)
+        setcType(response.data.coupon_type)
+        setType(response.data.discount_type)
+        setlimit(response.data.assign_limit)
+        setDescription(response.data.description)
+        setCode(response.data._id)
+      })
+      .catch((error) => {
+        console.error("Error fetching coupons:", error);
+      });
+  }, []);
 
   const submitHandler = async () => {
     const formData = new FormData()
@@ -44,7 +61,8 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
                       <select style={{width:'8rem',marginLeft:'-1rem',backgroundColor:'#d3d3d342',borderRadius:'10px',border:'none',height:'3rem'}}
                         type="text"
                         className="modal-discount"
-                        placeholder="example"
+              placeholder="example"
+                        value={type}
                         onChange={(e) => {
                           setType(e.target.value);
                           
@@ -61,6 +79,7 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
                       <input placeholder="PerMonth"
                         type="date"
                         className="modal-validity"
+                        value={start}
                         onChange={(e) => {
                           setstart(e.target.value);
                         }}
@@ -71,7 +90,9 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
                     <h5 className="modal-validity-name">Validity</h5>
                       <input placeholder="PerMonth"
                         type="date"
-                        className="modal-validity"
+              className="modal-validity"
+                        value={validity}
+                        
                         onChange={(e) => {
                           setValidity(e.target.value);
                         }}
@@ -89,13 +110,15 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
                         onChange={(e) => {
                           setdiscountv(e.target.value);
                         }}
+                        value={discountv}
                     />
                   </div>
                   <div className="content-wrapper-3">
                     <h5 className="modal-code-name">Type</h5>
                     <select style={{backgroundColor:'#d3d3d342',border:'none'}}
                       type="text"
-                      className="modal-code"
+            className="modal-code"
+                        value={ctype}
                       onChange={(e) => {
                         setcType(e.target.value);
                       }}
@@ -106,7 +129,8 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
                       <option>First limited users</option>
                     </select>
         </div>
-                  <input placeholder="limit" style={{marginTop:10}}
+        <input placeholder="limit" style={{ marginTop: 10 }}
+                       value={limits}
                         onChange={(e) => {
                           setlimit(e.target.value);
                         }}
@@ -114,8 +138,10 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
                   <div className="content-wrapper-3">
                     <h5 className="modal-code-name">Create Code</h5>
                     <input
+                      disabled={true}
                       type="text"
-                      className="modal-code"
+            className="modal-code"
+                        value={code}
                       onChange={(e) => {
                         setCode(e.target.value);
                       }}
@@ -126,7 +152,8 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
                     <h5 className="modal-desc-name">Description</h5>
                     <input
                       type="text"
-                      className="modal-desc"
+            className="modal-desc"
+                      value={description}
                       onChange={(e) => {
                         setDescription(e.target.value);
                       }}

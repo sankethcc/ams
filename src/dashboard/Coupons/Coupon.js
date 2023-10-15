@@ -30,11 +30,23 @@ const Coupon = () => {
   const [description, setDescription] = useState("");
   const [limit, setLimit] = useState("");
   const [limit_type, setLimitType] = useState("first users");
+  const [allData, setallData] = useState([]);
+  const [activeData, setactiveData] = useState([]);
+  const [InactiveData, setInactiveData] = useState([]);
+  const [searchItem, setSearchItem] = useState('')
 
   useEffect(() => {
     getAllCoupons()
       .then((response) => {
         setCoupons(response.data);
+        setallData(response.data)
+        const date = new Date().toJSON().slice(0, 10);;
+        const data = response.data;
+        const act = data.filter((data) => ((date >= data.start_date && date <= data.expire_date)))
+        const inact = data.filter((data) => ((date > data.expire_date)))
+        setactiveData(act)
+        setInactiveData(inact)
+
       })
       .catch((error) => {
         console.error("Error fetching coupons:", error);
@@ -59,7 +71,7 @@ const Coupon = () => {
     // console.log("Data being sent to server:", submitData); 
     try {
       const response = await createCoupon(formData);
-      console.log(response)
+      // console.log(response)
       console.log("Coupon created successfully.");
     } catch (error) {
       console.error("Error creating coupon:", error);
@@ -68,6 +80,17 @@ const Coupon = () => {
   };
 
   const toggleButton = (button) => {
+    // console.log(button)
+    if(button=="All"){
+      // setUserData(allData)
+      setCoupons(allData)
+    }
+    else if(button=="Active"){
+      setCoupons(activeData)
+    }
+    else{
+      setCoupons(InactiveData)
+    }
     setAllActive(button === "All");
     setActive(button === "Active");
     setExpired(button === "Expired");
@@ -106,6 +129,16 @@ const Coupon = () => {
         'expire_date': validity,
         'discount_type':type,
           description
+    }, ...prev]);
+    setallData((prev) => [{
+        '_id': code,
+        'discount': discountv,
+        'coupon_type': ctype,
+        'assign_limit': limits,
+        'start_date': start,
+        'expire_date': validity,
+        'discount_type':type,
+          description
       }, ...prev]);
     setdiscountv("");
     setValidity("");
@@ -130,6 +163,17 @@ const Coupon = () => {
   const [showModalUpdate, setShowModalUpdate] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  const handleInputChange = (e) => { 
+    const searchTerm = e.target.value;
+    setSearchItem(searchTerm)
+
+    const filteredItems = allData.filter((user) =>
+    user._id.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    setCoupons(filteredItems);
+  }
   const handleClick = (e) => {
 
     setAnchorEl(e.target._id);
@@ -145,7 +189,7 @@ const Coupon = () => {
       ...prevShowModalUpdate,
       [index]: true
     }));
-    console.log(value)
+    // console.log(value)
 
   };
 
@@ -178,7 +222,9 @@ const Coupon = () => {
         <input
           type="text"
           className="input-field-coupon"
-          placeholder="Search user"
+          placeholder="Search Coupon"
+          value={searchItem}
+          onChange={handleInputChange}
         />
       </div>
       <div className="coupon-card">
@@ -402,7 +448,7 @@ const Coupon = () => {
                     </div>
 
                     {showModalUpdate[index] && <ModalUpdate showModalUpdate={showModalUpdate}
-                        setShowModalUpdate={setShowModalUpdate} submitHandler={submitHandler}                id={index}
+                        setShowModalUpdate={setShowModalUpdate} submitHandler={submitHandler}                id={couponData._id}
                   />
                  }
 

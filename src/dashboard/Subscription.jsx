@@ -23,7 +23,7 @@ const Subscription = () => {
   const [activeCardIndex, setActiveCardIndex] = useState(null);
   // console.log(data);
   const dataHandler = (submitData) => {
-    const updatedArray = [...data, submitData];
+    const updatedArray = [submitData,...data];
 
     setData(updatedArray);
   };
@@ -166,7 +166,7 @@ const Subscription = () => {
                   showModalUpdate={showModalUpdate}
                   setShowModalUpdate={setShowModalUpdate}
                   dataHandler={dataHandler}
-                  index={index}
+                  index={couponData._id}
                   
                   />
                   :null}

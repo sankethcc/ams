@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { createSubscription} from "../API/apis.js";
+import { updateSubscription,getSubscriptionById} from "../API/apis.js";
 
 import Select from "react-select";
 
 const SubscriptionModalUpdate = (props) => {
   const { showModalUpdate, setShowModalUpdate, dataHandler, index } = props;
-  console.log(index)
+  // console.log(index)
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [period, setPeriod] = useState("");
@@ -18,7 +18,23 @@ const SubscriptionModalUpdate = (props) => {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
-
+  useEffect(() => {
+    getSubscriptionById(index)
+      .then((response) => {
+        // console.log(response)
+        setName(response.name)
+        setAmount(response.amount)
+        setPeriod(response.period)
+        setDescription(response.description)
+        setFeature(response.feature_offering)
+        setTax(response.tax_regime)
+        setTotalAmount(response.total)
+        setSelectedOption(response.tax_excluded)
+      })
+      .catch((error) => {
+        console.error("Error fetching coupons:", error);
+      });
+  }, []);
   const submitHandler = async (e) => {
     e.preventDefault();
     // console.log(feature);
@@ -35,7 +51,7 @@ const SubscriptionModalUpdate = (props) => {
     formData.append('tax_regime', tax);
     formData.append('tax_excluded', selectedOption);
 
-    createSubscription(formData)
+    updateSubscription(index,formData)
       .then((data) => {
         // setUserData(data);
         console.log(data)
@@ -85,6 +101,7 @@ const SubscriptionModalUpdate = (props) => {
               className="modal1-type1"
               style={{width:"375px"}}
               placeholder="Name"
+              value={name}
               onChange={(e) => {
                 setName(e.target.value);
               }}
@@ -99,6 +116,7 @@ const SubscriptionModalUpdate = (props) => {
                 type="text"
                 className="modal1-discount1"
                 placeholder="00"
+                value={amount}
                 onChange={(e) => {
                   setAmount(e.target.value);
                 }}
@@ -107,10 +125,10 @@ const SubscriptionModalUpdate = (props) => {
 
             <div className="modal1-validity1-div1" style={{ width: "50%", marginLeft:"5px"}}>
               <h5 className="modal1-validity1-name1">Period</h5>
-              <select  className="modal1-validity2" onChange={(e) => {
+              <select  className="modal1-validity2" value={period} onChange={(e) => {
                   setPeriod(e.target.value);
                 }}>
-                <option value="">Select an option</option>
+                
                 <option value="Month">Month</option>
                 <option value="Year">Year</option>
               </select>
@@ -120,6 +138,7 @@ const SubscriptionModalUpdate = (props) => {
             <h5 className="modal1-desc1-name1">Description</h5>
             <input
               type="text"
+              value={description}
               className="modal1-desc1"
               onChange={(e) => {
                 setDescription(e.target.value);
@@ -147,7 +166,8 @@ const SubscriptionModalUpdate = (props) => {
               <input
                 type="text"
                 className="modal1-discount1"
-                placeholder="18%"
+                placeholder="tax%"
+                value={tax}
                 onChange={(e) => {
                   setTax(e.target.value);
                 }}
@@ -159,7 +179,7 @@ const SubscriptionModalUpdate = (props) => {
               <input
                 type="text"
                 className="modal1-validity1"
-               
+                value={amount}
                 onChange={(e) => {
                   setTotalAmount(e.target.value);
                 }}

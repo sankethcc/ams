@@ -88,6 +88,10 @@ export const getAllCoupons = async () => {
   return axios.get(`${apiUrl}/get_all_coupon`);
 };
 
+// Get single Coupon
+export const getSingleCoupons = async (id) => {
+  return axios.get(`${apiUrl}/get_single_coupon/${id}`);
+};
 // Create a new coupon
 export const createCoupon = (couponData) => {
   return axios.post(`${apiUrl}/generate_coupon`, couponData)
