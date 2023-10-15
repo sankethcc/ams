@@ -117,11 +117,13 @@ const Coupon = () => {
   const handleDotMenu = ()=>{
     setShowModalUpdate(!showModalUpdate)
   }
-  const handleOpenUpdate = (index) => {
+  const handleOpenUpdate = (index, value) => {
     setShowModalUpdate(prevShowModalUpdate => ({
       ...prevShowModalUpdate,
       [index]: true
     }));
+    console.log(value)
+
   };
 
   return (
@@ -326,6 +328,10 @@ const Coupon = () => {
 
 
               <div style={{position:'absolute', top:'30px', right:'10px'}}>
+                <select placeholder='Update'
+                  style={{border:'none'}}
+                  onChange={()=>handleOpenUpdate(index, couponData?._id)}
+                >
                   <IconButton
                     aria-label="more"
                     id="long-button"
@@ -334,37 +340,25 @@ const Coupon = () => {
                     aria-haspopup="true"
                     onClick={handleClick}
                   >
-                    <MoreVertIcon />
+                    
                   </IconButton>
-                      <Menu
-                        id="fade-menu"
-                        MenuListProps={{
-                          'aria-labelledby': 'fade-button',
-                        }}
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleCloseMenu}
-                        TransitionComponent={Fade}
-                      >
-                        <MenuItem 
+                        <option><MoreVertIcon /></option>
+                        <option
                         onClick={()=>{
                           handleCloseMenu()
-                          handleOpenUpdate(index)
+                          handleOpenUpdate(index, couponData?._id ?? '')
                         }}>
                           Update
-                        </MenuItem>
-                        <MenuItem onClick={handleCloseMenu}>Delete</MenuItem>
-                      </Menu>
+                        </option>
+                        <option onClick={handleCloseMenu}>Delete</option>
+
+                    </select>
                     </div>
 
-                    {showModalUpdate[index] && showModalUpdate?
-                  <ModalUpdate 
-                  showModalUpdate={showModalUpdate}
-                  setShowModalUpdate={setShowModalUpdate}
-                  submitHandler={submitHandler}
-                  
+                    {showModalUpdate[index] && <ModalUpdate showModalUpdate={showModalUpdate}
+                        setShowModalUpdate={setShowModalUpdate} submitHandler={submitHandler}                
                   />
-                  :null}
+                 }
 
 
             </Col>

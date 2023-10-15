@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
-const ModalUpdate = ({submitHandler, setShowModalUpdate}) => {
+const ModalUpdate = ({submitHandler, setShowModalUpdate, index}) => {
     const [discount, setDiscount] = useState("");
     const [validity, setValidity] = useState("");
     const [type, setType] = useState("Percentage");
     const [code, setCode] = useState("");
     const [description, setDescription] = useState("");
+    console.log(index)
   return (
     <div className="modal-wrapper">
                 <div className="modal-content">
