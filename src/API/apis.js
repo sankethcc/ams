@@ -84,7 +84,7 @@ export const blockOrUnblockUser = (email) => {
 };
 
 // Fetch all coupons
-export const getAllCoupons = () => {
+export const getAllCoupons = async () => {
   return axios.get(`${apiUrl}/get_all_coupon`);
 };
 
