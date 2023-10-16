@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { updateSubscription,getSubscriptionById} from "../API/apis.js";
+import { updateSubscription,getSubscriptionById,deleteSubscription} from "../API/apis.js";
 
 import Select from "react-select";
 
@@ -18,6 +18,14 @@ const SubscriptionModalUpdate = (props) => {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
+  const deleteHandler = async () => {
+      try {
+        const response = await deleteSubscription(index)
+        console.log(response)
+      }catch (error) {
+        console.error("Error creating coupon:", error);
+      }
+  }
   useEffect(() => {
     getSubscriptionById(index)
       .then((response) => {
@@ -62,7 +70,7 @@ const SubscriptionModalUpdate = (props) => {
     
     // console.log(obj);
 
-    
+  
     setName("");
     setAmount("");
     setPeriod("");
@@ -192,11 +200,14 @@ const SubscriptionModalUpdate = (props) => {
 
 
           <div className="modal1-buttons1">
-            <button className="modal1-create1" onClick={submitHandler}>
+            <button className="modal1-create" onClick={submitHandler}>
               Update
             </button>
+            <button className="modal1-create" style={{marginLeft:2, marginRight:2} } onClick={deleteHandler}>
+              Delete
+            </button>
             <button
-              className="modal1-cancel1"
+              className="modal1-cancel"
               onClick={() => {
                 setShowModalUpdate(false);
               }}

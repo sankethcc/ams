@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import { updateCoupon,getSingleCoupons} from "../../API/apis";
+import { updateCoupon,getSingleCoupons,deleteCoupon} from "../../API/apis";
 
 const ModalUpdate = ({ setShowModalUpdate,id}) => {
     const [discountv, setdiscountv] = useState("");
@@ -31,7 +31,14 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
         console.error("Error fetching coupons:", error);
       });
   }, []);
-
+  const deleteHandler = async () => {
+    try {
+      const response = await deleteCoupon(id)
+      console.log(response)
+    }catch (error) {
+      console.error("Error creating coupon:", error);
+    }
+  }
   const submitHandler = async () => {
     const formData = new FormData()
       formData.append('coupon_code', code);
@@ -44,7 +51,7 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
     formData.append('description', description)
     try {
       const response = await updateCoupon(id,formData);
-      console.log(response)
+      // console.log(response)
       console.log("Coupon updated successfully.");
     } catch (error) {
       console.error("Error creating coupon:", error);
@@ -54,7 +61,7 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
   return (
     <div className="modal-wrapper">
                 <div className="modal-content">
-                  <h3 className="text-wrapper-modal">Create Coupon</h3>
+                  <h3 className="text-wrapper-modal">Update Coupon</h3>
                   <div className="content-wrapper-1">
                     <div className="modal-discount-div">
                       <h5 className="modal-discount-name" style={{marginLeft:'-12px'}}>Discount</h5>
@@ -163,7 +170,9 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
                     <button className="modal-create" onClick={submitHandler}>
                       Update
                     </button>
-                    
+                    <button className="modal-create" onClick={deleteHandler}>
+                      Delete
+                    </button>
                     <button
                       className="modal-cancel"
                       onClick={() => {

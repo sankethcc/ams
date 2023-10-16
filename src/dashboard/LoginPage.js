@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./css/login.css";
 import { dummyUserData } from "./data"; // Import your user data
 import { useNavigate } from "react-router-dom";
-
+import {login } from "../API/apis.js";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,18 +16,29 @@ const LoginPage = () => {
     setPassword(e.target.value);
   };
 
-  const handleLogin = () => {
-    const user = dummyUserData.find((userData) => userData.email === email);
+  const handleLogin = async() => {
+    // const user = dummyUserData.find((userData) => userData.email === email);
 
-    if (!user || user.password !== password) {
-      alert("Please enter correct email and password");
-      return;
-    }
+    // if (!user || user.password !== password) {
+    //   alert("Please enter correct email and password");
+    //   return;
+    // }
 
-    if (user.role === "admin") {
+    // if (user.role === "admin") {
+    //   navigate("/dashboard");
+    // } else {
+    //   alert("Please enter correct email and password");
+    // }
+    const formData = new FormData();
+    formData.append('user', email);
+    formData.append('password',password);
+
+    try {
+      const response = await login(formData)
       navigate("/dashboard");
-    } else {
-      alert("Please enter correct email and password");
+        console.log(response)
+      }catch (error) {
+        console.error("Error creating coupon:", error);
     }
   };
 
