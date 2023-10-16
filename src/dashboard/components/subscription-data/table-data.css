@@ -40,7 +40,7 @@ body {
 }
 
 :where(.css-dev-only-do-not-override-18iikkb).ant-table-wrapper {
-  width: 73rem;
+  /* width: 73rem; */
 }
 
 
