@@ -59,19 +59,10 @@ const SubscriptionModalUpdate = (props) => {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-    const obj = {
-      name,
-      amount,
-      period,
-      feature_offering: nonEmptyLines,
-      description,
-      tax_regime: tax,
-      total: TotalAmount,
-      selectedOption
-    };
+    
     // console.log(obj);
 
-    dataHandler(obj);
+    
     setName("");
     setAmount("");
     setPeriod("");

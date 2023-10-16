@@ -27,6 +27,7 @@ const Student1 = () => {
   const [activeData, setactiveData] = useState([]);
   const [InactiveData, setInactiveData] = useState([]);
   const [activeButton, setActiveButton] = useState("Active");
+  const [searchItem, setSearchItem] = useState('')
 
   useEffect(() => {
     getAllParents()
@@ -44,7 +45,30 @@ const Student1 = () => {
       });
     
   }, []);
+  const handleInputChange = (e) => { 
+    const searchTerm = e.target.value;
+    setSearchItem(searchTerm)
+    console.log(activeButton)
 
+    if (activeButton == 'Active') {
+      const filteredItems = allData.filter((user) =>
+        user.username.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setUserData(filteredItems);
+    }
+    else if (activeButton == 'Inactive') {
+      const filteredItems = activeData.filter((user) =>
+        user.username.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setUserData(filteredItems);
+    }
+    else {
+      const filteredItems = InactiveData.filter((user) =>
+        user.username.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setUserData(filteredItems);
+    }
+  }
   const handleButtonClick = (buttonText) => {
     if(buttonText=="Active"){
       setUserData(allData)
@@ -90,7 +114,8 @@ const Student1 = () => {
     
     </div>
     <div className="overlapping">
-      <input type='text' className="text-wrapper-2x" placeholder='search' style={{border:'none',backgroundColor:'white',outline:'none'}}/>
+      <input type='text' className="text-wrapper-2x" placeholder='search' value={searchItem}
+            onChange={handleInputChange} style={{border:'none',backgroundColor:'white',outline:'none'}}/>
       <img className="search-black-done" alt="Search black" src={search}/>
     </div>
     <div className="overlap-group-harsh">

@@ -22,9 +22,12 @@ const Subscription = () => {
   const [data, setData] = useState([]);
   const [activeCardIndex, setActiveCardIndex] = useState(null);
   // console.log(data);
+  const [searchItem, setSearchItem] = useState('')
+  const [allData, setallData] = useState([]);
+
   const dataHandler = (submitData) => {
     const updatedArray = [submitData,...data];
-
+    setallData(updatedArray)
     setData(updatedArray);
   };
 
@@ -33,12 +36,24 @@ const Subscription = () => {
     getSubscriptions()
       .then((data) => {
         setData(data);
+        setallData(data)
         console.log(data)
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
   }, []);
+
+  const handleInputChange = (e) => { 
+    const searchTerm = e.target.value;
+    setSearchItem(searchTerm)
+
+    const filteredItems = allData.filter((user) =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    setData(filteredItems);
+  }
   const toggleButton = (button) => {
     setAllActive(button === "All");
     setActive(button === "Active");
@@ -95,7 +110,8 @@ const Subscription = () => {
         </div>
       </div>
       <div className="input1-wrapper1">
-        <input type="text" className="input1-field1" placeholder="Search user" />
+        <input type="text" className="input1-field1" placeholder="Search Subscription" value={searchItem}
+          onChange={handleInputChange}/>
       </div>
       {/* <div> */}
       <Row className="coupon1-card1">

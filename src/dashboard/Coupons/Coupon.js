@@ -167,12 +167,27 @@ const Coupon = () => {
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
     setSearchItem(searchTerm)
+    // console.log(allActive)
+    if (allActive) {
+      const filteredItems = allData.filter((user) =>
+        user._id.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setCoupons(filteredItems);
+    }
+    else if (active){
+      const filteredItems = activeData.filter((user) =>
+        user._id.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setCoupons(filteredItems);
+    }
+    else {
+      const filteredItems = InactiveData.filter((user) =>
+        user._id.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setCoupons(filteredItems);
+    }
 
-    const filteredItems = allData.filter((user) =>
-    user._id.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    setCoupons(filteredItems);
+    
   }
   const handleClick = (e) => {
 

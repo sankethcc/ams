@@ -43,12 +43,26 @@ export default function MyTable() {
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
     setSearchItem(searchTerm)
+    console.log(activeButton)
 
-    const filteredItems = allData.filter((user) =>
-    user.username.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    setUserData(filteredItems);
+    if (activeButton == 'Active') {
+      const filteredItems = allData.filter((user) =>
+        user.username.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setUserData(filteredItems);
+    }
+    else if (activeButton == 'Inactive') {
+      const filteredItems = activeData.filter((user) =>
+        user.username.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setUserData(filteredItems);
+    }
+    else {
+      const filteredItems = InactiveData.filter((user) =>
+        user.username.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setUserData(filteredItems);
+    }
   }
   const handleButtonClick = (buttonText) => {
     if(buttonText=="Active"){

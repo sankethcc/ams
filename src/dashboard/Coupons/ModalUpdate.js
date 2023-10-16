@@ -163,6 +163,7 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
                     <button className="modal-create" onClick={submitHandler}>
                       Update
                     </button>
+                    
                     <button
                       className="modal-cancel"
                       onClick={() => {
@@ -171,7 +172,8 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
                     >
                       Cancel
                     </button>
-                  </div>
+        </div>
+        
                 </div>
               </div>
   )
