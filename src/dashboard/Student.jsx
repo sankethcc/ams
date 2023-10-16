@@ -8,7 +8,7 @@ import edit from './img/edit.png'
 import search from './img/searchsymbol.png'
 import axios from 'axios'
 import React, { useState, useEffect } from "react";
-import { getAllStudents } from "../API/apis.js";
+import { blockOrUnblockUser, getAllStudents } from "../API/apis.js";
 import { Table, Tag, Space, Button, Checkbox } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,6 +18,7 @@ import {
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import ModalUpdateUserID from './ModalUpdateUserID'
+import { enqueueSnackbar } from 'notistack'
 const { Column } = Table;
 
 
@@ -30,23 +31,7 @@ const Student = () => {
   const [activeButton, setActiveButton] = useState("Active");
   const [searchItem, setSearchItem] = useState('')
 
-  useEffect(() => {
-    
-    getAllStudents()
-      .then((data) => {
-        setUserData(data);
-        // console.log(data)
-        const act = data.filter((data) => ((data.subscription=="Active")))
-        const inact = data.filter((data) => ((data.subscription=="InActive")))
-        setallData(data);
-        setactiveData(act);
-        setInactiveData(inact);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-    
-  }, []);
+ 
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
     setSearchItem(searchTerm)
@@ -87,14 +72,40 @@ const Student = () => {
    const onSelectChange = (selectedKeys) => {
     setSelectedRowKeys(selectedKeys);
   };
-  const handleBlock = (record) => {
+  const [isBlocked, setIsBlocked] = useState()
+  const handleBlock = async (record) => {
     // Handle the block action here
-    console.log(`Block users with IDs: ${selectedRowKeys}`);
+    try{
+      const response = await blockOrUnblockUser(record._id, 'student')
+      if(response.blocked){
+        setIsBlocked(response.blocked)
+        enqueueSnackbar(`User Unblocked Successfully`, { variant: 'success' })
+        
+      }else{
+        enqueueSnackbar(`User Blocked Successfully`, { variant: 'success' }) 
+
+      }
+    }catch(error){
+      enqueueSnackbar(`Network Error`, { variant: 'error' })
+
+    }
   };
 
-  const handleSuspend = (record) => {
-    // Handle the suspend action here
-    console.log(`Suspend users with IDs: ${selectedRowKeys}`);
+  const handleSuspend = async (record) => {
+    try{
+      const response = await blockOrUnblockUser(record._id, 'student')
+      if(response.blocked){
+        enqueueSnackbar(`User Un-Suspended Successfully`, { variant: 'success' })
+        
+      }else{
+        enqueueSnackbar(`User Suspended Successfully`, { variant: 'success' }) 
+
+      }
+      
+    }catch(error){
+      enqueueSnackbar(`Network Error`, { variant: 'error' })
+
+    }
   };
   const [showModalUpdate, setShowModalUpdate] = useState(false)
   const [user, setUser] = useState({
@@ -115,6 +126,23 @@ const Student = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+  useEffect(() => {
+    
+    getAllStudents()
+      .then((data) => {
+        setUserData(data);
+        // console.log(data)
+        const act = data.filter((data) => ((data.subscription=="Active")))
+        const inact = data.filter((data) => ((data.subscription=="InActive")))
+        setallData(data);
+        setactiveData(act);
+        setInactiveData(inact);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+    
+  }, [showModalUpdate]);
   
   return (
     
@@ -285,7 +313,7 @@ const Student = () => {
                     onClick={() => handleBlock(record)}
                     style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
                   />
-                  <div>Block</div>
+                  <div>{isBlocked ==true? 'Un Block':'Block'}</div>
                 </div>
                 <div>
                   <FontAwesomeIcon

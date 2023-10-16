@@ -3,7 +3,9 @@ import "./css/login.css";
 import { dummyUserData } from "./data"; // Import your user data
 import { useNavigate } from "react-router-dom";
 import {login } from "../API/apis.js";
+import { useSnackbar } from 'notistack';
 const LoginPage = () => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate(); // Move useNavigate outside of handleLogin
@@ -37,8 +39,11 @@ const LoginPage = () => {
       const response = await login(formData)
       navigate("/dashboard");
         console.log(response)
+        enqueueSnackbar(`${response.message}`, { variant: 'success' })
+
       }catch (error) {
         console.error("Error creating coupon:", error);
+        enqueueSnackbar(`Invalid credentials`, { variant: 'error' })
     }
   };
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createSubscription} from "../API/apis.js";
 
 import Select from "react-select";
+import { enqueueSnackbar } from "notistack";
 
 const SubscriptionModal = (props) => {
   const { showModal, setShowModal, dataHandler } = props;
@@ -19,12 +20,15 @@ const SubscriptionModal = (props) => {
   };
 
   const submitHandler = async (e) => {
+    const lines = await feature.split('\n').map((line) => line.trim());
+    const nonEmptyLines = await lines.filter((line) => line !== '');
+    if(!name || !amount ||!period ||!description ||!tax ||!selectedOption){
+      enqueueSnackbar(`Please fill all fields`, { variant: 'error' })
+    }else{
     e.preventDefault();
     // console.log(feature);
-    const lines = await feature.split('\n').map((line) => line.trim());
     // console.log(lines);
     // Filter out empty lines
-    const nonEmptyLines = await lines.filter((line) => line !== '');
     const formData = new FormData();
     formData.append('name', name);
     formData.append('amount', amount);
@@ -49,10 +53,12 @@ const SubscriptionModal = (props) => {
           selectedOption,
           _id: data._id
         };
+        enqueueSnackbar(`Subscription Created Successfully`, { variant: 'success' })
         dataHandler(obj);
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
+        enqueueSnackbar(`Network Error`, { variant: 'error' })
       });
     
     // console.log(obj);
@@ -68,6 +74,7 @@ const SubscriptionModal = (props) => {
     setTotalAmount("");
     setSelectedOption('');
     setShowModal(false);
+    }
   };
   useEffect(() => {
     document.body.style.overflow = "hidden";

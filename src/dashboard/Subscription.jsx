@@ -31,18 +31,7 @@ const Subscription = () => {
     setData(updatedArray);
   };
 
-  useEffect(() => {
-    
-    getSubscriptions()
-      .then((data) => {
-        setData(data);
-        setallData(data)
-        console.log(data)
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-  }, []);
+  
 
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
@@ -84,6 +73,18 @@ const Subscription = () => {
     }));
   };
 
+  useEffect(() => {
+    
+    getSubscriptions()
+      .then((data) => {
+        setData(data);
+        setallData(data)
+        console.log(data)
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, [showModalUpdate]);
   return (
     <div className="coupon1-screen1">
       <SideNav xyz={"subscription"} />

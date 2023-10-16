@@ -8,7 +8,7 @@ import edit from './img/edit.png'
 import search from './img/searchsymbol.png'
 import axios from 'axios'
 import React, { useState, useEffect } from "react";
-import { getAllParents } from "../API/apis.js";
+import { blockOrUnblockUser, getAllParents } from "../API/apis.js";
 
 import { Table, Tag, Space, Button, Checkbox } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,6 +19,7 @@ import {
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import ModalUpdateUserID from './ModalUpdateUserID'
+import { enqueueSnackbar } from 'notistack'
 const { Column } = Table;
 
 const Student1 = () => {
@@ -30,22 +31,7 @@ const Student1 = () => {
   const [activeButton, setActiveButton] = useState("Active");
   const [searchItem, setSearchItem] = useState('')
 
-  useEffect(() => {
-    getAllParents()
-      .then((data) => {
-        setUserData(data);
-        // console.log(data)
-        const act = data.filter((data) => ((data.subscription=="Active")))
-        const inact = data.filter((data) => ((data.subscription=="InActive")))
-        setallData(data);
-        setactiveData(act);
-        setInactiveData(inact);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-    
-  }, []);
+  
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
     setSearchItem(searchTerm)
@@ -86,14 +72,39 @@ const Student1 = () => {
    const onSelectChange = (selectedKeys) => {
     setSelectedRowKeys(selectedKeys);
   };
-  const handleBlock = (record) => {
+  const handleBlock = async (record) => {
     // Handle the block action here
-    console.log(`Block users with IDs: ${selectedRowKeys}`);
+    try{
+      const response = await blockOrUnblockUser(record._id, 'parent')
+      console.log(response.blocked)
+      if(response.blocked){
+        enqueueSnackbar(`User Unblocked Successfully`, { variant: 'success' })
+        
+      }else{
+        enqueueSnackbar(`User Blocked Successfully`, { variant: 'success' }) 
+
+      }
+    }catch(error){
+      enqueueSnackbar(`Network Error`, { variant: 'error' })
+
+    }
   };
 
-  const handleSuspend = (record) => {
-    // Handle the suspend action here
-    console.log(`Suspend users with IDs: ${selectedRowKeys}`);
+  const handleSuspend = async (record) => {
+    try{
+      const response = await blockOrUnblockUser(record._id, 'parent')
+      if(response.blocked){
+        enqueueSnackbar(`User Un-Suspended Successfully`, { variant: 'success' })
+        
+      }else{
+        enqueueSnackbar(`User Suspended Successfully`, { variant: 'success' }) 
+
+      }
+      
+    }catch(error){
+      enqueueSnackbar(`Network Error`, { variant: 'error' })
+
+    }
   };
 
   const [showModalUpdate, setShowModalUpdate] = useState(false)
@@ -115,7 +126,22 @@ const Student1 = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
-
+  useEffect(() => {
+    getAllParents()
+      .then((data) => {
+        setUserData(data);
+        // console.log(data)
+        const act = data.filter((data) => ((data.subscription=="Active")))
+        const inact = data.filter((data) => ((data.subscription=="InActive")))
+        setallData(data);
+        setactiveData(act);
+        setInactiveData(inact);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+    
+  }, [showModalUpdate]);
 
   return (
     <div className="AMS-1">

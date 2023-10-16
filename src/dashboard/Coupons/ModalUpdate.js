@@ -1,10 +1,11 @@
 import React, { useState,useEffect } from 'react'
 import { updateCoupon,getSingleCoupons,deleteCoupon} from "../../API/apis";
+import { enqueueSnackbar } from 'notistack';
 
 const ModalUpdate = ({ setShowModalUpdate,id}) => {
     const [discountv, setdiscountv] = useState("");
     const [validity, setValidity] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("percentage");
   const [ctype, setcType] = useState("");
   const [code, setCode] = useState("");
   const [limits, setlimit] = useState("");
@@ -29,17 +30,25 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
       })
       .catch((error) => {
         console.error("Error fetching coupons:", error);
+        
+
       });
   }, []);
   const deleteHandler = async () => {
     try {
       const response = await deleteCoupon(id)
       console.log(response)
+      enqueueSnackbar(`Coupon deleted successfully.`, { variant: 'success' })
+      setShowModalUpdate(true)
     }catch (error) {
       console.error("Error creating coupon:", error);
+      enqueueSnackbar(`Network Error.`, { variant: 'error' })
     }
   }
   const submitHandler = async () => {
+    if(!code || !ctype || !discountv || !limits || !type|| !start|| !validity ||!description){
+      enqueueSnackbar(`Please fill all fields`, { variant: 'error' })
+    }else{
     const formData = new FormData()
       formData.append('coupon_code', code);
     formData.append('coupon_type', ctype);
@@ -53,10 +62,15 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
       const response = await updateCoupon(id,formData);
       // console.log(response)
       console.log("Coupon updated successfully.");
+      enqueueSnackbar(`Coupon updated successfully.`, { variant: 'success' })
+      setShowModalUpdate(true)
+      
     } catch (error) {
       console.error("Error creating coupon:", error);
+      enqueueSnackbar(`Network Error`, { variant: 'error' })
     }
       // setShowModal(false);
+  }
   }
   return (
     <div className="modal-wrapper">

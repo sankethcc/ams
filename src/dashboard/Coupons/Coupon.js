@@ -10,8 +10,10 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import ModalUpdate from "./ModalUpdate";
+import { useSnackbar } from 'notistack';
 
 const Coupon = () => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [allActive, setAllActive] = useState(true);
   const [active, setActive] = useState(false);
   const [expired, setExpired] = useState(false);
@@ -35,48 +37,84 @@ const Coupon = () => {
   const [InactiveData, setInactiveData] = useState([]);
   const [searchItem, setSearchItem] = useState('')
 
-  useEffect(() => {
-    getAllCoupons()
-      .then((response) => {
-        setCoupons(response.data);
-        setallData(response.data)
-        const date = new Date().toJSON().slice(0, 10);;
-        const data = response.data;
-        const act = data.filter((data) => ((date >= data.start_date && date <= data.expire_date)))
-        const inact = data.filter((data) => ((date > data.expire_date)))
-        setactiveData(act)
-        setInactiveData(inact)
-
-      })
-      .catch((error) => {
-        console.error("Error fetching coupons:", error);
-      });
-  }, []);
+ 
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
-  const dataHandler = async (submitData) => {
+  const submitHandler = async () => {
+    if(!code || !ctype || !discountv || !limits || !type|| !start|| !validity ||!description){
+      enqueueSnackbar(`Please fill all fields`, { variant: 'error' })
+    }else{
+      const formData = new FormData()
+      formData.append('coupon_code', code);
+      formData.append('coupon_type', ctype);
+      formData.append('discount', discountv);
+      formData.append('assign_limit', limits);
+      formData.append('discount_type', type);
+      formData.append('start_date', start);
+      formData.append('expire_date', validity);
+      formData.append('description', description)
+      // console.log(submitData)
+      // console.log("Data being sent to server:", submitData); 
+      try {
+        const response = await createCoupon(formData);
+        // console.log(response)
+        // console.log("Coupon created successfully.");
+        enqueueSnackbar(`Coupon created successfully`, { variant: 'success' })
+        const obj = {
+          discount,
+          validity,
+          type,
+          code,
+          description,
+          limit, 
+          limit_type,
+          discountv,
+          start,
+          limits,
+          ctype
+        };
+        // dataHandler(obj);
+        setCoupons((prev) => [{
+            '_id': code,
+            'discount': discountv,
+            'coupon_type': ctype,
+            'assign_limit': limits,
+            'start_date': start,
+            'expire_date': validity,
+            'discount_type':type,
+              description
+        }, ...prev]);
+        setallData((prev) => [{
+            '_id': code,
+            'discount': discountv,
+            'coupon_type': ctype,
+            'assign_limit': limits,
+            'start_date': start,
+            'expire_date': validity,
+            'discount_type':type,
+              description
+          }, ...prev]);
+        setdiscountv("");
+        setValidity("");
+        setType("Percentage");
+        setCode("");
+        setDescription("");
+        setlimit("")
+        setLimit(""); 
+        setcType("One time apply"); 
+        setstart("")
+        setShowModal(false);
 
-    const formData = new FormData()
-    formData.append('coupon_code', submitData.code);
-    formData.append('coupon_type', submitData.ctype);
-    formData.append('discount', submitData.discountv);
-    formData.append('assign_limit', submitData.limits);
-    formData.append('discount_type', submitData.type);
-    formData.append('start_date', submitData.start);
-    formData.append('expire_date', submitData.validity);
-    formData.append('description', submitData.description)
-    // console.log(submitData)
-    // console.log("Data being sent to server:", submitData); 
-    try {
-      const response = await createCoupon(formData);
-      // console.log(response)
-      console.log("Coupon created successfully.");
-    } catch (error) {
-      console.error("Error creating coupon:", error);
+        handleClose();
+      } catch (error) {
+        console.error("Error creating coupon:", error);
+        enqueueSnackbar(`Coupon Already Exist`, { variant: 'error' })
+
+      }
     }
-    handleClose();
+    
   };
 
   const toggleButton = (button) => {
@@ -104,53 +142,53 @@ const Coupon = () => {
     }
   };
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const obj = {
-      discount,
-      validity,
-      type,
-      code,
-      description,
-      limit, 
-      limit_type,
-      discountv,
-      start,
-      limits,
-      ctype
-    };
-    dataHandler(obj);
-    setCoupons((prev) => [{
-        '_id': code,
-        'discount': discountv,
-        'coupon_type': ctype,
-        'assign_limit': limits,
-        'start_date': start,
-        'expire_date': validity,
-        'discount_type':type,
-          description
-    }, ...prev]);
-    setallData((prev) => [{
-        '_id': code,
-        'discount': discountv,
-        'coupon_type': ctype,
-        'assign_limit': limits,
-        'start_date': start,
-        'expire_date': validity,
-        'discount_type':type,
-          description
-      }, ...prev]);
-    setdiscountv("");
-    setValidity("");
-    setType("Percentage");
-    setCode("");
-    setDescription("");
-    setlimit("")
-    setLimit(""); 
-    setcType("One time apply"); 
-    setstart("")
-    setShowModal(false);
-  };
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+  //   const obj = {
+  //     discount,
+  //     validity,
+  //     type,
+  //     code,
+  //     description,
+  //     limit, 
+  //     limit_type,
+  //     discountv,
+  //     start,
+  //     limits,
+  //     ctype
+  //   };
+  //   dataHandler(obj);
+  //   setCoupons((prev) => [{
+  //       '_id': code,
+  //       'discount': discountv,
+  //       'coupon_type': ctype,
+  //       'assign_limit': limits,
+  //       'start_date': start,
+  //       'expire_date': validity,
+  //       'discount_type':type,
+  //         description
+  //   }, ...prev]);
+  //   setallData((prev) => [{
+  //       '_id': code,
+  //       'discount': discountv,
+  //       'coupon_type': ctype,
+  //       'assign_limit': limits,
+  //       'start_date': start,
+  //       'expire_date': validity,
+  //       'discount_type':type,
+  //         description
+  //     }, ...prev]);
+  //   setdiscountv("");
+  //   setValidity("");
+  //   setType("Percentage");
+  //   setCode("");
+  //   setDescription("");
+  //   setlimit("")
+  //   setLimit(""); 
+  //   setcType("One time apply"); 
+  //   setstart("")
+  //   setShowModal(false);
+  // };
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -207,6 +245,24 @@ const Coupon = () => {
     // console.log(value)
 
   };
+
+  useEffect(() => {
+    getAllCoupons()
+      .then((response) => {
+        setCoupons(response.data);
+        setallData(response.data)
+        const date = new Date().toJSON().slice(0, 10);;
+        const data = response.data;
+        const act = data.filter((data) => ((date >= data.start_date && date <= data.expire_date)))
+        const inact = data.filter((data) => ((date > data.expire_date)))
+        setactiveData(act)
+        setInactiveData(inact)
+
+      })
+      .catch((error) => {
+        console.error("Error fetching coupons:", error);
+      });
+  }, [showModalUpdate]);
 
   return (
     <div className="coupon-screen">

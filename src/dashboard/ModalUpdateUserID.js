@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { editUserDetails } from "../API/apis";
+import { enqueueSnackbar } from "notistack";
 
 
 const ModalUpdateUserID = ({ setShowModalUpdate, id, user }) => {
@@ -7,7 +8,10 @@ const ModalUpdateUserID = ({ setShowModalUpdate, id, user }) => {
   const inputChange = (e)=>{
     setUserId(e.target.value)
   }
-  const updateUser = ()=>{
+  const updateUser = async ()=>{
+    if(!userid){
+      enqueueSnackbar(`Enter User ID`, { variant: 'error' })
+    }else{
     const formData = new FormData();
     if(user.role =='student'){
       formData.append('user_id', userid);
@@ -17,8 +21,17 @@ const ModalUpdateUserID = ({ setShowModalUpdate, id, user }) => {
     }else if(user.role == 'teacher'){
       formData.append('user_id', userid)
     }
-
-    editUserDetails(user._id,user.role, formData )
+    try{
+      const response = await editUserDetails(user._id,user.role, formData );
+      console.log(response)
+      enqueueSnackbar(`User Updated Successfully : ${userid}`, { variant: 'success' })
+      
+      setShowModalUpdate(false);
+    }catch (error){
+      console.error("Error updating user:", error.response.data);
+      enqueueSnackbar(`Network Error`, { variant: 'error' })
+    }
+  }
   }
   // console.log(userID)
   return (
@@ -29,8 +42,9 @@ const ModalUpdateUserID = ({ setShowModalUpdate, id, user }) => {
         <div className="modal-buttons">
           <button className="modal-create"
           onClick={() => {
-            setShowModalUpdate(false);
+            
             updateUser()
+            
           }}
           >
             Update

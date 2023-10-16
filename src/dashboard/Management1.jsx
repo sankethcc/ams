@@ -14,6 +14,7 @@ import {
   faExclamationCircle,
   faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom'
 const { Column } = Table;
 const Management1 = () => {
   const [userData, setUserData] = useState([]);
@@ -185,14 +186,15 @@ const Management1 = () => {
             key="document"
             render={(text, record) => (
               <Space size="middle" className="middle">
-                <div>
+                <Link to={`/management/${record._id}`} style={{display:'flex', gap:'10px', cursor:'pointer' }} onClick={() => handleDocument()}> 
                   <FontAwesomeIcon
                     icon={faFilePdf}
-                    onClick={() => handleDocument()}
-                    style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
-                  />
-                  <div>Block</div>
-                </div>
+                    style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1", fontSize:'30px' }}
+                  >
+                    
+                  </FontAwesomeIcon>
+                  <span style={{fontSize:'20px'}}>DOC</span>
+                </Link>
               </Space>
             )}
           />

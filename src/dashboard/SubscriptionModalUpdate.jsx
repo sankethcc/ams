@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { updateSubscription,getSubscriptionById,deleteSubscription} from "../API/apis.js";
+import { enqueueSnackbar } from "notistack";
 
 import Select from "react-select";
 
@@ -22,8 +23,12 @@ const SubscriptionModalUpdate = (props) => {
       try {
         const response = await deleteSubscription(index)
         console.log(response)
+        enqueueSnackbar(`Subscription Deleted Successfully`, { variant: 'success' })
+        setShowModalUpdate(true)
+
       }catch (error) {
         console.error("Error creating coupon:", error);
+        enqueueSnackbar(`Network Error`, { variant: 'error' })
       }
   }
   useEffect(() => {
@@ -50,6 +55,11 @@ const SubscriptionModalUpdate = (props) => {
     // console.log(lines);
     // Filter out empty lines
     const nonEmptyLines = await lines.filter((line) => line !== '');
+    if(!name || !amount ||!period ||!description ||!tax ||!selectedOption){
+      enqueueSnackbar(`Please fill all fields`, { variant: 'error' })
+    }else{
+
+   
     const formData = new FormData();
     formData.append('name', name);
     formData.append('amount', amount);
@@ -63,9 +73,12 @@ const SubscriptionModalUpdate = (props) => {
       .then((data) => {
         // setUserData(data);
         console.log(data)
+        enqueueSnackbar(`Subscription Updated Successfully`, { variant: 'success' })
+        setShowModalUpdate('')
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
+        enqueueSnackbar(`Network Error`, { variant: 'error' })
       });
     
     // console.log(obj);
@@ -81,6 +94,7 @@ const SubscriptionModalUpdate = (props) => {
     setTotalAmount("");
     setSelectedOption('');
     setShowModalUpdate(false);
+    }
   };
   useEffect(() => {
     document.body.style.overflow = "hidden";

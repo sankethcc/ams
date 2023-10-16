@@ -1,8 +1,11 @@
 import React from 'react'
 import './Management1.css'
 import SideNav from './SideNav'
+import { useParams } from 'react-router-dom'
 
 const ManagementDocument = () => {
+  const {doc_id} = useParams()
+  console.log(doc_id)
   return (
     <div className="AMS">
         <SideNav xyz={'management'}/>

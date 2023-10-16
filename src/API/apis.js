@@ -1,4 +1,17 @@
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
+
+export const Error = ({errorName}) => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+return enqueueSnackbar(`${errorName}`, { variant: 'error' })
+}
+export const Success = ({successName}) =>{
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  return (
+     enqueueSnackbar(`${successName}`, { variant: 'success' })
+  )
+}
+
 
 const apiUrl = 'http://localhost:5000/'; // Replace with your API URL
 
@@ -6,6 +19,7 @@ export const login = (Data) => {
   return axios.post(`${apiUrl}/login`, Data)
     .then((response) => {
       return response.data; // Return the response data
+      
     })
     .catch((error) => {
       throw error; // Handle errors
@@ -76,6 +90,7 @@ export const editUserDetails = (userId, role, userFormData) => {
   return axios.put(`${apiUrl}/edit_user/${userId}/${role}`, userFormData)
     .then((response) => {
       return response.data; // Return the response data
+
     })
     .catch((error) => {
       throw error; // Handle errors
@@ -83,8 +98,8 @@ export const editUserDetails = (userId, role, userFormData) => {
 };
 
 // Block or Unblock a user by email
-export const blockOrUnblockUser = (email) => {
-  return axios.put(`${apiUrl}/block_user/${email}`)
+export const blockOrUnblockUser = (_id, role) => {
+  return axios.put(`${apiUrl}/block_user/${_id}/${role}`)
     .then((response) => {
       return response.data; // Return the response data
     })
