@@ -72,8 +72,8 @@ export const getAllmanagement = () => {
     });
 };
 // Edit user details by user ID
-export const editUserDetails = (userId, userFormData) => {
-  return axios.put(`${apiUrl}/edit_user/${userId}`, userFormData)
+export const editUserDetails = (userId, role, userFormData) => {
+  return axios.put(`${apiUrl}/edit_user/${userId}/${role}`, userFormData)
     .then((response) => {
       return response.data; // Return the response data
     })

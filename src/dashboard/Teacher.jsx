@@ -18,6 +18,7 @@ import {
   faEdit,
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import ModalUpdateUserID from './ModalUpdateUserID'
 const { Column } = Table;
 
 
@@ -96,9 +97,19 @@ const Teacher = () => {
     console.log(`Suspend users with IDs: ${selectedRowKeys}`);
   };
 
+  const [showModalUpdate, setShowModalUpdate] = useState(false)
+  const [user, setUser] = useState({
+    user_id:'',
+    _id:'',
+    role:'teacher'
+
+  })
+
   const handleEdit = (record) => {
     // Handle the edit action here
-    console.log(`Edit user with ID: ${record.userid}`);
+    // console.log(`Edit user with ID: ${record.user_id}`);
+    setShowModalUpdate(!showModalUpdate)
+    setUser({...user,user_id:record.user_id,_id:record._id })
   };
 
   const rowSelection = {
@@ -240,6 +251,10 @@ const Teacher = () => {
           </div>
         </div>
       </div> */}
+      {showModalUpdate?
+      <ModalUpdateUserID showModalUpdate={showModalUpdate}
+                        setShowModalUpdate={setShowModalUpdate} user={user} />
+                        :null}
       <div className="itachi">
         <Table rowSelection={rowSelection} dataSource={userData}>
           <Column title="User ID" dataIndex="user_id" key="user_id" />
