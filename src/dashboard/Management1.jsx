@@ -186,7 +186,7 @@ const Management1 = () => {
             key="document"
             render={(text, record) => (
               <Space size="middle" className="middle">
-                <Link to={`/management/${record._id}`} style={{display:'flex', gap:'10px', cursor:'pointer' }} onClick={() => handleDocument()}> 
+                <Link to={`/management/${record.user_id}`} style={{display:'flex', gap:'10px', cursor:'pointer' }} onClick={() => handleDocument()}> 
                   <FontAwesomeIcon
                     icon={faFilePdf}
                     style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1", fontSize:'30px' }}

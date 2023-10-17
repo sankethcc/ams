@@ -73,16 +73,20 @@ const Student = () => {
     setSelectedRowKeys(selectedKeys);
   };
   const [isBlocked, setIsBlocked] = useState()
+  const [bool, setbool] = useState(false)
+
   const handleBlock = async (record) => {
     // Handle the block action here
     try{
       const response = await blockOrUnblockUser(record._id, 'student')
+      setbool(!bool)
       if(response.blocked){
         setIsBlocked(response.blocked)
-        enqueueSnackbar(`User Unblocked Successfully`, { variant: 'success' })
+         
+        enqueueSnackbar(`User Blocked Successfully`, { variant: 'success' })
         
       }else{
-        enqueueSnackbar(`User Blocked Successfully`, { variant: 'success' }) 
+        enqueueSnackbar(`User UnBlocked Successfully`, { variant: 'success' }) 
 
       }
     }catch(error){
@@ -93,12 +97,13 @@ const Student = () => {
 
   const handleSuspend = async (record) => {
     try{
+      setbool(!bool)
       const response = await blockOrUnblockUser(record._id, 'student')
       if(response.blocked){
-        enqueueSnackbar(`User Un-Suspended Successfully`, { variant: 'success' })
+        enqueueSnackbar(`User Suspended Successfully`, { variant: 'success' })
         
       }else{
-        enqueueSnackbar(`User Suspended Successfully`, { variant: 'success' }) 
+        enqueueSnackbar(`User Un-Suspended Successfully`, { variant: 'success' }) 
 
       }
       
@@ -142,7 +147,7 @@ const Student = () => {
         console.error("Error fetching user data:", error);
       });
     
-  }, [showModalUpdate]);
+  }, [showModalUpdate,bool]);
   
   return (
     
@@ -313,8 +318,12 @@ const Student = () => {
                     onClick={() => handleBlock(record)}
                     style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
                   />
-                  <div>{isBlocked ==true? 'Un Block':'Block'}</div>
+                  <div>{record.blocked ==true? 'Un Block':'Block'}</div>
+                  
                 </div>
+                {/* <Column title="blocked" dataIndex="blocked" key="blocked" render={(val) => (
+                    (val==true)? "Unblock" : "Block"
+                  )}/> */}
                 <div>
                   <FontAwesomeIcon
                     icon={faExclamationCircle}
@@ -325,7 +334,8 @@ const Student = () => {
                       color: "rgba(79, 120, 254, 1",
                     }}
                   />
-                  <div>Suspend</div>
+                  <div>{record.blocked ==true? 'Un Suspend':'Suspend'}</div>
+                  
                 </div>
                 <div>
                   <FontAwesomeIcon

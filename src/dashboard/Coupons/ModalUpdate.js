@@ -11,7 +11,7 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
   const [limits, setlimit] = useState("");
   const [description, setDescription] = useState("");
   const [start, setstart] = useState("");
-
+  const [btn,setbtn]=useState("")
   // console.log(id)
 
 
@@ -27,6 +27,7 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
         setlimit(response.data.assign_limit)
         setDescription(response.data.description)
         setCode(response.data._id)
+        setbtn(response.data.blocked)
       })
       .catch((error) => {
         console.error("Error fetching coupons:", error);
@@ -38,7 +39,7 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
     try {
       const response = await deleteCoupon(id)
       console.log(response)
-      enqueueSnackbar(`Coupon deleted successfully.`, { variant: 'success' })
+      enqueueSnackbar(`Coupon ${btn==true?"Activated": "Deactivated"} successfully.`, { variant: 'success' })
       setShowModalUpdate(true)
     }catch (error) {
       console.error("Error creating coupon:", error);
@@ -185,7 +186,7 @@ const ModalUpdate = ({ setShowModalUpdate,id}) => {
                       Update
                     </button>
                     <button className="modal-create" onClick={deleteHandler}>
-                      Delete
+                      {btn==true?"Active": "InActive"}
                     </button>
                     <button
                       className="modal-cancel"

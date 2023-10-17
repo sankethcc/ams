@@ -36,6 +36,7 @@ export const getTotalUsers = () => {
       });
   };
 
+
 // Fetch all users on the platform
 export const getAllPlatformUsers = () => {
   return axios.get(`${apiUrl}/get_all_platform/users`)
@@ -85,6 +86,16 @@ export const getAllmanagement = () => {
       throw error; // Handle errors
     });
 };
+
+export const getManagement = (id) => {
+    return axios.get(`${apiUrl}/get_management/${id}`)
+      .then((response) => {
+        return response.data; // Return the response data
+      })
+      .catch((error) => {
+        throw error; // Handle errors
+      });
+  };
 // Edit user details by user ID
 export const editUserDetails = (userId, role, userFormData) => {
   return axios.put(`${apiUrl}/edit_user/${userId}/${role}`, userFormData)

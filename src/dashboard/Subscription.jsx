@@ -24,7 +24,8 @@ const Subscription = () => {
   // console.log(data);
   const [searchItem, setSearchItem] = useState('')
   const [allData, setallData] = useState([]);
-
+  const [activeData, setactiveData] = useState([]);
+  const [InactiveData, setInactiveData] = useState([]);
   const dataHandler = (submitData) => {
     const updatedArray = [submitData,...data];
     setallData(updatedArray)
@@ -37,13 +38,39 @@ const Subscription = () => {
     const searchTerm = e.target.value;
     setSearchItem(searchTerm)
 
-    const filteredItems = allData.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    if (allActive) {
+      const filteredItems = allData.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setData(filteredItems);
+    }
+    else if (Active){
+      const filteredItems = activeData.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setData(filteredItems);
+    }
+    else {
+      const filteredItems = InactiveData.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setData(filteredItems);
+    }
 
-    setData(filteredItems);
+    // setData(filteredItems);
   }
   const toggleButton = (button) => {
+    if (button === "All") {
+      setData(allData)
+    }
+    else if (button === "Active") {
+      setData(activeData)
+      
+    }
+    else {
+      setData(InactiveData)
+      
+    }
     setAllActive(button === "All");
     setActive(button === "Active");
     setExpired(button === "Expired");
@@ -77,9 +104,22 @@ const Subscription = () => {
     
     getSubscriptions()
       .then((data) => {
-        setData(data);
+        // setData(data);
         setallData(data)
-        console.log(data)
+        // console.log(data)
+        const act = data.filter((data) => ((!data.blocked)))
+        const inact = data.filter((data) => ((data.blocked)))
+        setactiveData(act)
+        setInactiveData(inact)
+        if (allActive) {
+          setData(data);
+        }
+        else if (Active){
+          setData(act);
+        }
+        else {
+          setData(inact);
+        }
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);

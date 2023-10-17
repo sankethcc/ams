@@ -88,16 +88,21 @@ const Teacher = () => {
    const onSelectChange = (selectedKeys) => {
     setSelectedRowKeys(selectedKeys);
   };
+
+  const [bool, setbool] = useState(false)
+
   const handleBlock = async (record) => {
     // Handle the block action here
     try{
       const response = await blockOrUnblockUser(record._id, 'teacher')
+      setbool(!bool)
+
       console.log(response.blocked)
       if(response.blocked){
-        enqueueSnackbar(`User Unblocked Successfully`, { variant: 'success' })
+        enqueueSnackbar(`User Blocked Successfully`, { variant: 'success' })
         
       }else{
-        enqueueSnackbar(`User Blocked Successfully`, { variant: 'success' }) 
+        enqueueSnackbar(`User UnBlocked Successfully`, { variant: 'success' }) 
 
       }
     }catch(error){
@@ -108,12 +113,13 @@ const Teacher = () => {
 
   const handleSuspend = async (record) => {
     try{
+      setbool(!bool)
       const response = await blockOrUnblockUser(record._id, 'teacher')
       if(response.blocked){
-        enqueueSnackbar(`User Un-Suspended Successfully`, { variant: 'success' })
+        enqueueSnackbar(`User Suspended Successfully`, { variant: 'success' })
         
       }else{
-        enqueueSnackbar(`User Suspended Successfully`, { variant: 'success' }) 
+        enqueueSnackbar(`User Un-Suspended Successfully`, { variant: 'success' }) 
 
       }
       
@@ -311,7 +317,8 @@ const Teacher = () => {
                     onClick={() => handleBlock(record)}
                     style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
                   />
-                  <div>Block</div>
+                <div>{record.blocked ==true? 'Un Block':'Block'}</div>
+
                 </div>
                 <div>
                   <FontAwesomeIcon
@@ -323,7 +330,8 @@ const Teacher = () => {
                       color: "rgba(79, 120, 254, 1",
                     }}
                   />
-                  <div>Suspend</div>
+                  <div>{record.blocked ==true? 'Un Suspend':'Suspend'}</div>
+
                 </div>
                 <div>
                   <FontAwesomeIcon

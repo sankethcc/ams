@@ -9,8 +9,11 @@ import {
   faEdit,
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { getAllPlatformUsers } from "../../../API/apis.js";
+import { getAllPlatformUsers,blockOrUnblockUser } from "../../../API/apis.js";
 import axios from 'axios'
+import ModalUpdateUserID from '../../ModalUpdateUserID'
+import { enqueueSnackbar } from 'notistack'
+
 const { Column } = Table;
 
 export default function MyTable() {
@@ -21,7 +24,8 @@ export default function MyTable() {
   const [activeData, setactiveData] = useState([]);
   const [InactiveData, setInactiveData] = useState([]);
   const [searchItem, setSearchItem] = useState('')
-
+  const [showModalUpdate, setShowModalUpdate] = useState(false)
+  const [bool, setbool] = useState(false)
   useEffect(() => {
     // Fetch user data from the API
     getAllPlatformUsers()
@@ -38,7 +42,7 @@ export default function MyTable() {
       });
     
    
-  }, []);
+  }, [showModalUpdate,bool]);
   // Function to handle button clicks and update the active button
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
@@ -82,20 +86,56 @@ export default function MyTable() {
   const onSelectChange = (selectedKeys) => {
     setSelectedRowKeys(selectedKeys);
   };
+  
+  const [isBlocked, setIsBlocked] = useState()
+  const [user, setUser] = useState({
+    user_id:'',
+    _id:'',
+    role:''
 
-  const handleBlock = (record) => {
-    // Handle the block action here
-    console.log(`Block users with IDs: ${record.user_id}`);
+  })
+  const handleBlock = async(record) => {
+    try{
+      const response = await blockOrUnblockUser(record._id, record.role)
+      setbool(!bool)
+      if(response.blocked){
+        setIsBlocked(response.blocked)
+         
+        enqueueSnackbar(`User Blocked Successfully`, { variant: 'success' })
+        
+      }else{
+        enqueueSnackbar(`User UnBlocked Successfully`, { variant: 'success' }) 
+
+      }
+    }catch(error){
+      enqueueSnackbar(`Network Error`, { variant: 'error' })
+    }
   };
 
-  const handleSuspend = (record) => {
-    // Handle the suspend action here
-    console.log(`Suspend users with IDs: ${record.user_id}`);
+  const handleSuspend = async(record) => {
+    try{
+      const response = await blockOrUnblockUser(record._id, record.role)
+      setbool(!bool)
+      if(response.blocked){
+        enqueueSnackbar(`User Suspended Successfully`, { variant: 'success' })
+        
+      }else{
+        enqueueSnackbar(`User Un-Suspended Successfully`, { variant: 'success' }) 
+
+      }
+      
+    }catch(error){
+      enqueueSnackbar(`Network Error`, { variant: 'error' })
+
+    }
   };
 
   const handleEdit = (record) => {
     // Handle the edit action here
-    console.log(`Edit user with ID: ${record.user_id}`);
+    // console.log(`Edit user with ID: ${record.user_id}`);
+    // console.log(record)
+     setShowModalUpdate(!showModalUpdate)
+    setUser({...user,user_id:record.user_id,_id:record._id,role:record.role })
   };
 
   const rowSelection = {
@@ -142,6 +182,10 @@ export default function MyTable() {
           />
         </div>
       </div>
+      {showModalUpdate?
+      <ModalUpdateUserID showModalUpdate={showModalUpdate}
+                        setShowModalUpdate={setShowModalUpdate} user={user} />
+                        :null}
       <div className="table-wrapper">
         <Table rowSelection={rowSelection} dataSource={userData}>
           <Column title="User ID" dataIndex="user_id" key="user_id" />
@@ -172,7 +216,7 @@ export default function MyTable() {
                     onClick={() => handleBlock(record)}
                     style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
                   />
-                  <div>Block</div>
+                  <div>{record.blocked ==true? 'Un Block':'Block'}</div>
                 </div>
                 <div>
                   <FontAwesomeIcon
@@ -184,7 +228,7 @@ export default function MyTable() {
                       color: "rgba(79, 120, 254, 1",
                     }}
                   />
-                  <div>Suspend</div>
+                  <div>{record.blocked ==true? 'Un Suspend':'Suspend'}</div>
                 </div>
                 <div>
                   <FontAwesomeIcon

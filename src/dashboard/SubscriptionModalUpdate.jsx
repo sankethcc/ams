@@ -15,6 +15,7 @@ const SubscriptionModalUpdate = (props) => {
   const [tax, setTax] = useState("");
   const [TotalAmount, setTotalAmount] = useState("");
   const [selectedOption, setSelectedOption] = useState('');
+  const [btn,setbtn]=useState("")
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -23,7 +24,7 @@ const SubscriptionModalUpdate = (props) => {
       try {
         const response = await deleteSubscription(index)
         console.log(response)
-        enqueueSnackbar(`Subscription Deleted Successfully`, { variant: 'success' })
+        enqueueSnackbar(`Subscription ${btn==true?"Activated": "Deactivated"} Successfully`, { variant: 'success' })
         setShowModalUpdate(true)
 
       }catch (error) {
@@ -43,6 +44,8 @@ const SubscriptionModalUpdate = (props) => {
         setTax(response.tax_regime)
         setTotalAmount(response.total)
         setSelectedOption(response.tax_excluded)
+        setbtn(response.blocked)
+
       })
       .catch((error) => {
         console.error("Error fetching coupons:", error);
@@ -218,7 +221,7 @@ const SubscriptionModalUpdate = (props) => {
               Update
             </button>
             <button className="modal1-create" style={{marginLeft:2, marginRight:2} } onClick={deleteHandler}>
-              Delete
+              {btn==true?"Active": "InActive"}
             </button>
             <button
               className="modal1-cancel"

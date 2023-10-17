@@ -249,15 +249,23 @@ const Coupon = () => {
   useEffect(() => {
     getAllCoupons()
       .then((response) => {
-        setCoupons(response.data);
+        // setCoupons(response.data);
         setallData(response.data)
         const date = new Date().toJSON().slice(0, 10);;
         const data = response.data;
-        const act = data.filter((data) => ((date >= data.start_date && date <= data.expire_date)))
-        const inact = data.filter((data) => ((date > data.expire_date)))
+        const act = data.filter((data) => ((date >= data.start_date && date <= data.expire_date && !data.blocked)))
+        const inact = data.filter((data) => ((date > data.expire_date || data.blocked)))
         setactiveData(act)
         setInactiveData(inact)
-
+        if (allActive) {
+          setCoupons(response.data);
+        }
+        else if (active){
+          setCoupons(act);
+        }
+        else {
+          setCoupons(inact);
+        }
       })
       .catch((error) => {
         console.error("Error fetching coupons:", error);
