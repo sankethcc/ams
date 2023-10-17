@@ -177,9 +177,9 @@ const Management1 = () => {
           <Column title="Name" dataIndex="username" key="username" />
           <Column title="Email" dataIndex="email" key="email" />
           <Column title="Mobile" dataIndex="phone" key="phone" />
-          <Column title="School Name" dataIndex="schoolname" key="schoolname" />
+          <Column title="School Name" dataIndex="school_name" key="school_name" />
           <Column title="Address" dataIndex="address" key="address" />
-          <Column title="DIOS Code" dataIndex="diosCode" key="diosCode" />
+          <Column title="DIOS Code" dataIndex="udise_code" key="udise_code" />
                    
           <Column
             title="Document"
