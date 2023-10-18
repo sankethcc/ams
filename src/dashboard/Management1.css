@@ -152,11 +152,9 @@
   }
   
   .AMS .overlap-group-wrapper {
-    height: 41px;
-    left: 593px;
-    position: absolute;
-    top: 335px;
-    width: 84px;
+  
+    position: relative;
+  
   }
   
   .AMS .overlap-4 {

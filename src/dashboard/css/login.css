@@ -12,11 +12,10 @@
 
 .screen {
   background-color: #eff3f4;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
   background-color: #eff3f4;
   display: flex;
-  justify-content: center;
   width: 100%;
 }
 

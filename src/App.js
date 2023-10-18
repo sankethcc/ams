@@ -24,17 +24,17 @@ function App() {
       <Routes>
        {" "}
        <Route path="/" element={<LoginPage />} />
-         <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
         <Route path="/billing" element={<Billing />} />
-       <Route path="/coupon" element={<Coupon />} />
+        <Route path="/coupon" element={<Coupon />} />
         <Route path="/subscription" element={<Subscription />} /> 
         <Route path="/management" element={<Management1/>}/>
         <Route path="/management/:doc_id" element={<ManagementDocument/>}/>
-         <Route path='/student' element={<Student/>}/> 
-         <Route path="/parent" element={<Student1/>}/>
-         <Route path="/teacher" element={<Teacher/>}/>
+        <Route path='/student' element={<Student/>}/> 
+        <Route path="/parent" element={<Student1/>}/>
+        <Route path="/teacher" element={<Teacher/>}/>
         
       </Routes>
     </Router>

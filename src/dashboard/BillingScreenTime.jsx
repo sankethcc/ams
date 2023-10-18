@@ -60,7 +60,7 @@ const BScreenTimeChart = () => {
   };
 
   return (
-    <div className="chart-container" style={chartContainerStyle}> 
+    <div className="chart-container b-radius1" style={chartContainerStyle}> 
       <ReactApexChart options={options} series={series} type="area" height={300} />
     </div>
   );

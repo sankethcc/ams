@@ -5,11 +5,14 @@ import Total from "./components/total-count/Total";
 
 function Users() {
   return (
-    <div className="main-div" style={{ backgroundColor: "#eff3f4" }}>
+    <div className="screen" style={{ backgroundColor: "#eff3f4" }}>
       <SideNav xyz={"users"} />
-      <Head/>
+      <div style={{width:'85%', padding:'25px 45px'}} >
+      <Head pageName="Users"/>
       <Total />
       <TableData />
+
+      </div>
     </div>
   );
 }

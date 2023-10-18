@@ -13,6 +13,7 @@ import FilterImage from "./img/icons8-filter-96-1.png";
 import ScreenTimeChart from "./screentime";
 import SideNav from "./SideNav";
 import Head from "./Head";
+import { Box } from "@mui/material";
 
 const Dashboard = () => {
   const [allActive, setAllActive] = useState(true);
@@ -93,104 +94,77 @@ const Dashboard = () => {
   return (
     <div className="screen">
       <SideNav xyz={"Dashboard"} />
-      <Head />
-      <div className="outer">
-        <div className="text-wrapper-3">Verification request</div>{" "}
-        <div className="text-wrapper-5">{activeData.requests}*</div>
-        <p className="p">
-          The requests should be completed under 24 hours
-        </p>{" "}
-        <div className="bartext-wrapper-4">See more</div>
-        <div className="bars">
-          <div className="bar-wrap">
-            <div className="bartext-wrapper">Document verification needed</div>
-            <div className="bartext-wrapper-2">
-              {activeData.documentVerification}
-            </div>
-          </div>
-          <div className="bar-wrap">
-            <div className="bartext-wrapper">Send code</div>
-            <div className="bartext-wrapper-2">{activeData.sendCode}</div>
-          </div>
-        </div>
-      </div>
-      <div className="outer-3">
-        <div className="text-wrapper-3">Total Coupons</div>
-        <div className="dash-text-wrapper-6">{totalCoupons}</div>
-      </div>
-      <div className="text-wrapper-7">Dashboard</div>
+      <Box sx={{width:'85%', padding:'25px 45px'}} >
+      <Head pageName='Dashboard' />
+      <div className="middle">
+
+
+      <div className="middle-wrapper">
       <div className="dashboard">
-        <div className="dashboard-wrap-2">
-          <div className="rectangle">
-            <div className="group">
-              <div className="text-wrapper-8">Total users</div>
-              <div className="text-wrapper-9">{allUsersCount}</div>
+          <div className="rectangle b-radius1">
+            <div className="group ">
+              <div className="font-main2">Total users</div>
+              <div className="font-main1">{allUsersCount}</div>
             </div>
+        </div>
+          <div className="rectangle-2 b-radius1">
+            <div className="group">
+              <div className="font-main2">Active user</div>
+              <div className="font-main1">{activeData.activeUsers}</div>
           </div>
         </div>
-        <div className="dashboard-wrap-2">
-          <div className="rectangle-2">
+          <div className="rectangle-3 b-radius1">
             <div className="group">
-              <div className="text-wrapper-8">Active user</div>
-              <div className="text-wrapper-9">{activeData.activeUsers}</div>
-            </div>
-          </div>
-        </div>
-        <div className="dashboard-wrap-2">
-          <div className="rectangle-3">
-            <div className="group">
-              <div className="text-wrapper-8">Total billing</div>
-              <div className="text-wrapper-9">{activeData.totalBilling}</div>
-            </div>
+              <div className="font-main2">Total billing</div>
+              <div className="font-main1">{activeData.totalBilling}</div>
           </div>
         </div>
       </div>
-      <div className="dashboard-wrap-3">
+      <div className="dashboard-wrap-3 ">
         <div
-          className={`dashboard-wrap-4 ${allActive ? "active" : ""}`}
+          className={`dashboard-wrap-4 b-radius2 ${allActive ? "active" : ""}`}
           onClick={() => toggleButton("All")}
         >
           <div className="text-wrapper-13">All</div>
         </div>
         <div
-          className={`dashboard-wrap-4 ${studentActive ? "active" : ""}`}
+          className={`dashboard-wrap-4 b-radius2 ${studentActive ? "active" : ""}`}
           onClick={() => toggleButton("Student")}
         >
           <div className="text-wrapper-13">Student</div>
         </div>
         <div
-          className={`dashboard-wrap-4 ${teacherActive ? "active" : ""}`}
+          className={`dashboard-wrap-4 b-radius2 ${teacherActive ? "active" : ""}`}
           onClick={() => toggleButton("Teacher")}
         >
           <div className="text-wrapper-13">Teacher</div>
         </div>
         <div
-          className={`dashboard-wrap-4 ${parentActive ? "active" : ""}`}
+          className={`dashboard-wrap-4 b-radius2 ${parentActive ? "active" : ""}`}
           onClick={() => toggleButton("Parent")}
         >
           <div className="text-wrapper-13">Parent</div>
         </div>
         <div
-          className={`dashboard-wrap-4 ${managementActive ? "active" : ""}`}
+          className={`dashboard-wrap-4 b-radius2 ${managementActive ? "active" : ""}`}
           onClick={() => toggleButton("Management")}
         >
           <div className="text-wrapper-13">Management</div>
         </div>
-        <div className="filter-wrapper">
+        <div className="filter-wrapper b-radius2">
           <img className="filter" alt="Filter" src={FilterImage} />
         </div>
       </div>
       <div className="outer-group-wrapper">
-        <div className="outer-group-2">
+        <div className="outer-group-2 b-radius1">
           <ScreenTimeChart activeData={activeData} />
         </div>
-      </div>
-      <div className="outer-6">
-        <div className="text-wrapper-31">Total users</div>
-        <div className="text-wrapper-32">{allUsersCount}</div>
-        <div className="outer-7">
-          <div className="text-wrapper-29">Total billing</div>
-          <div className="text-wrapper-30">{activeData.totalBilling}</div>
+       <div className="outer-6 b-radius1">
+        <div className="font-main2">Total users</div>
+        <div className="font-main1">{allUsersCount}</div>
+        <div className="outer-7 b-radius1">
+          <div className="font-main2">Total billing</div>
+          <div className="font-main1">{activeData.totalBilling}</div>
         </div>
         <div className="bottom">
           <div className="active-subscription">
@@ -211,6 +185,42 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      </div>
+
+      </div>
+
+
+      <div className="right-wrapper ">
+      <div className="outer b-radius1">
+        <div className="text-wrapper-3">Verification request</div>{" "}
+        <div className="text-wrapper-5">{activeData.requests}*</div>
+        <p className="p">
+          The requests should be completed under 24 hours
+        </p>{" "}
+        <div className="bartext-wrapper-4">See more</div>
+        <div className="bars">
+          <div className="bar-wrap b-radius2">
+            <div className="bartext-wrapper">Document verification needed</div>
+            <div className="bartext-wrapper-2">
+              {activeData.documentVerification}
+            </div>
+          </div>
+          <div className="bar-wrap b-radius2">
+            <div className="bartext-wrapper">Send code</div>
+            <div className="bartext-wrapper-2">{activeData.sendCode}</div>
+          </div>
+        </div>
+      </div>
+      <div className="outer-3 b-radius1">
+        <div className="text-wrapper-3">Total Coupons</div>
+        <div className="dash-text-wrapper-6">{totalCoupons}</div>
+      </div>
+      </div>
+      </div>
+
+
+
+      </Box>
     </div>
   );
 };

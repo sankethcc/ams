@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import LOGO from "./img/logo1.png";
+import LOGO from "./img/logo.svg";
 import "./css/usersidebar.css";
 import {
   FaUser,
@@ -17,19 +17,18 @@ import SubMenu from "./SubMenu";
 import * as RiIcons from "react-icons/ri";
 
 const SidebarNav = styled.nav`
-  background-color: white;
-  width: 250px;
+  background: white;
+  width: 15%;
   height: 100vh;
-  justify-content: center;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
   transition: 350ms;
-  z-index: 10;
 `;
 
 const SidebarWrap = styled.div`
-  width: 100%;
+width: 100%;
+padding: 15px 21px;
 `;
 
 const SideNav = ({ xyz }) => {
@@ -104,8 +103,6 @@ const SideNav = ({ xyz }) => {
       <SidebarNav sidebar={sidebar}>
         <div className="top_section">
           <img alt="SP" src={LOGO} className="logo_icon" />
-          <h1 className="logo">School</h1>
-          <h1 className="logo_pen">Pen</h1>
         </div>
 
         <SidebarWrap>

@@ -48,7 +48,6 @@ const ScreenTimeChart = ({ activeData }) => {
 
   const chartContainerStyle = {
     padding: '10px',
-    margin: '10px',
   };
 
   return (

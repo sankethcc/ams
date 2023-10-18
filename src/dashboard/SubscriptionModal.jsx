@@ -84,7 +84,7 @@ const SubscriptionModal = (props) => {
   }, []);
   return (
     <>
-      <div className="modal1-wrapper1">
+      <div className="modal-wrapper">
         <div className="modal1-content1">
           <h3 className="text1-wrapper1-modal1">Create Subscription</h3>
           <div className="content1-wrapper1-2">
@@ -92,7 +92,6 @@ const SubscriptionModal = (props) => {
             <input
               type="text"
               className="modal1-type1"
-              style={{width:"375px"}}
               placeholder="Name"
               onChange={(e) => {
                 setName(e.target.value);
@@ -102,7 +101,7 @@ const SubscriptionModal = (props) => {
           </div>
           <div className="content1-wrapper1-1">
 
-            <div className="modal1-discount1-div1" style={{ width: "50%" }}>
+            <div className="modal1-discount1-div1" style={{ width: "100%"}}>
               <h5 className="modal1-discount1-name1">Amount</h5>
               <input
                 type="text"
@@ -114,7 +113,7 @@ const SubscriptionModal = (props) => {
               />
             </div>
 
-            <div className="modal1-validity1-div1" style={{ width: "50%", marginLeft:"5px"}}>
+            <div className="modal1-validity1-div1" style={{ width: "100%"}}>
               <h5 className="modal1-validity1-name1">Period</h5>
               <select  className="modal1-validity2" onChange={(e) => {
                   setPeriod(e.target.value);
@@ -142,7 +141,6 @@ const SubscriptionModal = (props) => {
               type="text"
               className="modal1-type2"
               placeholder="example"
-              style={{ width:"375px"}}
               onChange={(e) => {
                 setFeature(e.target.value);
               }}
@@ -151,7 +149,7 @@ const SubscriptionModal = (props) => {
           </div>
           <div className="content1-wrapper1-1">
 
-            <div className="modal1-discount1-div1"  style={{ width:"50%"}}>
+            <div className="modal1-discount1-div1"  style={{ width:"100%"}}>
               <h5 className="modal1-discount1-name1">Tax regime</h5>
               <input
                 type="text"
@@ -163,7 +161,7 @@ const SubscriptionModal = (props) => {
               />
             </div>
 
-            <div className="modal1-validity1-div1" style={{ width:"50%"}}>
+            <div className="modal1-validity1-div1" style={{ width:"100%"}}>
               <h5 className="modal1-validity1-name1">Total amount</h5>
               <input
                 type="text"
@@ -181,7 +179,7 @@ const SubscriptionModal = (props) => {
               onChange={handleOptionChange}
               checked={selectedOption === 'Included'}></input>
             <label>Included</label>
-            <input type="radio" className="i1" name="option"
+            <input type="radio" className="i" name="option"
               value="Excluded"
               onChange={handleOptionChange}
               checked={selectedOption === 'Excluded'}></input>
