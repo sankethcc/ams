@@ -31,7 +31,7 @@ function Barchart() {
   
   return (
     <React.Fragment>
-      <div className="container-fluid mb-5" >      
+      <div className="container-fluid mb-5 " >      
         <Chart
           type="bar"
           width={700}

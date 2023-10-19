@@ -8,9 +8,11 @@ function Piechart()
     
     return(
         <React.Fragment>
-            <div className="container-fluid" style={{ height:30+"vh", width:45+"vh"}}>
+            <div className="container-fluid b-radius1" style={{padding:'40px', background:'#fff'}}>
+
             <div className="row">               
-                <div className="col-md-5 mb-3 ">
+                <div>
+                <h3 className="font-main2">Sourcse</h3>
             <Pie 
                  width={350}
                 height={300}
@@ -28,8 +30,8 @@ function Piechart()
                       ],
                       borderWidth: 1,
                     
-                      //hoverOffset:20
-                    //   offset: [20,0,0,0,0,0,0,0,0,0]                     
+                      hoverOffset:20,
+                      offset: [20,0,0,0,0,0,0,0,0,0]                     
                     },
                   ],
                  
@@ -40,15 +42,16 @@ function Piechart()
                 plugins:{
                     legend:{
                       position: 'right',
-                      // labels:{
-                      //   font:{size:13},
-                      // }
+                      labels:{
+                        font:{size:13},
+                      }
                     }                        
                  },
                   
                              
                }}    
-              style={{height:30+"vh"}}/>
+              style={{height:30+"vh"}}
+              />
             </div>
         </div>
     </div>

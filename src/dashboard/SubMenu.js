@@ -3,28 +3,26 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SidebarLink = styled(Link)`
-  display: flex;
-  color: #707070;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2vh;
-  list-style: none;
-  height: 3.4vh;
-  width: 9vw;  
-margin:1px 2vw 0;
-  text-decoration: none;
-  font-size: 14px;
+display: flex;
+color: #707070;
+justify-content: space-between;
+align-items: center;
+padding: 12px 17px;
+list-style: none;
+width: 100%;
+text-decoration: none;
+font-size: 14px;
 
   &:hover {
-    background: #4F78FE;
+    // background: #4F78FE;
     cursor: pointer;
-    border-radius:15px;
-    color:white;
+    // border-radius:15px;
+    color:#4F78FE
   }
   &.active {
     background: #4F78FE;
     cursor: pointer;
-    border-radius: 15px;
+    border-radius: 10px;
     color: white;
   }
 `;
@@ -34,16 +32,16 @@ const SidebarLabel = styled.span`
 `;
 
 const DropdownLink = styled(Link)`
-  height: 7vh;
-  margin-left: 4vw;
-  padding:0 1vh 0;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #707070;
-  font-size: 14px;
-  width: 7vw;
-// margin:10px;
+display: flex;
+color: #707070;
+// justify-content: space-between;
+align-items: center;
+padding: 21px 17px;
+padding-left:40px;
+list-style: none;
+width: 100%;
+text-decoration: none;
+font-size: 14px;
 
 
 &.active {

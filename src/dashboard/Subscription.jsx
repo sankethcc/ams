@@ -78,7 +78,6 @@ const Subscription = () => {
 
   const handleCardClick = (index) => {
     if (index === activeCardIndex) {
-      console.log("ji")
       setActiveCardIndex(null); // Deselect the card if clicked again
     } else {
       setActiveCardIndex(index);
@@ -126,11 +125,14 @@ const Subscription = () => {
       });
   }, [showModalUpdate]);
   return (
-    <div className="coupon1-screen1">
+
+    <div className="screen">
       <SideNav xyz={"subscription"} />
-      <Head />
-      <div className="text1-wrapper1-7">Subscription</div>
-      <div className="card1-top1">
+      <div style={{ width: "85%", padding: "24px 45px" }}>
+      <Head pageName='Subscription' />
+
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className="card-top">
         <div
           className={`card1-wrap1-4 ${allActive ? "active" : ""}`}
           onClick={() => toggleButton("All")}
@@ -150,15 +152,16 @@ const Subscription = () => {
           <div className="text1-wrapper1-13">Expired</div>
         </div>
       </div>
-      <div className="input1-wrapper1">
-        <input type="text" className="input1-field1" placeholder="Search Subscription" value={searchItem}
+      <div className="input1-wrapper">
+        <input type="text" className="input-field" placeholder="Search Subscription" value={searchItem}
           onChange={handleInputChange}/>
       </div>
-      {/* <div> */}
-      <Row className="coupon1-card1">
+      </div>
+
+      <Row className="coupon-card">
         <Col md={3}>
           <Card className="subscription1-card1-create1">
-            <button className="button11" onClick={(e) => setShowModal(true)}>
+            <button className="button" onClick={(e) => setShowModal(true)}>
               <span>+</span>
               <br />
               <b>Create new Subscription</b>
@@ -180,12 +183,11 @@ const Subscription = () => {
 
               <Card
                 key={index}
-                className={`subscription1-card1 ${activeCardIndex === index ? "active" : ""
-                  }`}
-                  style={{position:'relative', paddingTop:'20px'}}
-                // onClick={() => setShowModal(true)}
+                className={`subscription1-card1 ${activeCardIndex === index ? "active" : "" }`}
+                  style={{position:'relative', padding:'25px'}}
+                  onClick={() => handleCardClick(index)}
               >
-                <div
+                <div                
                   style={{
                     position:'absolute',
                     color: "#707070",
@@ -196,26 +198,22 @@ const Subscription = () => {
 
                   }}
                 >
-                  <select placeholder='Update'
-                  style={{border:'none'}}
+                  {/* <select placeholder='Update'
+                  style={{ border: "none", outline:'none', background:'transparent', cursor:'pointer'  }}
                   onChange={()=>handleOpenUpdate(index, couponData?._id)}
                 >
-                  <IconButton
-                    aria-label="more"
-                    id="long-button"
-                    aria-controls={open ? 'long-menu' : undefined}
-                    aria-expanded={open ? 'true' : undefined}
-                    aria-haspopup="true"
-                    onClick={handleClick}
-                  >
-                    
-                  </IconButton>
-                      
-                        <option> <MoreVertIcon /> </option>
+                        <option>  </option>
                         <option> Update </option>
                         <option>Delete</option>
                      
-                    </select>
+                    </select> */}
+                    <div className="subscription-menu">
+                      <div className="dot-menu"> <MoreVertIcon /> </div>
+                      <div className="menu-list">
+                        <span  onClick={()=>handleOpenUpdate(index, couponData?._id)}>Update</span>
+                        <span  onClick={()=>handleOpenUpdate(index, couponData?._id)}>Delete</span>
+                      </div>
+                    </div>
                 </div>
                   
                   {showModalUpdate[index] && showModalUpdate?
@@ -228,15 +226,13 @@ const Subscription = () => {
                   />
                   :null}
 
-
+              <div className="sub-details">
                 <p
                   style={{
-                    color: "#707070",
                     fontSize: "18px",
-                    marginLeft: "14px",
                     fontWeight: "700",
                     fontFamily: "Poppins",
-                    fontWeight: 700
+                    textTransform:'capitalize'
                   }}
                 >
                   <b>{couponData?.name ?? "-"}</b>
@@ -244,29 +240,25 @@ const Subscription = () => {
 
                 <p
                   style={{
-                    color: "black",
                     fontSize: "32px",
-                    marginLeft: "14px",
                     fontWeight: 700,
-                    marginTop: "13px"
+                    marginTop: "13px",
+                    color:'black'
                   }}
                 >
-                  <b>&#8377;{couponData?.amount ?? "-"}</b><p style={{
-                    color: "black",
-                    fontSize: "15px",
-                    fontWeight: 700,
-                    display: "inline"
-                  }}>/</p>
+                  &#8377;{couponData?.amount ?? "-"}
+                  
                   <p
                     style={{
-                      color: "black",
                       fontSize: "15px",
-
-                      fontWeight: 700,
-                      display: "inline"
+                      textTransform:'capitalize',
+                      display: "inline",
+                      color:'#707070',
+                      textTransform:'lowercase'
+              
                     }}
                   >
-                    <b>{couponData?.period ?? ""}</b>
+                    /{couponData?.period ?? ""}
                   </p>
                 </p>
 
@@ -274,24 +266,24 @@ const Subscription = () => {
                   style={{
                     color: "#A9A9B1",
                     fontSize: "12px",
-                    marginLeft: "14px",
                     marginRight: "12px",
                     marginTop: "10px",
-                    wordSpacing: "5px"
+                    wordSpacing: "5px",
+                    textTransform:'capitalize',
+                    lineHeight: '1.5',
                   }}
                 >
-                  <b>{couponData?.description ?? "-"}</b>
+                  {couponData?.description ?? "-"}
                 </p>
                 <p
                   style={{
                     color: "#707070",
                     fontSize: "15px",
-                    marginLeft: "15px",
                     marginTop:"20px"
                   }}
                 >
 
-                  <ul style={{ padding: "0px" }}>
+                  <ul style={{ padding: "0px", textTransform:'capitalize' }}>
                     {couponData.feature_offering}
                     {/* {couponData?.feature_offering.map((item, index1) => (
                       <li className="li" key={index1}><span style={{ marginRight: "10px" }}><IoIosCheckmarkCircleOutline /></span>{item}</li>
@@ -300,14 +292,14 @@ const Subscription = () => {
 
 
                 </p>
-                
+                </div>
                 <div className="sub_bottom">
-                <p className="left1-entry1">
+                <p className="left-entry">
                   <small>Tax regime</small>
                   <br />
                   {couponData?.tax_regime ?? "0"}%  {couponData?.selectedOption ?? '-'}
                 </p>
-                <p className="right1-entry1">
+                <p className="right-entry">
                   <small>Total amount</small>
                   <br />
                   <span style={{ fontSize: "16px" }}>&#8377;{couponData?.total ?? "0"}</span>
@@ -318,6 +310,7 @@ const Subscription = () => {
             </Col>
           ))}
       </Row>
+      </div>
     </div>
   );
 };

@@ -47,19 +47,12 @@ body {
 .middle {
   text-align: center;
   color: rgba(79, 120, 254, 1);
+  
 }
 
-.headd {
-  position: absolute;
-  top: 35vh;
-  left: 20.5vw;
-}
+
 .table-wrapper {
-  position: relative;
-  left: 19rem;
-  top: 18rem;
-  overflow: hidden;
-  width: 74rem
+margin-top: 25px
 }
 
 
@@ -69,9 +62,7 @@ body {
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,200&display=swap");
 
 .input-container {
-  position: absolute;
-  display: inline-block;
-  right: 0vw;
+
 }
 
 .input-field {
@@ -89,11 +80,10 @@ body {
 }
 
 .search-icon {
-  position: absolute;
-  left: 7px;
-  top: 50%;
-  transform: translateY(-50%);
   color: rgba(169, 169, 177, 1);
+  position: relative;
+  left: 24px;
+  top: 2px;
 }
 
 button {
@@ -105,12 +95,14 @@ button {
 }
 
 .filter-style {
-  position: absolute;
-  top: 40vh;
   display: flex;
-  flex-direction: row;
-  width: 76.6vw;
-  left: 20vw;
+  justify-content: space-between;
+  padding-bottom: 20px;
+
+}
+.filter-buttons{
+  display: flex;
+  gap: 25px;
 }
 
 /* Style for active buttons */
@@ -119,7 +111,6 @@ button {
   color: white;
   border-radius: 0.5rem;
   padding: 10px 20px;
-  margin: 5px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -129,5 +120,4 @@ button {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   padding: 10px 20px;
-  margin: 5px;
 }

@@ -9,55 +9,57 @@ import SideNav from "./SideNav";
 import Head from "./Head";
 
 const Billing = () => {
-
   return (
-    <div className="billing_screen" >
-      <SideNav xyz={"billing"}/>
-      <Head/>
+    <div className="screen">
+      <SideNav xyz={"billing"} />
+      <div style={{ width: "85%", padding: "24px 45px" }}>
+        <Head pageName="Billing" />
 
-      <div className="billing_text-wrapper-7">Billing</div>
-      <div className="billing_outer"> 
-        <div className="billing_text-wrapper-3-1">Sources</div>
-        <div className="billing_piechart" >
-            <Piechart/>
+        <div className="main">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "4fr 8fr",
+              gridGap: "32px",
+            }}
+          >
+            <div className="billing_text-wrapper">
+              <div className=" font-main2">Total amount</div>
+              <div className="font-main1">$ 2.5 lakh</div>
+
+              <div className="font-main2">Total users</div>
+              <div className="font-main1">5 lakh</div>
+
+              <div
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  textAlign: "center",
+                  gap: "10px",
+                }}
+              >
+                <div className="billing_text-wrapper-5 b-radius1">
+                  <div className="font-main2">Total Users</div>
+                  <div className="font-main1">5 lakh</div>
+                </div>
+
+                <div className="billing_text-wrapper-5 b-radius1">
+                  <div className="font-main2">Total Users</div>
+                  <div className="font-main1">5 lakh</div>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ width: "100%" }} className="outer-group-2 b-radius1">
+              <BScreenTimeChart />
+            </div>
+            <Piechart />
+            <div style={{ width: "100%" }} className="outer-group-2 b-radius1">
+              <Barchart />
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="billing_outer-3" >
-      <div className="billing_text-wrapper-3-1">Expenses</div>
-      <div className="billing_barchart" >
-        <Barchart/>
-      </div>
-      </div>
-
-      <div className="billing_outer-group-wrapper" >
-        <div className="billing_outer-group-2" >
-          <BScreenTimeChart/>
-        </div>
-      </div>
-
-
-
-      <div className="billing_text-wrapper" > 
-        <div className="billing_text-wrapper-1">Total amount</div>
-        <div className="billing_text-wrapper-2" >$ 2.5 lakh</div>
-
-        <div className="billing_text-wrapper-3">Total users</div>
-        <div className="billing_text-wrapper-4" >5 lakh</div>
-
-       
-        <div className="billing_text-wrapper-5">
-          <div className="billing_text-wrapper-5_1">Total Users</div>
-          <div className="billing_text-wrapper-5_2">5 lakh</div>
-        </div>
-
-        <div className="billing_text-wrapper-6">
-          <div className="billing_text-wrapper-5_1">Total Users</div>
-          <div className="billing_text-wrapper-5_2">5 lakh</div>
-        </div>  
-      </div>
-
-
     </div>
   );
 };

@@ -145,8 +145,10 @@ export default function MyTable() {
 
   return (
     <>
-      <h2 className="headd">Subuscription</h2>
+      <h2 className="headd" style={{paddingBottom:'20px'}}>Subuscription</h2>
       <div className="filter-style">
+        <div className="filter-buttons">
+
         <button
           className={
             activeButton === "Active" ? "active-button" : "inactive-button"
@@ -171,6 +173,7 @@ export default function MyTable() {
         >
           Inactive {InactiveData.length}
         </button>
+        </div>
         <div className="input-container">
           <i className="fa fa-search search-icon"></i>
           <input
