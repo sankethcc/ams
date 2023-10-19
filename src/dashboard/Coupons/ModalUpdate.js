@@ -114,16 +114,8 @@ const ModalUpdate = ({ setShowModalUpdate, id }) => {
             </h5>
         <div className="content-wrapper-2">
             <select
-              style={{
-                width: "100%",
-                backgroundColor: "#d3d3d342",
-                borderRadius: "10px",
-                border: "none",
-                height:'40px',
-                outline:'none'
-              }}
               type="text"
-              className="modal-discount"
+              className="modal-select"
               placeholder="example"
               value={type}
               onChange={(e) => {
@@ -147,9 +139,8 @@ const ModalUpdate = ({ setShowModalUpdate, id }) => {
           <div style={{display:'flex', gap:'15px'}}>
 
           <select
-            style={{ backgroundColor: "#d3d3d342", border: "none", width:'100%' }}
             type="text"
-            className="modal-code b-radius2"
+            className="modal-select"
             value={ctype}
             onChange={(e) => {
               setcType(e.target.value);
@@ -160,6 +151,8 @@ const ModalUpdate = ({ setShowModalUpdate, id }) => {
             <option>First limited users</option>
           </select>
         <input
+        
+        className={`${ctype == "One time apply" || ""? "d-none": "" }`}
           placeholder="limit"
           value={limits}
           onChange={(e) => {

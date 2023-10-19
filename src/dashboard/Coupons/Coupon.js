@@ -353,16 +353,8 @@ const Coupon = () => {
                       </h5>
                   <div className="content-wrapper-2">
                       <select
-                        style={{
-                          width: "100%",
-                          backgroundColor: "#d3d3d342",
-                          borderRadius: "10px",
-                          border: "none",
-                          height:'40px',
-                          outline:'none'
-                        }}
                         type="text"
-                        className="modal-discount"
+                        className="modal-select b-radius2"
                         placeholder="example"
                         value={type}
                         onChange={(e) => {
@@ -386,9 +378,8 @@ const Coupon = () => {
                     <div style={{display:'flex', gap:'15px'}}>
           
                     <select
-                      style={{ backgroundColor: "#d3d3d342", border: "none", width:'100%' }}
                       type="text"
-                      className="modal-code b-radius2"
+                      className="modal-select b-radius2"
                       value={ctype}
                       onChange={(e) => {
                         setcType(e.target.value);
@@ -399,6 +390,7 @@ const Coupon = () => {
                       <option>First limited users</option>
                     </select>
                   <input
+                  className={`${ctype == "One time apply" || ""? "d-none": "" }`}
                     placeholder="limit"
                     value={limits}
                     onChange={(e) => {

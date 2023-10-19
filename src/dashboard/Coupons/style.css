@@ -279,6 +279,18 @@ body {
   text-align: left !important;
 } */
 
+.modal-select {
+  width: 100%;
+  background-color: rgba(211, 211, 211, 0.26);
+  border-radius: 10px;
+  border: none;
+  height: 40px;
+  outline: none;
+  padding: 0px 10px;
+}
+.d-none{
+  display: none;
+}
 .modal-content input {
   border-radius: 8px;
   border: none;
@@ -286,6 +298,7 @@ body {
   height: 41px;
   background-color: #eff3f4;
   outline: none;
+  padding: 0px 11px;
 }
 .modal-content h5 {
   color: var(--light-grey, #a9a9b1);
