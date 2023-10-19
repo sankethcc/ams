@@ -25,7 +25,6 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  left: 3rem;
 }
 
 :where(.css-dev-only-do-not-override-18iikkb).ant-table-wrapper .ant-table-thead >tr>th {

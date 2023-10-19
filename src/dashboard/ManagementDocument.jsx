@@ -3,6 +3,7 @@ import './Management1.css'
 import SideNav from './SideNav'
 import { useParams } from 'react-router-dom'
 import { getManagement } from '../API/apis';
+import Head from './Head';
 
 const ManagementDocument = () => {
   const {doc_id} = useParams()
@@ -12,7 +13,7 @@ const ManagementDocument = () => {
     
     getManagement(doc_id)
       .then((Data) => {
-        // console.log(data)
+        console.log(data)
         setdata(Data)
       })
       .catch((error) => {
@@ -21,55 +22,65 @@ const ManagementDocument = () => {
     
   }, []);
   return (
-    <div className="AMS">
+    <div className="AMS screen">
         <SideNav xyz={'management'}/>
          
     <div className="div">
-        <div className="text-wrapper">{data.username}</div>
-      <img className="line" alt="Line" src="line-7.svg" />
-      <div className="overlap">
-        <div className="group">
-          <div className="overlap-group">
-            <div className="text-wrapper-2">Invalid</div>
-          </div>
+      <Head pageName={`Management/${data.username}`} />
+      <div className='managment-document'>
+
+      
+      <div className="overlap-2">
+      <p className="details">Details</p>
+      <div className='details-wrapper'> 
+      <div className="data-wrapper">
+        <p className="font1"> School name </p>
+          <p className="font2">{data.school_name}</p>
         </div>
-        <div className="overlap-wrapper">
-          <div className="div-wrapper">
-            <div className="text-wrapper-3">Valid</div>
-          </div>
+        <div className='data-wrapper'>
+        <p className="font1">Address</p>
+        <p className="font2">{data.address}</p>
+
         </div>
-        <div className="text-wrapper-4">DOCUMENT VIEW</div>
+        <div className='data-wrapper'>
+        <p className="font1">User name</p>
+          <p className="font2">{data.username}</p>
+
+        </div>
+        <div className='data-wrapper'>
+        <p className="font1">email</p>
+          <p className="font2">{data.email}</p>
+
+        </div>
+        <div className='data-wrapper'>
+        <p className="font1">DIOS code</p>
+          <p className="font2">{data.udise_code}</p>
+
+        </div>
+        <div className='data-wrapper'>
+        <p className="font1">Document</p>
+        <div className="view-document-wrapper">
+        <p className="font2">doc name</p>
+        <button className="view-button">View</button>
+        </div>
+
+        </div>
+       
+          
+        </div>
+        <div className='button-wrapper'>
+          <button className="send-button">Send code</button>
+        </div>
       </div>
       <div className="overlap-2">
-        <div className="overlap-3">
-          <div className="text-wrapper-5">Send code</div>
+        <p className="details">DOCUMENT VIEW</p>
+        <div className="button-wrapper">
+            <button className="send-button">Valid</button>
+            <button className="send-button">Invalid</button>
         </div>
-        <div className="overlap-group-wrapper">
-          <div className="overlap-4">
-            <div className="text-wrapper-6">View</div>
-          </div>
-        </div>
-        <div className="text-wrapper-7">DIOS code</div>
-        <div className="text-wrapper-8">Document</div>
-        <div className="text-wrapper-9">Address</div>
-        <div className="text-wrapper-10">email</div>
-        <div className="text-wrapper-11">School name</div>
-          <div className="text-wrapper-12">{data.school_name}</div>
-          <div className="text-wrapper-13">{data.username}</div>
-          <div className="text-wrapper-14">{data.udise_code}</div>
-        <div className="text-wrapper-15">doc name</div>
-          <div className="text-wrapper-16">{data.email}</div>
-          <div className="text-wrapper-17">{data.address}</div>
-        <div className="text-wrapper-18">User name</div>
-        <div className="text-wrapper-19">Details</div>
+      </div>
       </div>
       
-      <div className="group-17">
-        <img className="rectangle" alt="Rectangle" src='/' />
-        <div className="vector-wrapper">
-          <img className="vector" alt="Vector" src='/' />
-        </div>
-      </div>
     </div>
   </div>
   )

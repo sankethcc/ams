@@ -35,22 +35,7 @@ const Teacher = () => {
   const [activeButton, setActiveButton] = useState("Active");
   const [searchItem, setSearchItem] = useState('')
 
-  useEffect(() => {
-    
-    getAllTeachers()
-      .then((data) => {
-        setUserData(data);
-        // console.log(data)
-        const act = data.filter((data) => ((data.subscription=="Active")))
-        const inact = data.filter((data) => ((data.subscription=="InActive")))
-        setallData(data);
-        setactiveData(act);
-        setInactiveData(inact);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-  }, []);
+ 
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
     setSearchItem(searchTerm)
@@ -151,6 +136,23 @@ const Teacher = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+
+  useEffect(() => {
+    
+    getAllTeachers()
+      .then((data) => {
+        setUserData(data);
+        // console.log(data)
+        const act = data.filter((data) => ((data.subscription=="Active")))
+        const inact = data.filter((data) => ((data.subscription=="InActive")))
+        setallData(data);
+        setactiveData(act);
+        setInactiveData(inact);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, [showModalUpdate,bool]);
   return (
     <div className="AMS-1 screen">
     <SideNav xyz={'teacher'}/>

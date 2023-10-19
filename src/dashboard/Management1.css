@@ -5,746 +5,99 @@
     justify-content: center;
     width: 100%;
   }
+
   
   .AMS .div {
     background-color: #eff3f4;
-    height: 960px;
-    overflow: hidden;
     position: relative;
-    width: 1920px;
+    padding: 25px 45px;
+    width: 85%;
   }
-  
-  .AMS .text-wrapper {
-    color: black;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 32px;
-    font-weight: 700;
-    left: 376px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 42px;
+  .managment-document{
+    display: flex;
+     gap: 10%;
   }
-  
-  .AMS .line {
-    height: 1px;
-    left: -4875px;
-    object-fit: cover;
-    position: absolute;
-    top: 2417px;
-    width: 1472px;
-  }
-  
+ 
   .AMS .overlap {
     background-color: #ffffff;
     border-radius: 24px;
-    height: 756px;
-    left: 1055px;
-    position: absolute;
-    top: 153px;
-    width: 439px;
-  }
-  
-  .AMS .group {
-    height: 48px;
-    left: 347px;
-    position: absolute;
-    top: 687px;
-    width: 250px;
-  }
-  
-  .AMS .overlap-group {
-    background-color: #eff3f4;
-    border-radius: 8px;
-    height: 48px;
     position: relative;
-    width: 166px;
-    margin-left: -248px;
-  }
-  
-  .AMS .text-wrapper-2 {
-    color: black;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 19px;
-    font-weight: 700;
-    left: 58px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 14px;
-    width: 71px;
-  }
-  
-  .AMS .overlap-wrapper {
-    height: 48px;
-    left: 67px;
-    position: absolute;
-    top: 687px;
-    width: 250px;
-  }
-  
-  .AMS .div-wrapper {
-    background-color: #4f78fe;
-    border-radius: 8px;
-    height: 48px;
-    position: relative;
-    width: 198px;
-    margin-left: -34px;
-  }
-  
-  .AMS .text-wrapper-3 {
-    color: white;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 19px;
-    font-weight: 700;
-    left: 71px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 4px;
-    width: 56px;
+    width: 100%;
 }
   
-  
-  .AMS .text-wrapper-4 {
-    color: #000000;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 17px;
-    font-weight: 700;
-    left: 154px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 338px;
-  }
-  
-  .AMS .overlap-2 {
-    background-color: #ffffff;
-    border-radius: 24px;
-    height: 507px;
-    left: 311px;
-    position: absolute;
-    top: 150px;
-    width: 668px;
+.AMS .overlap-2 {
+  background-color: #ffffff;
+  border-radius: 24px;
+  width: 100%;
+  padding: 30px 31px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-  }
-  
-  .AMS .overlap-3 {
-    background-color: #4f78fe;
-    border-radius: 8px;
-    height: 48px;
-    left: 412px;
-    position: absolute;
-    top: 440px;
-    width: 229px;
-  }
-  
-  .AMS .text-wrapper-5 {
-    color: #ffffff;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 20px;
-    font-weight: 700;
-    left: 61px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 8px;
-  }
-  
-  .AMS .overlap-group-wrapper {
-  
-    position: relative;
-  
-  }
-  
-  .AMS .overlap-4 {
-    background-color: #4f78fe;
-    border-radius: 8px;
-    height: 41px;
-    position: relative;
-    width: 74px;
-    margin-left: -28px;
-  }
-  
-  .AMS .text-wrapper-6 {
-    color: #ffffff;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 21px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 9px;
-    width: 41px;
-  }
-  
-  .AMS .text-wrapper-7 {
-    color:black;
-    font-family: "Poppins-Regular", Helvetica;
-    font-size: 16px;
-    font-weight: 400;
-    left: 40px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 299px;
-  }
-  
-  .AMS .text-wrapper-8 {
-    color: black;
-    font-family: "Poppins-Regular", Helvetica;
-    font-size: 16px;
-    font-weight: 400;
-    left: 432px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 299px;
-  }
-  
-  .AMS .text-wrapper-9 {
-    color:  black;
-    font-family: "Poppins-Regular", Helvetica;
-    font-size: 16px;
-    font-weight: 400;
-    left: 432px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 99px;
-  }
-  
-  .AMS .text-wrapper-10 {
-    color:  black;
-    font-family: "Poppins-Regular", Helvetica;
-    font-size: 16px;
-    font-weight: 400;
-    left: 432px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 199px;
-  }
-  
-  .AMS .text-wrapper-11 {
-    color:  black;
-    font-family: "Poppins-Regular", Helvetica;
-    font-size: 16px;
-    font-weight: 400;
-    left: 40px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 99px;
-  }
-  
-  .AMS .text-wrapper-12 {
-    color:  black;
-    font-family: "Poppins-Medium", Helvetica;
-    font-size: 21px;
-    font-weight: 500;
-    left: 40px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 139px;
-  }
-  
-  .AMS .text-wrapper-13 {
-    color:  black;
-    font-family: "Poppins-Medium", Helvetica;
-    font-size: 21px;
-    font-weight: 500;
-    left: 40px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 239px;
-  }
-  
-  .AMS .text-wrapper-14 {
-    color:  black;
-    font-family: "Poppins-Medium", Helvetica;
-    font-size: 21px;
-    font-weight: 500;
-    left: 40px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 339px;
-  }
-  
-  .AMS .text-wrapper-15 {
-    color: black;
-    font-family: "Poppins-Medium", Helvetica;
-    font-size: 21px;
-    font-weight: 500;
-    left: 432px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 339px;
-  }
-  
-  .AMS .text-wrapper-16 {
-    color: black;
-    font-family: "Poppins-Medium", Helvetica;
-    font-size: 21px;
-    font-weight: 500;
-    left: 432px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 239px;
-  }
-  
-  .AMS .text-wrapper-17 {
-    color: black;
-    font-family: "Poppins-Medium", Helvetica;
-    font-size: 21px;
-    font-weight: 500;
-    left: 432px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 139px;
-  }
-  
-  .AMS .text-wrapper-18 {
-    color: black;
-    font-family: "Poppins-Regular", Helvetica;
-    font-size: 16px;
-    font-weight: 400;
-    left: 40px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 199px;
-  }
-  
-  .AMS .text-wrapper-19 {
-    color: #00000033;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 24px;
-    font-weight: 700;
-    left: 40px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 39px;
-  }
-  
-  .AMS .overlap-5 {
-    height: 987px;
-    left: -54px;
-    position: absolute;
-    top: 0;
-    width: 360px;
-  }
-  
-  .AMS .group-2 {
-    background-color: #fafafa;
-    height: 960px;
-    left: 0;
-    position: absolute;
-    top: 27px;
-    width: 304px;
-  }
-  
-  .AMS .group-wrapper {
-    background-color: #4f78fe;
-    border-radius: 16px;
-    height: 66px;
-    left: 32px;
-    position: absolute;
-    top: 204px;
-    width: 240px;
-  }
-  
-  .AMS .group-3 {
-    height: 34px;
-    left: 24px;
-    position: relative;
-    top: 16px;
-    width: 136px;
-  }
-  
-  .AMS .text-wrapper-20 {
-    color: #ffffff;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 42px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 5px;
-  }
-  
-  .AMS .dashboard {
-    height: 34px;
-    left: 0;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    width: 34px;
-  }
-  
-  .AMS .img {
-    height: 134px;
-    left: 54px;
-    object-fit: cover;
-    position: absolute;
-    top: 18px;
-    width: 190px;
-  }
-  
-  .AMS .group-4 {
-    height: 24px;
-    left: 86px;
-    position: absolute;
-    top: 483px;
-    width: 100px;
-  }
-  
-  .AMS .text-wrapper-21 {
-    color: #808080;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 43px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-  }
-  
-  .AMS .img-2 {
-    height: 24px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 35px;
-  }
-  
-  .AMS .group-5 {
-    height: 25px;
-    left: 86px;
-    position: absolute;
-    top: 426px;
-    width: 111px;
-  }
-  
-  .AMS .text-wrapper-22 {
-    color: #808080;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 43px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 1px;
-  }
-  
-  .AMS .group-6 {
-    height: 30px;
-    left: 86px;
-    position: absolute;
-    top: 364px;
-    width: 149px;
-  }
-  
-  .AMS .text-wrapper-23 {
-    color: #808080;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 35px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 3px;
-  }
-  
-  .AMS .img-3 {
-    height: 30px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 26px;
-  }
-  
-  .AMS .group-7 {
-    height: 27px;
-    left: 86px;
-    position: absolute;
-    top: 540px;
-    width: 112px;
-  }
-  
-  .AMS .text-wrapper-24 {
-    color: #808080;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 42px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 1px;
-  }
-  
-  .AMS .icon-user-edit {
-    height: 27px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 34px;
-  }
-  
-  .AMS .group-8 {
-    height: 30px;
-    left: 56px;
-    position: absolute;
-    top: 608px;
-    width: 138px;
-  }
-  
-  .AMS .text-wrapper-25 {
-    color: var(--dark-grey-2);
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 31px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 3px;
-  }
-  
-  .AMS .icon-file-invoice {
-    height: 30px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 22px;
-  }
-  
-  .AMS .group-9 {
-    height: 24px;
-    left: 56px;
-    position: absolute;
-    top: 742px;
-    width: 101px;
-  }
-  
-  .AMS .text-wrapper-26 {
-    color: var(--dark-grey-2);
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 47px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-  }
-  
-  .AMS .icon-credit-card {
-    height: 23px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 30px;
-  }
-  
-  .AMS .group-10 {
-    height: 24px;
-    left: 56px;
-    position: absolute;
-    top: 678px;
-    width: 105px;
-  }
-  
-  .AMS .text-wrapper-27 {
-    color: var(--dark-grey-2);
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 38px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-  }
-  
-  .AMS .icon-money-bill {
-    height: 18px;
-    left: 0;
-    position: absolute;
-    top: 3px;
-    width: 30px;
-  }
-  
-  .AMS .group-11 {
-    height: 30px;
-    left: 63px;
-    position: absolute;
-    top: 294px;
-    width: 184px;
-  }
-  
-  .AMS .group-12 {
-    height: 30px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 83px;
-  }
-  
-  .AMS .text-wrapper-28 {
-    color: var(--dark-grey-2);
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 35px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 3px;
-  }
-  
-  .AMS .icon-chevron-down {
-    height: 9px;
-    left: 170px;
-    position: absolute;
-    top: 11px;
-    width: 14px;
-  }
-  
-  .AMS .group-13 {
-    background-color: #fafafa;
-    height: 960px;
-    left: 56px;
-    position: absolute;
-    top: 0;
-    width: 304px;
-  }
-  
-  .AMS .overlap-6 {
-    background-color: #4f78fe;
-    border-radius: 16px;
-    height: 66px;
-    left: 32px;
-    position: absolute;
-    top: 276px;
-    width: 240px;
-  }
-  
-  .AMS .group-14 {
-    height: 30px;
-    left: 31px;
-    position: relative;
-    top: 18px;
-    width: 184px;
-  }
-  
-  .AMS .text-wrapper-29 {
-    color: #ffffff;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 35px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 3px;
-  }
-  
-  .AMS .group-15 {
-    height: 134px;
-    left: 42px;
-    object-fit: cover;
-    position: absolute;
-    top: 18px;
-    width: 202px;
-  }
-  
-  .AMS .group-16 {
-    height: 24px;
-    left: 98px;
-    position: absolute;
-    top: 225px;
-    width: 94px;
-  }
-  
-  .AMS .text-wrapper-30 {
-    color: #808080;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-  }
-  
-  .AMS .text-wrapper-31 {
-    color: #4f78fe;
-    font-family: "Poppins-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    left: 35px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 3px;
-  }
-  
-  .AMS .icons-dashboard {
-    height: 34px;
-    left: 57px;
-    object-fit: cover;
-    position: absolute;
-    top: 247px;
-    width: 34px;
-  }
-  
-  .AMS .group-17 {
-    height: 61px;
-    left: 1683px;
-    position: absolute;
-    top: 37px;
-    width: 165px;
-  }
-  
-  .AMS .rectangle {
-    height: 61px;
-    left: 104px;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    width: 61px;
-  }
-  
-  .AMS .vector-wrapper {
-    background-color: #ffffff;
-    border-radius: 16px;
-    height: 61px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 64px;
-  }
-  
-  .AMS .vector {
-    height: 32px;
-    left: 16px;
-    position: absolute;
-    top: 14px;
-    width: 32px;
-  }
-  
+.details-wrapper{
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  gap: 24px;
+
+}
+.details{
+  color: #383838;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 700;
+  padding-bottom: 24px;
+}
+.view-document-wrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.font1{
+  color: var(--light-grey, #A9A9B1);
+font-family: Poppins;
+font-size: 13px;
+font-weight: 400;
+}
+.font2{
+  color: var(--Dark-grey, #707070);
+font-family: Poppins;
+font-size: 18px;
+font-weight: 500;
+}
+
+.send-button{
+  padding: 9px 60px;
+  border-radius: 8px;
+  background: var(--main, #4F78FE);
+  color: #fff;
+
+}
+.view-button{
+  padding: 9px 20px;
+  border-radius: 8px;
+  background: var(--main, #4F78FE);
+  color: #fff;
+}
+.data-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.button-wrapper {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+  
+
+  
+
+
+  
+
+
