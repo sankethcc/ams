@@ -2,13 +2,41 @@ import React,{useEffect, useState} from 'react'
 import './Management1.css'
 import SideNav from './SideNav'
 import { useParams } from 'react-router-dom'
-import { getManagement } from '../API/apis';
+import { getManagement,sendcode,resendcode,getdocument} from '../API/apis';
 import Head from './Head';
 
 const ManagementDocument = () => {
   const {doc_id} = useParams()
   // console.log(doc_id)
   const [data, setdata] = useState({});
+  const [url, seturl] = useState('');
+
+  const [btn, setbtn] = useState("Send");
+
+
+  const sendCode = () => {
+    const formData = new FormData();
+      formData.append('username', data.user_id);
+    if (btn == "Send") {
+      sendcode(formData)
+        .then((Data) => {
+          setbtn("Resend")
+          console.log(data)
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+    else {
+      resendcode(formData)
+        .then((Data) => {
+          console.log(data)
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+  }
   useEffect(() => {
     
     getManagement(doc_id)
@@ -19,7 +47,17 @@ const ManagementDocument = () => {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-    
+
+      
+
+    const id= "653126b833c549b4a29b4deb"
+   
+    // getdocument(id)
+    //   .then((response) => response.blob())
+    //   .then((blob) => {
+    //     const objectURL = URL.createObjectURL(blob);
+    //     seturl(objectURL);
+    //   });
   }, []);
   return (
     <div className="AMS screen">
@@ -44,7 +82,7 @@ const ManagementDocument = () => {
         </div>
         <div className='data-wrapper'>
         <p className="font1">User name</p>
-          <p className="font2">{data.username}</p>
+          <p className="font2">{data.user_id}</p>
 
         </div>
         <div className='data-wrapper'>
@@ -69,11 +107,12 @@ const ManagementDocument = () => {
           
         </div>
         <div className='button-wrapper'>
-          <button className="send-button">Send code</button>
+              <button className="send-button" onClick={sendCode}>{`${btn} Code`}</button>
         </div>
       </div>
       <div className="overlap-2">
         <p className="details">DOCUMENT VIEW</p>
+        <iframe src={url}></iframe>
         <div className="button-wrapper">
             <button className="send-button">Valid</button>
             <button className="send-button">Invalid</button>

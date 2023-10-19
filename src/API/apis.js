@@ -25,6 +25,27 @@ export const login = (Data) => {
       throw error; // Handle errors
     });
 };
+// send code
+export const sendcode = (formData) => {
+  return axios.post(`${apiUrl}/send-document-verification-code`, formData)
+    .then((response) => {
+      return response.data; // Return the response data
+    })
+    .catch((error) => {
+      throw error; // Handle errors
+    });
+};
+
+//resend
+export const resendcode = (formData) => {
+  return axios.post(`${apiUrl}/resend-document-verification-code`, formData)
+    .then((response) => {
+      return response.data; // Return the response data
+    })
+    .catch((error) => {
+      throw error; // Handle errors
+    });
+};
 
 export const getTotalUsers = () => {
     return axios.get(`${apiUrl}/get_all_platform/users`)
@@ -36,6 +57,15 @@ export const getTotalUsers = () => {
       });
   };
 
+export const getdocument = (id) => {
+    return axios.get(`${apiUrl}/get_document/${id}`)
+      .then((response) => {
+        return response; // Return the response data
+      })
+      .catch((error) => {
+        throw error; // Handle errors
+      });
+  };
 
 // Fetch all users on the platform
 export const getAllPlatformUsers = () => {
