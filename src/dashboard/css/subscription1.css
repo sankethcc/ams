@@ -338,6 +338,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 400px;
 }
 .modal1-content1.open {
   opacity: 1;
@@ -445,8 +446,11 @@ body {
 
 .modal1-buttons1 {
   margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
 }
-
 .modal1-buttons1 button {
   border-radius: 8px;
   background: var(--main, #4f78fe);

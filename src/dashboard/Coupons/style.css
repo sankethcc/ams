@@ -259,6 +259,7 @@ body {
   flex-direction: column;
   padding: 25px 25px;
   box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.25);
+  width: 400px;
 }
 .modal-wrapper,
 .modal-content {
@@ -349,6 +350,10 @@ body {
 }
 .modal-buttons {
   margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
 }
 
 .modal-buttons button {

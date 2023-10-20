@@ -126,7 +126,7 @@ const SubscriptionModalUpdate = (props) => {
   }, []);
   return (
     <>
-      <div className="modal1-wrapper1">
+      <div className="modal-wrapper">
         <div className="modal1-content1">
           <h3 className="text1-wrapper1-modal1">Update Subscription</h3>
           <div className="content1-wrapper1-2">
