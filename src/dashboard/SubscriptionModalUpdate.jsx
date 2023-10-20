@@ -13,7 +13,7 @@ const SubscriptionModalUpdate = (props) => {
   const [amount, setAmount] = useState("");
   const [period, setPeriod] = useState("");
   const [description, setDescription] = useState("");
-  const [feature, setFeature] = useState([""]);
+  const [feature, setFeature] = useState(['']);
   const [tax, setTax] = useState("");
   const [TotalAmount, setTotalAmount] = useState("");
   const [selectedOption, setSelectedOption] = useState('');
@@ -48,8 +48,8 @@ const SubscriptionModalUpdate = (props) => {
     if(feature.length <= 4){
       const newFeature = [...feature, ""]
       setFeature(newFeature)
-
     }
+    console.log(feature)
   }
   useEffect(() => {
     getSubscriptionById(index)
@@ -59,7 +59,7 @@ const SubscriptionModalUpdate = (props) => {
         setAmount(response.amount)
         setPeriod(response.period)
         setDescription(response.description)
-        setFeature([response.feature_offering])
+        setFeature(JSON.parse(response.feature_offering))
         setTax(response.tax_regime)
         setTotalAmount(response.total)
         setSelectedOption(response.tax_excluded)
@@ -87,7 +87,7 @@ const SubscriptionModalUpdate = (props) => {
     formData.append('amount', amount);
     formData.append('period', period);
     formData.append('description', description);
-    formData.append('feature_offering', feature);
+    formData.append('feature_offering', JSON.stringify(feature));
     formData.append('tax_regime', tax);
     formData.append('tax_excluded', selectedOption);
 
@@ -190,7 +190,7 @@ const SubscriptionModalUpdate = (props) => {
               
             {feature.map((data, index)=>{
               return(
-                <div className="feature-input-list">
+                <div key={index} className="feature-input-list">
                 <input
               maxLength={20}
               value={data}

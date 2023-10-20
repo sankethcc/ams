@@ -37,6 +37,7 @@ const SubscriptionModal = (props) => {
       setFeature(newFeature)
 
     }
+    console.log(feature)
   }
   const submitHandler = async (e) => {
     // const lines = await feature.split('\n').map((line) => line.trim());
@@ -53,7 +54,7 @@ const SubscriptionModal = (props) => {
     formData.append('amount', amount);
     formData.append('period', period);
     formData.append('description', description);
-    formData.append('feature_offering', feature);
+    formData.append('feature_offering', JSON.stringify(feature));
     formData.append('tax_regime', tax);
     formData.append('tax_excluded', selectedOption);
 
@@ -65,7 +66,7 @@ const SubscriptionModal = (props) => {
           name,
           amount,
           period,
-          feature_offering: feature,
+          feature_offering: JSON.stringify(feature),
           description,
           tax_regime: tax,
           total: TotalAmount,
@@ -164,7 +165,7 @@ const SubscriptionModal = (props) => {
               
             {feature.map((data, index)=>{
               return(
-                <div className="feature-input-list">
+                <div key={index} className="feature-input-list">
                 <input
               maxLength={20}
               value={data}

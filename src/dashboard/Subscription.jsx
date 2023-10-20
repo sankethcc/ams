@@ -178,7 +178,9 @@ const Subscription = () => {
         </Col>
         {data &&
           data.length > 0 &&
-          data?.map((couponData, index) => (
+          data?.map((couponData, index) => {
+            const features = JSON.parse(couponData?.feature_offering)
+          return (
             <Col key={index} className="coupon1-items1">
 
               <Card
@@ -285,10 +287,11 @@ const Subscription = () => {
 
                   <ul style={{ padding: "0px", textTransform:'capitalize' }}>
                     {/* {couponData.feature_offering} */}
-                    <li className="li"><span style={{ marginRight: "10px" }}><IoIosCheckmarkCircleOutline /></span>{couponData.feature_offering}</li>
-                    {/* {couponData?.feature_offering.map((item, index1) => (
+                    {/* <li className="li"><span style={{ marginRight: "10px" }}><IoIosCheckmarkCircleOutline /></span>{couponData.feature_offering}</li> */}
+                    {features.map((item, index1) => {
+                    return (
                       <li className="li" key={index1}><span style={{ marginRight: "10px" }}><IoIosCheckmarkCircleOutline /></span>{item}</li>
-                    ))} */}
+                    )})}
                   </ul>
 
 
@@ -309,7 +312,7 @@ const Subscription = () => {
                 
               </Card>
             </Col>
-          ))}
+          )})}
       </Row>
       </div>
     </div>
