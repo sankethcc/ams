@@ -3,6 +3,9 @@ import { createSubscription} from "../API/apis.js";
 
 import Select from "react-select";
 import { enqueueSnackbar } from "notistack";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import { faRemove } from "@fortawesome/free-solid-svg-icons";
 
 const SubscriptionModal = (props) => {
   const { showModal, setShowModal, dataHandler } = props;
@@ -10,7 +13,7 @@ const SubscriptionModal = (props) => {
   const [amount, setAmount] = useState("");
   const [period, setPeriod] = useState("");
   const [description, setDescription] = useState("");
-  const [feature, setFeature] = useState("");
+  const [feature, setFeature] = useState(['']);
   const [tax, setTax] = useState("");
   const [TotalAmount, setTotalAmount] = useState("");
   const [selectedOption, setSelectedOption] = useState('');
@@ -18,10 +21,26 @@ const SubscriptionModal = (props) => {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
+  const handleFeatureChange = (event, index)=>{
+    const newFeature = [...feature]
+    newFeature[index] = event.target.value
+    setFeature(newFeature)
+  }
+  const handleRemoveFeature = (index)=>{
+    const newFeature = [...feature];
+    newFeature.splice(index, 1);
+    setFeature(newFeature)
+  }
+  const handleAddFeature = ()=>{
+    if(feature.length <= 4){
+      const newFeature = [...feature, ""]
+      setFeature(newFeature)
 
+    }
+  }
   const submitHandler = async (e) => {
-    const lines = await feature.split('\n').map((line) => line.trim());
-    const nonEmptyLines = await lines.filter((line) => line !== '');
+    // const lines = await feature.split('\n').map((line) => line.trim());
+    // const nonEmptyLines = await lines.filter((line) => line !== '');
     if(!name || !amount ||!period ||!description ||!tax ||!selectedOption){
       enqueueSnackbar(`Please fill all fields`, { variant: 'error' })
     }else{
@@ -34,7 +53,7 @@ const SubscriptionModal = (props) => {
     formData.append('amount', amount);
     formData.append('period', period);
     formData.append('description', description);
-    formData.append('feature_offering', nonEmptyLines);
+    formData.append('feature_offering', feature);
     formData.append('tax_regime', tax);
     formData.append('tax_excluded', selectedOption);
 
@@ -46,7 +65,7 @@ const SubscriptionModal = (props) => {
           name,
           amount,
           period,
-          feature_offering: nonEmptyLines,
+          feature_offering: feature,
           description,
           tax_regime: tax,
           total: TotalAmount,
@@ -135,8 +154,36 @@ const SubscriptionModal = (props) => {
             />
           </div>
           <div className="content1-wrapper1-2">
+            <div className="feature-head">
             <h5 className="modal1-type1-name1">Feature offering</h5>
-            <textarea
+            <FontAwesomeIcon onClick={handleAddFeature} icon={faAdd} />
+
+            </div>
+              <div className="feature-inputs-wrapper">
+
+              
+            {feature.map((data, index)=>{
+              return(
+                <div className="feature-input-list">
+                <input
+              maxLength={20}
+              value={data}
+              type="text"
+              className="modal1-type2"
+              placeholder="example"
+              onChange={(e) => {
+                handleFeatureChange(e, index)
+              }}
+            />
+            {feature.length>1?
+            <FontAwesomeIcon icon={faRemove} onClick={handleRemoveFeature} />
+            :null}
+                </div>
+              )
+            })}
+            </div>
+            {/* <input
+              maxLength={20}
               value={feature}
               type="text"
               className="modal1-type2"
@@ -144,7 +191,7 @@ const SubscriptionModal = (props) => {
               onChange={(e) => {
                 setFeature(e.target.value);
               }}
-            />
+            /> */}
 
           </div>
           <div className="content1-wrapper1-1">

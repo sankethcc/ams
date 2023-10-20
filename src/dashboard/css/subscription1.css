@@ -479,6 +479,39 @@ input.i {
 }
 
 
+
+/* feature add remove css */
+
+.feature-head{
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.feature-head svg{
+  cursor: pointer;
+  color: var(--light-grey, #a9a9b1);
+}
+.feature-head svg:hover{
+  color: blue;
+}
+
+.feature-inputs-wrapper{
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+.feature-input-list{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.feature-input-list svg{
+  cursor: pointer;
+  color: var(--light-grey, #a9a9b1);
+}
+.feature-input-list svg:hover{
+  color: red;
+}
 /* subscription menu css */
 
 .subscription-menu {

@@ -3,6 +3,8 @@ import { updateSubscription,getSubscriptionById,deleteSubscription} from "../API
 import { enqueueSnackbar } from "notistack";
 
 import Select from "react-select";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAdd, faRemove } from "@fortawesome/free-solid-svg-icons";
 
 const SubscriptionModalUpdate = (props) => {
   const { showModalUpdate, setShowModalUpdate, dataHandler, index } = props;
@@ -11,7 +13,7 @@ const SubscriptionModalUpdate = (props) => {
   const [amount, setAmount] = useState("");
   const [period, setPeriod] = useState("");
   const [description, setDescription] = useState("");
-  const [feature, setFeature] = useState("");
+  const [feature, setFeature] = useState([""]);
   const [tax, setTax] = useState("");
   const [TotalAmount, setTotalAmount] = useState("");
   const [selectedOption, setSelectedOption] = useState('');
@@ -32,6 +34,23 @@ const SubscriptionModalUpdate = (props) => {
         enqueueSnackbar(`Network Error`, { variant: 'error' })
       }
   }
+  const handleFeatureChange = (event, index)=>{
+    const newFeature = [...feature]
+    newFeature[index] = event.target.value
+    setFeature(newFeature)
+  }
+  const handleRemoveFeature = (index)=>{
+    const newFeature = [...feature];
+    newFeature.splice(index, 1);
+    setFeature(newFeature)
+  }
+  const handleAddFeature = ()=>{
+    if(feature.length <= 4){
+      const newFeature = [...feature, ""]
+      setFeature(newFeature)
+
+    }
+  }
   useEffect(() => {
     getSubscriptionById(index)
       .then((response) => {
@@ -40,7 +59,7 @@ const SubscriptionModalUpdate = (props) => {
         setAmount(response.amount)
         setPeriod(response.period)
         setDescription(response.description)
-        setFeature(response.feature_offering)
+        setFeature([response.feature_offering])
         setTax(response.tax_regime)
         setTotalAmount(response.total)
         setSelectedOption(response.tax_excluded)
@@ -54,10 +73,10 @@ const SubscriptionModalUpdate = (props) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     // console.log(feature);
-    const lines = await feature.split('\n').map((line) => line.trim());
+    // const lines = await feature.split('\n').map((line) => line.trim());
     // console.log(lines);
     // Filter out empty lines
-    const nonEmptyLines = await lines.filter((line) => line !== '');
+    // const nonEmptyLines = await lines.filter((line) => line !== '');
     if(!name || !amount ||!period ||!description ||!tax ||!selectedOption){
       enqueueSnackbar(`Please fill all fields`, { variant: 'error' })
     }else{
@@ -68,7 +87,7 @@ const SubscriptionModalUpdate = (props) => {
     formData.append('amount', amount);
     formData.append('period', period);
     formData.append('description', description);
-    formData.append('feature_offering', nonEmptyLines);
+    formData.append('feature_offering', feature);
     formData.append('tax_regime', tax);
     formData.append('tax_excluded', selectedOption);
 
@@ -161,8 +180,36 @@ const SubscriptionModalUpdate = (props) => {
             />
           </div>
           <div className="content1-wrapper1-2">
+            <div className="feature-head">
             <h5 className="modal1-type1-name1">Feature offering</h5>
-            <textarea
+            <FontAwesomeIcon onClick={handleAddFeature} icon={faAdd} />
+
+            </div>
+              <div className="feature-inputs-wrapper">
+
+              
+            {feature.map((data, index)=>{
+              return(
+                <div className="feature-input-list">
+                <input
+              maxLength={20}
+              value={data}
+              type="text"
+              className="modal1-type2"
+              placeholder="example"
+              onChange={(e) => {
+                handleFeatureChange(e, index)
+              }}
+            />
+            {feature.length>1?
+            <FontAwesomeIcon icon={faRemove} onClick={handleRemoveFeature} />
+            :null}
+                </div>
+              )
+            })}
+            </div>
+            {/* <input
+              maxLength={20}
               value={feature}
               type="text"
               className="modal1-type2"
@@ -170,7 +217,7 @@ const SubscriptionModalUpdate = (props) => {
               onChange={(e) => {
                 setFeature(e.target.value);
               }}
-            />
+            /> */}
 
           </div>
           <div className="content1-wrapper1-1">
