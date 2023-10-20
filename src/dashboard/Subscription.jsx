@@ -290,7 +290,7 @@ const Subscription = () => {
                     {/* <li className="li"><span style={{ marginRight: "10px" }}><IoIosCheckmarkCircleOutline /></span>{couponData.feature_offering}</li> */}
                     {features.map((item, index1) => {
                     return (
-                      <li className="li" key={index1}><span style={{ marginRight: "10px" }}><IoIosCheckmarkCircleOutline /></span>{item}</li>
+                      <li className="li" key={index1}><span style={{ marginRight: "10px", verticalAlign:'middle' }}><IoIosCheckmarkCircleOutline /></span>{item}</li>
                     )})}
                   </ul>
 

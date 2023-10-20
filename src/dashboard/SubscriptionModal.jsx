@@ -160,7 +160,7 @@ const SubscriptionModal = (props) => {
             <FontAwesomeIcon onClick={handleAddFeature} icon={faAdd} />
 
             </div>
-              <div className="feature-inputs-wrapper">
+              <div className={`feature-inputs-wrapper ${feature.length>1? 'more-feature':''}`}>
 
               
             {feature.map((data, index)=>{
@@ -171,7 +171,7 @@ const SubscriptionModal = (props) => {
               value={data}
               type="text"
               className="modal1-type2"
-              placeholder="example"
+              placeholder={`Enter Feature ${index+1}`}
               onChange={(e) => {
                 handleFeatureChange(e, index)
               }}

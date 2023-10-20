@@ -499,6 +499,10 @@ align-items: center;
 display: flex;
 flex-direction: column;
 gap: 10px;
+grid-template-columns: 6fr 6fr;
+}
+.more-feature{
+  display: grid!important;
 }
 .feature-input-list{
   display: flex;

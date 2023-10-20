@@ -34,6 +34,7 @@ body {
 }
 :where(.css-dev-only-do-not-override-18iikkb).ant-table-wrapper .ant-table-tbody >tr >td {
   text-align: center;
+  text-align: -webkit-center;
 }
 
 :where(.css-dev-only-do-not-override-18iikkb).ant-table-wrapper .ant-table {

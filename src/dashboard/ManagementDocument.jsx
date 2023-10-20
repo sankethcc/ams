@@ -1,15 +1,12 @@
 import React,{useEffect, useState} from 'react'
-import base64js from 'base64-js'
 import './Management1.css'
 import SideNav from './SideNav'
 import { useParams } from 'react-router-dom'
-import { getManagement,sendcode,resendcode,getdocument} from '../API/apis';
+import { getManagement,sendcode,resendcode,getdocument, apiUrl} from '../API/apis';
 import Head from './Head';
-import pdffile from './pdffile.pdf'
 
 const ManagementDocument = () => {
   const {doc_id} = useParams()
-  // console.log(doc_id)
   const [data, setdata] = useState({});
   const [url, seturl] = useState('');
 
@@ -32,7 +29,7 @@ const ManagementDocument = () => {
     else {
       resendcode(formData)
         .then((Data) => {
-          console.log(data)
+          console.log(Data)
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
@@ -52,21 +49,21 @@ const ManagementDocument = () => {
 
       
 
-    const id= "653126b833c549b4a29b4deb"
+    // const id= "65327a1165095c0a9c32ce78"
    
-    getdocument(id)
-      .then((response) => {
-        // const objectURL = URL.createObjectURL(response.data);
-        const pdfBase64 = base64js.fromByteArray(new TextEncoder().encode(response.data));
-        seturl(pdfBase64);
-        console.log(response)
+    // getdocument(id)
+    //   .then((response) => {
+    //     // const objectURL = URL.createObjectURL(response.data);
+    //     // const pdfBase64 = base64js.fromByteArray(new TextEncoder().encode(response.data));
+    //     seturl(response.data);
+    //     // console.log(response.data)
 
-      })
+    //   })
         
-      // .then((blob) => {
-      //   const objectURL = URL.createObjectURL(blob);
-      //   seturl(objectURL);
-      // });
+    //   // .then((blob) => {
+    //   //   const objectURL = URL.createObjectURL(blob);
+    //   //   seturl(objectURL);
+    //   // });
   }, []);
   return (
     <div className="AMS screen">
@@ -121,12 +118,7 @@ const ManagementDocument = () => {
       </div>
       <div className="overlap-2">
         <p className="details">DOCUMENT VIEW</p>
-        {/* <embed src={url} /> */}
-        {/* <iframe src={`https://docs.google.com/gview?url=${url}&embedded=true`}></iframe> */}
-        {/* <embed src={`data:application/pdf;base64,${btoa{url}}`}></embed> */}
-        {/* <embed src={`data:application/pdf;base64,${url}`} type="application/pdf" width="100%" height="600px" /> */}
-        {/* <embed src={`data:application/pdf;base64,${pdfBase64}`} type="application/pdf" width="100%" height = "600px" /> */}
-          <embed src={pdffile} />
+          <embed src={`${apiUrl}get_document/${data.document_path}`} width="100%" height="600px" /> 
         <div className="button-wrapper">
             <button className="send-button">Valid</button>
             <button className="send-button">Invalid</button>

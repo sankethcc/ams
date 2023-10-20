@@ -13,7 +13,7 @@ export const Success = ({successName}) =>{
 }
 
 
-const apiUrl = 'http://localhost:5000/'; // Replace with your API URL
+export const apiUrl = 'http://localhost:5000/'; // Replace with your API URL
 
 export const login = (Data) => {
   return axios.post(`${apiUrl}/login`, Data)
