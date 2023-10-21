@@ -5,7 +5,7 @@ import search from './img/searchsymbol.png'
 import './Management1.css'
 import SideNav from './SideNav'
 import './components/subscription-data/table-data.css'
-import { getAllmanagement } from '../API/apis';
+import { getAllmanagement ,getpending} from '../API/apis';
 import { Table, Tag, Space, Button, Checkbox } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -26,6 +26,7 @@ const Management1 = () => {
   const [allData, setallData] = useState([]);
   const [activeData, setactiveData] = useState([]);
   const [InactiveData, setInactiveData] = useState([]);
+  const [requests, setrequests] = useState([]);
   const [activeButton, setActiveButton] = useState("Active");
   const [searchItem, setSearchItem] = useState('')
 
@@ -45,6 +46,15 @@ const Management1 = () => {
         console.error("Error fetching user data:", error);
       });
     
+    getpending()
+      .then((data) => {
+        // console.log(data)
+        setrequests(data)
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+    
   }, []);
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
@@ -53,6 +63,12 @@ const Management1 = () => {
 
     if (activeButton == 'Active') {
       const filteredItems = allData.filter((user) =>
+        user.username.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setUserData(filteredItems);
+    }
+    else if (activeButton == 'Request') {
+      const filteredItems = requests.filter((user) =>
         user.username.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setUserData(filteredItems);
@@ -73,6 +89,9 @@ const Management1 = () => {
   const handleButtonClick = (buttonText) => {
     if(buttonText=="Active"){
       setUserData(allData)
+    }
+    else if (buttonText == 'Request') {
+      setUserData(requests)
     }
     else if(buttonText=="Inactive"){
       setUserData(activeData)
@@ -116,7 +135,7 @@ const Management1 = () => {
 
 
       <div style={{paddingBottom:'20px'}}>
-      <h2 className="headd" style={{paddingBottom:'20px'}}>Subuscription</h2>
+      <h2 className="headd" style={{paddingBottom:'20px'}}>Subscription</h2>
       <div className="filter-style">
         <div className="filter-buttons">
 
@@ -126,8 +145,16 @@ const Management1 = () => {
           }
           onClick={() => handleButtonClick("Active")}
         >
-          All {allData.length}
+          All {requests.length}
         </button>
+        <button
+          className={
+            activeButton === "Request" ? "active-button" : "inactive-button"
+          }
+          onClick={() => handleButtonClick("Request")}
+        >
+          Requests {allData.length}
+        </button> 
         <button
           className={
             activeButton === "Inactive" ? "active-button" : "inactive-button"

@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import './Management1.css'
 import SideNav from './SideNav'
 import { useParams } from 'react-router-dom'
-import { getManagement,sendcode,resendcode,getdocument, apiUrl} from '../API/apis';
+import { getManagement,sendcode,resendcode,getdocument, apiUrl,verify} from '../API/apis';
 import Head from './Head';
 
 const ManagementDocument = () => {
@@ -12,7 +12,16 @@ const ManagementDocument = () => {
 
   const [btn, setbtn] = useState("Send");
 
-
+  const verifydoc = () => {
+    const formData = new FormData();
+    formData.append('username', data.user_id);
+    verify(formData).then((data) => {       
+          console.log(data)
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+  }
   const sendCode = () => {
     const formData = new FormData();
       formData.append('username', data.user_id);
@@ -120,7 +129,7 @@ const ManagementDocument = () => {
         <p className="details">DOCUMENT VIEW</p>
           <embed src={`${apiUrl}get_document/${data.document_path}`} width="100%" height="600px" /> 
         <div className="button-wrapper">
-            <button className="send-button">Valid</button>
+            <button onClick={verifydoc}  className="send-button">Valid</button>
             <button className="send-button">Invalid</button>
         </div>
       </div>

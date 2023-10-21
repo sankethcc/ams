@@ -65,8 +65,29 @@ export const getdocument = (id) => {
       .catch((error) => {
         throw error; // Handle errors
       });
-  };
+};
+  
+// Get pending request
+export const getpending = () => {
+    return axios.get(`${apiUrl}/get-unverified-documents`)
+      .then((response) => {
+        return response.data; // Return the response data
+      })
+      .catch((error) => {
+        throw error; // Handle errors
+      });
+};
 
+// verify document
+export const verify = (subscriptionData) => {
+  return axios.post(`${apiUrl}/verify-document`, subscriptionData)
+    .then((response) => {
+      return response.data; // Return the response data
+    })
+    .catch((error) => {
+      throw error; // Handle errors
+    });
+};
 // Fetch all users on the platform
 export const getAllPlatformUsers = () => {
   return axios.get(`${apiUrl}/get_all_platform/users`)
