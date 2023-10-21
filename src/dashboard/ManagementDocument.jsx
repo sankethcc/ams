@@ -4,6 +4,7 @@ import SideNav from './SideNav'
 import { useParams } from 'react-router-dom'
 import { getManagement,sendcode,resendcode,getdocument, apiUrl,verify} from '../API/apis';
 import Head from './Head';
+import { enqueueSnackbar } from 'notistack';
 
 const ManagementDocument = () => {
   const {doc_id} = useParams()
@@ -17,10 +18,15 @@ const ManagementDocument = () => {
     formData.append('username', data.user_id);
     verify(formData).then((data) => {       
           console.log(data)
+          enqueueSnackbar(`${data.message}`, {variant:'success'})
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
         });
+  }
+  const [isDocumentView, setIsDocumentView] = useState(false)
+  const handleViewDocument = ()=>{
+    setIsDocumentView(!isDocumentView)
   }
   const sendCode = () => {
     const formData = new FormData();
@@ -56,23 +62,6 @@ const ManagementDocument = () => {
         console.error("Error fetching user data:", error);
       });
 
-      
-
-    // const id= "65327a1165095c0a9c32ce78"
-   
-    // getdocument(id)
-    //   .then((response) => {
-    //     // const objectURL = URL.createObjectURL(response.data);
-    //     // const pdfBase64 = base64js.fromByteArray(new TextEncoder().encode(response.data));
-    //     seturl(response.data);
-    //     // console.log(response.data)
-
-    //   })
-        
-    //   // .then((blob) => {
-    //   //   const objectURL = URL.createObjectURL(blob);
-    //   //   seturl(objectURL);
-    //   // });
   }, []);
   return (
     <div className="AMS screen">
@@ -106,7 +95,7 @@ const ManagementDocument = () => {
 
         </div>
         <div className='data-wrapper'>
-        <p className="font1">DIOS code</p>
+        <p className="font1">UDISE code</p>
           <p className="font2">{data.udise_code}</p>
 
         </div>
@@ -114,24 +103,34 @@ const ManagementDocument = () => {
         <p className="font1">Document</p>
         <div className="view-document-wrapper">
         <p className="font2">doc name</p>
-        <button className="view-button">View</button>
+        <button onClick={handleViewDocument} className="view-button">View</button>
         </div>
 
         </div>
        
           
         </div>
+        {!data.is_document_verified?
         <div className='button-wrapper'>
               <button className="send-button" onClick={sendCode}>{`${btn} Code`}</button>
         </div>
+        :null}
       </div>
       <div className="overlap-2">
         <p className="details">DOCUMENT VIEW</p>
-          <embed src={`${apiUrl}get_document/${data.document_path}`} width="100%" height="600px" /> 
-        <div className="button-wrapper">
-            <button onClick={verifydoc}  className="send-button">Valid</button>
-            <button className="send-button">Invalid</button>
-        </div>
+          {isDocumentView?
+          (
+            <div>
+              <embed src={`${apiUrl}get_document/${data.document_path}`} width="100%" height="600px" /> 
+              {!data.is_document_verified?
+            <div className="button-wrapper">
+                <button onClick={verifydoc}  className="send-button">Valid</button>
+                <button className="send-button">Invalid</button>
+            </div>
+            :null}
+            </div>
+
+          ):null}
       </div>
       </div>
       
