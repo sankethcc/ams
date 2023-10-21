@@ -145,7 +145,7 @@ const Management1 = () => {
           }
           onClick={() => handleButtonClick("Active")}
         >
-          All {requests.length}
+          All {allData.length}
         </button>
         <button
           className={
@@ -153,7 +153,7 @@ const Management1 = () => {
           }
           onClick={() => handleButtonClick("Request")}
         >
-          Requests {allData.length}
+          Requests {requests.length}
         </button> 
         <button
           className={
