@@ -247,6 +247,9 @@ body {
 .subscription1-card1.active .sub-details p{
   color: #fff !important;
 }
+.subscription1-card1.active .sub-details div{
+  color: #fff !important;
+}
 .subscription1-card1.active .subscription-menu div svg{
   color: #fff !important;
 }
@@ -422,7 +425,7 @@ body {
 
 .modal1-validity2 {
   color: var(--light-grey, #a9a9b1);
-  padding: 7px;
+  padding: 10px;
   font-family: Poppins;
   width: 100%;
 }

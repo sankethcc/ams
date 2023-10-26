@@ -3,17 +3,11 @@ import "./css/subscription1.css";
 import { Card, Col, Row } from "react-bootstrap";
 import SubscriptionModal from "./SubscriptionModal";
 import SubscriptionModalUpdate from './SubscriptionModalUpdate'
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { getSubscriptions} from "../API/apis.js";
 import Head from "./Head";
 import SideNav from "./SideNav";
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Fade from '@mui/material/Fade';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { IconButton } from "@mui/material";
 const Subscription = () => {
   const [allActive, setAllActive] = useState(true);
   const [Active, setActive] = useState(false);
@@ -21,7 +15,6 @@ const Subscription = () => {
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([]);
   const [activeCardIndex, setActiveCardIndex] = useState(null);
-  // console.log(data);
   const [searchItem, setSearchItem] = useState('')
   const [allData, setallData] = useState([]);
   const [activeData, setactiveData] = useState([]);
@@ -57,7 +50,6 @@ const Subscription = () => {
       setData(filteredItems);
     }
 
-    // setData(filteredItems);
   }
   const toggleButton = (button) => {
     if (button === "All") {
@@ -103,9 +95,7 @@ const Subscription = () => {
     
     getSubscriptions()
       .then((data) => {
-        // setData(data);
         setallData(data)
-        // console.log(data)
         const act = data.filter((data) => ((!data.blocked)))
         const inact = data.filter((data) => ((data.blocked)))
         setactiveData(act)
@@ -137,19 +127,19 @@ const Subscription = () => {
           className={`card1-wrap1-4 ${allActive ? "active" : ""}`}
           onClick={() => toggleButton("All")}
         >
-          <div className="text1-wrapper1-13">All</div>
+          <div className="text1-wrapper1-13">All {allData.length}</div>
         </div>
         <div
           className={`card1-wrap1-4 ${Active ? "active" : ""}`}
           onClick={() => toggleButton("Active")}
         >
-          <div className="text1-wrapper1-13">Active</div>
+          <div className="text1-wrapper1-13">Active {activeData.length}</div>
         </div>
         <div
           className={`card1-wrap1-4 ${Expired ? "active" : ""}`}
           onClick={() => toggleButton("Expired")}
         >
-          <div className="text1-wrapper1-13">Expired</div>
+          <div className="text1-wrapper1-13">Expired {InactiveData.length}</div>
         </div>
       </div>
       <div className="input1-wrapper">
@@ -159,7 +149,7 @@ const Subscription = () => {
       </div>
 
       <Row className="coupon-card">
-        <Col md={3}>
+        <Col >
           <Card className="subscription1-card1-create1">
             <button className="button" onClick={(e) => setShowModal(true)}>
               <span>+</span>
@@ -181,13 +171,14 @@ const Subscription = () => {
           data?.map((couponData, index) => {
             const features = JSON.parse(couponData?.feature_offering)
           return (
-            <Col key={index} className="coupon1-items1">
+            <Col key={index} className="coupon1-items1" >
 
               <Card
                 key={index}
                 className={`subscription1-card1 ${activeCardIndex === index ? "active" : "" }`}
                   style={{position:'relative', padding:'25px'}}
-                  onClick={() => handleCardClick(index)}
+                  onMouseEnter={() => handleCardClick(index)}
+                  onMouseLeave={handleCardClick}
               >
                 <div                
                   style={{
@@ -200,15 +191,6 @@ const Subscription = () => {
 
                   }}
                 >
-                  {/* <select placeholder='Update'
-                  style={{ border: "none", outline:'none', background:'transparent', cursor:'pointer'  }}
-                  onChange={()=>handleOpenUpdate(index, couponData?._id)}
-                >
-                        <option>  </option>
-                        <option> Update </option>
-                        <option>Delete</option>
-                     
-                    </select> */}
                     <div className="subscription-menu">
                       <div className="dot-menu"> <MoreVertIcon /> </div>
                       <div className="menu-list">
@@ -277,7 +259,7 @@ const Subscription = () => {
                 >
                   {couponData?.description ?? "-"}
                 </p>
-                <p
+                <div
                   style={{
                     color: "#707070",
                     fontSize: "15px",
@@ -286,8 +268,6 @@ const Subscription = () => {
                 >
 
                   <ul style={{ padding: "0px", textTransform:'capitalize' }}>
-                    {/* {couponData.feature_offering} */}
-                    {/* <li className="li"><span style={{ marginRight: "10px" }}><IoIosCheckmarkCircleOutline /></span>{couponData.feature_offering}</li> */}
                     {features.map((item, index1) => {
                     return (
                       <li className="li" key={index1}><span style={{ marginRight: "10px", verticalAlign:'middle' }}><IoIosCheckmarkCircleOutline /></span>{item}</li>
@@ -295,13 +275,13 @@ const Subscription = () => {
                   </ul>
 
 
-                </p>
+                </div>
                 </div>
                 <div className="sub_bottom">
                 <p className="left-entry">
                   <small>Tax regime</small>
                   <br />
-                  {couponData?.tax_regime ?? "0"}%  {couponData?.selectedOption ?? '-'}
+                  {couponData?.tax_regime ?? "0"}%  {couponData?.tax_excluded ?? '-'}
                 </p>
                 <p className="right-entry">
                   <small>Total amount</small>

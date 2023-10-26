@@ -186,9 +186,9 @@ body {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
     min-height: 217px;
     color: #707070;
+    justify-content: space-between;
 }
 .subscription-card-create {
   background: #fff;
@@ -203,7 +203,12 @@ body {
   background-color: #4f78fe;
   color: white;
 }
-
+.subscription-card.active .subscription-menu div svg{
+  color: #fff !important;
+}
+.subscription-card.active p span{
+  color: #fff !important;
+}
 .button {
   border: none;
   color: #333;
@@ -373,6 +378,60 @@ body {
   margin-right: 0;
 }
 
+
+.coupon-select{
+  width: 100%;
+  position: relative;
+}
+.coupon-select .accordion-body{
+  padding: 5px;
+}
+.accordion-input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.accordion-input-wrapper input{
+  height: fit-content;
+  width: fit-content;
+}
+.accordion-input-wrapper label{
+  width: 90%;
+  display: grid;
+  grid-template-columns:6fr 6fr;
+}
+
+.coupon-select .accordion-button{
+  background-color: #eff3f4;
+  padding: 10px 7px;
+}
+.coupon-select .accordion-button::after {
+  margin-left: auto;
+  background-size: 10px;
+  width: 10px;
+  height: 10px;
+}
+.coupon-select .accordion-button:not(.collapsed) {
+  color: black;
+  font-weight: 500;
+  box-shadow: none;
+}
+.coupon-select button.accordion-button.collapsed {
+  font-weight: normal;
+}
+.coupon-select .accordion-button:focus {
+  z-index: 3;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.coupon-select .accordion-collapse {
+  position: absolute;
+  background: #fff;
+  width: 100%;
+  border: 1px solid #cdcdcd;
+  border-top: none;
+}
 /* Filter.css */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,200&display=swap");
 @import "~font-awesome/css/font-awesome.min.css";

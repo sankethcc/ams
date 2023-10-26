@@ -49,7 +49,6 @@ const Dashboard = () => {
       activeButtonToApiFunctionMap[activeButton]()
         .then((response) => {
           const users = response;
-          console.log(`${activeButton} users:`, users);
           setAllUsersCount(users.length);
         })
         .catch((error) => {
@@ -89,7 +88,6 @@ const Dashboard = () => {
     setActiveData(getData());
   }, [activeButton]);
 
-  console.log("allUsersCount:", allUsersCount);
 
   return (
     <div className="screen">

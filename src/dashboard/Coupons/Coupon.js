@@ -3,12 +3,8 @@ import "./style.css";
 import { Card, Col, Row } from "react-bootstrap";
 import SideNav from "../SideNav";
 import Head from "../Head";
-import { getAllCoupons, createCoupon } from "../../API/apis";
-import { IconButton } from "@mui/material";
+import { getAllCoupons, createCoupon, getSubscriptions } from "../../API/apis";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Fade from "@mui/material/Fade";
 import ModalUpdate from "./ModalUpdate";
 import { useSnackbar } from "notistack";
 
@@ -37,10 +33,16 @@ const Coupon = () => {
   const [InactiveData, setInactiveData] = useState([]);
   const [searchItem, setSearchItem] = useState("");
 
+  const [subscription, setSubscription] = useState([])
+  const [selectedSubscription, setSelectedSubscription] = useState([])
+
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
   const submitHandler = async () => {
+    if(ctype ==="One time apply"){
+      setlimit(1)
+    }
     if (
       !code ||
       !ctype ||
@@ -52,6 +54,8 @@ const Coupon = () => {
       !description
     ) {
       enqueueSnackbar(`Please fill all fields`, { variant: "error" });
+      
+      console.log(limits)
     } else {
       const formData = new FormData();
       formData.append("coupon_code", code);
@@ -62,12 +66,9 @@ const Coupon = () => {
       formData.append("start_date", start);
       formData.append("expire_date", validity);
       formData.append("description", description);
-      // console.log(submitData)
-      // console.log("Data being sent to server:", submitData);
+      formData.append('valid_subscription', selectedSubscription);
       try {
         const response = await createCoupon(formData);
-        // console.log(response)
-        // console.log("Coupon created successfully.");
         enqueueSnackbar(`Coupon created successfully`, { variant: "success" });
         const obj = {
           discount,
@@ -82,7 +83,6 @@ const Coupon = () => {
           limits,
           ctype,
         };
-        // dataHandler(obj);
         setCoupons((prev) => [
           {
             _id: code,
@@ -151,54 +151,6 @@ const Coupon = () => {
     }
   };
 
-  // const submitHandler = (e) => {
-  //   e.preventDefault();
-  //   const obj = {
-  //     discount,
-  //     validity,
-  //     type,
-  //     code,
-  //     description,
-  //     limit,
-  //     limit_type,
-  //     discountv,
-  //     start,
-  //     limits,
-  //     ctype
-  //   };
-  //   dataHandler(obj);
-  //   setCoupons((prev) => [{
-  //       '_id': code,
-  //       'discount': discountv,
-  //       'coupon_type': ctype,
-  //       'assign_limit': limits,
-  //       'start_date': start,
-  //       'expire_date': validity,
-  //       'discount_type':type,
-  //         description
-  //   }, ...prev]);
-  //   setallData((prev) => [{
-  //       '_id': code,
-  //       'discount': discountv,
-  //       'coupon_type': ctype,
-  //       'assign_limit': limits,
-  //       'start_date': start,
-  //       'expire_date': validity,
-  //       'discount_type':type,
-  //         description
-  //     }, ...prev]);
-  //   setdiscountv("");
-  //   setValidity("");
-  //   setType("Percentage");
-  //   setCode("");
-  //   setDescription("");
-  //   setlimit("")
-  //   setLimit("");
-  //   setcType("One time apply");
-  //   setstart("")
-  //   setShowModal(false);
-  // };
-
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -245,13 +197,11 @@ const Coupon = () => {
       ...prevShowModalUpdate,
       [index]: true,
     }));
-    // console.log(value)
   };
 
   useEffect(() => {
     getAllCoupons()
       .then((response) => {
-        // setCoupons(response.data);
         setallData(response.data)
         const date = new Date().toJSON().slice(0, 10);;
         const data = response.data;
@@ -272,8 +222,19 @@ const Coupon = () => {
       .catch((error) => {
         console.error("Error fetching coupons:", error);
       });
-  }, [showModalUpdate]);
 
+      getSubscriptions()
+      .then((data) => {
+        const act = data.filter((data) => ((!data.blocked)))
+        setSubscription(act)
+        
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, [showModalUpdate]);
+  
+  
   return (
     <div className="screen">
       <SideNav xyz={"coupon"} />
@@ -285,19 +246,19 @@ const Coupon = () => {
               className={`card-wrap-4 ${allActive ? "active" : ""}`}
               onClick={() => toggleButton("All")}
             >
-              <div className="text-wrapper-13">All</div>
+              <div className="text-wrapper-13">All {allData.length}</div>
             </div>
             <div
               className={`card-wrap-4 ${active ? "active" : ""}`}
               onClick={() => toggleButton("Active")}
             >
-              <div className="text-wrapper-13">Active</div>
+              <div className="text-wrapper-13">Active {activeData.length}</div>
             </div>
             <div
               className={`card-wrap-4 ${expired ? "active" : ""}`}
               onClick={() => toggleButton("Expired")}
             >
-              <div className="text-wrapper-13">Expired</div>
+              <div className="text-wrapper-13">Expired {InactiveData.length}</div>
             </div>
           </div>
           <div className="input-wrapper">
@@ -311,7 +272,7 @@ const Coupon = () => {
           </div>
         </div>
         <div className="coupon-card">
-          <Col md={3}>
+          <Col >
             <div className="subscription-card-create">
               <button className="button" onClick={(e) => setShowModal(true)}>
                 <span>+</span>
@@ -320,7 +281,7 @@ const Coupon = () => {
               {showModal && (
                 <div className="modal-wrapper">
                 <div className="modal-content">
-                  <h3 className="text-wrapper-modal">Update Coupon</h3>
+                  <h3 className="text-wrapper-modal">Create Coupon</h3>
                   <div style={{marginBottom:'10px'}} className="content-wrapper-1">
                     <div className="modal-validity-div" style={{width:'100%'}}>
                       <h5 className="modal-validity-name">Start Date</h5>
@@ -399,6 +360,32 @@ const Coupon = () => {
                   />
                     </div>
                   </div>
+                  <div className="content-wrapper-3">
+                    <h5 className="modal-code-name">Subscription</h5>
+                    <div style={{display:'flex', gap:'15px'}}>
+                    
+                    <select
+                    style={{textTransform:'capitalize'}}
+                      type="text"
+                      className="modal-select b-radius2"
+                      value={selectedSubscription}
+                      onChange={(e) => {
+                        setSelectedSubscription(e.target.value);
+                      }}
+                    >
+                      <option value='' disabled selected hidden>Select Subscription</option>
+                       {subscription.map((data, i)=>{
+                            const {_id, name, amount, period} = data
+                            return(
+                                <option style={{textTransform:'capitalize'}} value={_id}key={i}>
+                                    <span>{name}</span>
+                                    <span> ₹{amount} / {period} </span>
+                                </option>
+                            )
+                          })}
+                    </select> 
+                    </div>
+                  </div>
                   <div className="content-wrapper-4">
                     <h5 className="modal-code-name">Create Code</h5>
                     <input
@@ -454,7 +441,8 @@ const Coupon = () => {
                   className={`subscription-card ${
                     activeCardIndex === index ? "active" : ""
                   }`}
-                  onClick={() => handleCardClick(index)}
+                  onMouseEnter={() => handleCardClick(index)}
+                  onMouseLeave={handleCardClick}
                 >
                   <p
                     style={{
@@ -519,8 +507,6 @@ const Coupon = () => {
                       {couponData?.expire_date ?? 0}
                     </p>
                   </div>
-                </Card>
-
                 <div
                   style={{ position: "absolute", top: "15px", right: "15px" }}
                 >
@@ -532,6 +518,8 @@ const Coupon = () => {
                       </div>
                     </div>
                 </div>
+                </Card>
+
 
                 {showModalUpdate[index] && (
                   <ModalUpdate

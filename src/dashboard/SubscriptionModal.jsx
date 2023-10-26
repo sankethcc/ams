@@ -37,7 +37,6 @@ const SubscriptionModal = (props) => {
       setFeature(newFeature)
 
     }
-    console.log(feature)
   }
   const submitHandler = async (e) => {
     // const lines = await feature.split('\n').map((line) => line.trim());
@@ -177,22 +176,13 @@ const SubscriptionModal = (props) => {
               }}
             />
             {feature.length>1?
-            <FontAwesomeIcon icon={faRemove} onClick={handleRemoveFeature} />
+            <FontAwesomeIcon icon={faRemove} onClick={()=>handleRemoveFeature(index)} />
             :null}
                 </div>
               )
             })}
             </div>
-            {/* <input
-              maxLength={20}
-              value={feature}
-              type="text"
-              className="modal1-type2"
-              placeholder="example"
-              onChange={(e) => {
-                setFeature(e.target.value);
-              }}
-            /> */}
+            
 
           </div>
           <div className="content1-wrapper1-1">
@@ -214,7 +204,7 @@ const SubscriptionModal = (props) => {
               <input
                 type="text"
                 className="modal1-validity1"
-               
+                value={`${amount?(amount*tax/100)+parseInt(amount):''}`}
                 onChange={(e) => {
                   setTotalAmount(e.target.value);
                 }}

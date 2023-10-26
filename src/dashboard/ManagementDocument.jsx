@@ -36,6 +36,7 @@ const ManagementDocument = () => {
         .then((Data) => {
           setbtn("Resend")
           console.log(data)
+          enqueueSnackbar(`Code Sent`, {variant:'success'})
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
@@ -45,6 +46,7 @@ const ManagementDocument = () => {
       resendcode(formData)
         .then((Data) => {
           console.log(Data)
+          enqueueSnackbar(`${Data.message}`, {variant:'success'})
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);

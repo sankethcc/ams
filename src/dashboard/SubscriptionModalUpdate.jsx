@@ -202,7 +202,7 @@ const SubscriptionModalUpdate = (props) => {
               }}
             />
             {feature.length>1?
-            <FontAwesomeIcon icon={faRemove} onClick={handleRemoveFeature} />
+            <FontAwesomeIcon icon={faRemove} onClick={()=>handleRemoveFeature(index)} />
             :null}
                 </div>
               )
@@ -240,7 +240,7 @@ const SubscriptionModalUpdate = (props) => {
               <input
                 type="text"
                 className="modal1-validity1"
-                value={amount}
+                value={`${amount?(amount*tax/100)+parseInt(amount):''}`}
                 onChange={(e) => {
                   setTotalAmount(e.target.value);
                 }}
