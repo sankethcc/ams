@@ -286,7 +286,7 @@ const Subscription = () => {
                 <p className="right-entry">
                   <small>Total amount</small>
                   <br />
-                  <span style={{ fontSize: "16px" }}>&#8377;{couponData?.total ?? "0"}</span>
+                  <span style={{ fontSize: "16px" }}>&#8377;{couponData?.total.toFixed(2) ?? "0"}</span>
                 </p>
                   </div>
                 

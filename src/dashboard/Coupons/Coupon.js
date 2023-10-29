@@ -34,7 +34,7 @@ const Coupon = () => {
   const [searchItem, setSearchItem] = useState("");
 
   const [subscription, setSubscription] = useState([])
-  const [selectedSubscription, setSelectedSubscription] = useState([])
+  const [selectedSubscription, setSelectedSubscription] = useState()
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);

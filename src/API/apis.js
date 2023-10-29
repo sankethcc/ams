@@ -16,7 +16,7 @@ export const Success = ({successName}) =>{
 export const apiUrl = 'http://localhost:5000/'; // Replace with your API URL
 
 export const login = (Data) => {
-  return axios.post(`${apiUrl}/login`, Data)
+  return axios.post(`${apiUrl}/login_AMS`, Data)
     .then((response) => {
       return response.data; // Return the response data
       
