@@ -21,7 +21,7 @@ const Coupon = () => {
   const [validity, setValidity] = useState("");
   const [start, setstart] = useState("");
   const [discountv, setdiscountv] = useState("");
-  const [limits, setlimit] = useState("");
+  const [limits, setlimit] = useState(1);
   const [type, setType] = useState("Percentage");
   const [ctype, setcType] = useState("One time apply");
   const [code, setCode] = useState("");
@@ -152,7 +152,7 @@ const Coupon = () => {
   };
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = "scroll";
     return () => {
       document.body.style.overflow = "scroll";
     };

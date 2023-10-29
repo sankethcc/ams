@@ -8,7 +8,7 @@ const ModalUpdate = ({ setShowModalUpdate, id }) => {
   const [type, setType] = useState("percentage");
   const [ctype, setcType] = useState("");
   const [code, setCode] = useState("");
-  const [limits, setlimit] = useState("");
+  const [limits, setlimit] = useState(1);
   const [description, setDescription] = useState("");
   const [start, setstart] = useState("");
   const [btn, setbtn] = useState("");
@@ -57,9 +57,6 @@ const ModalUpdate = ({ setShowModalUpdate, id }) => {
     }
   };
   const submitHandler = async () => {
-    if (ctype === "One time apply") {
-      setlimit(1);
-    }
     if (
       !code ||
       !ctype ||
