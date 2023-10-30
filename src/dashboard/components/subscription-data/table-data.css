@@ -6,7 +6,7 @@ body {
 }
 :where(.css-dev-only-do-not-override-18iikkb).ant-tag-green  {
   color: white;
-  background: rgba(144, 241, 189, 1);
+  background: #07b907;
   width: 6rem;
   border-radius: 1rem;
   height: 2rem;
@@ -40,9 +40,9 @@ body {
   border-radius: 1rem;
 }
 
-:where(.css-dev-only-do-not-override-18iikkb).ant-table-wrapper {
-  /* width: 73rem; */
-}
+/* :where(.css-dev-only-do-not-override-18iikkb).ant-table-wrapper {
+  width: 73rem;
+} */
 
 
 .middle {
@@ -62,9 +62,7 @@ margin-top: 25px
 @import "~font-awesome/css/font-awesome.min.css";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,200&display=swap");
 
-.input-container {
 
-}
 
 .input-field {
   border: none;

@@ -53,7 +53,7 @@ const Dashboard = () => {
         .then((response) => {
           const users = response;
           setAllUsersCount(users.length);
-          users.filter((user)=> {
+          for(let user of users) {
             let tempActive = 0
             let tempInactive = 0
             if(user.subscription === 'Active'){
@@ -65,7 +65,7 @@ const Dashboard = () => {
             setInActiveUsersCount(tempInactive)
             setActiveUsersCount(tempActive)
 
-          })
+          }
         })
         .catch((error) => {
           console.error(`Error fetching total ${activeButton.toLowerCase()}s:`, error);

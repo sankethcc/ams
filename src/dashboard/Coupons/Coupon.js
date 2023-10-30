@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 import SideNav from "../SideNav";
 import Head from "../Head";
 import { getAllCoupons, createCoupon, getSubscriptions } from "../../API/apis";
@@ -9,7 +9,7 @@ import ModalUpdate from "./ModalUpdate";
 import { useSnackbar } from "notistack";
 
 const Coupon = () => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const [allActive, setAllActive] = useState(true);
   const [active, setActive] = useState(false);
   const [expired, setExpired] = useState(false);
@@ -17,7 +17,6 @@ const Coupon = () => {
   const [coupons, setCoupons] = useState([]);
   const [activeCardIndex, setActiveCardIndex] = useState(null);
 
-  const [discount, setDiscount] = useState("");
   const [validity, setValidity] = useState("");
   const [start, setstart] = useState("");
   const [discountv, setdiscountv] = useState("");
@@ -26,8 +25,6 @@ const Coupon = () => {
   const [ctype, setcType] = useState("One time apply");
   const [code, setCode] = useState("");
   const [description, setDescription] = useState("");
-  const [limit, setLimit] = useState("");
-  const [limit_type, setLimitType] = useState("first users");
   const [allData, setallData] = useState([]);
   const [activeData, setactiveData] = useState([]);
   const [InactiveData, setInactiveData] = useState([]);
@@ -37,7 +34,6 @@ const Coupon = () => {
   const [selectedSubscription, setSelectedSubscription] = useState()
 
   const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
 
   const submitHandler = async () => {
     if(ctype ==="One time apply"){
@@ -68,21 +64,8 @@ const Coupon = () => {
       formData.append("description", description);
       formData.append('valid_subscription', selectedSubscription);
       try {
-        const response = await createCoupon(formData);
+        await createCoupon(formData);
         enqueueSnackbar(`Coupon created successfully`, { variant: "success" });
-        const obj = {
-          discount,
-          validity,
-          type,
-          code,
-          description,
-          limit,
-          limit_type,
-          discountv,
-          start,
-          limits,
-          ctype,
-        };
         setCoupons((prev) => [
           {
             _id: code,
@@ -115,7 +98,6 @@ const Coupon = () => {
         setCode("");
         setDescription("");
         setlimit("");
-        setLimit("");
         setcType("One time apply");
         setstart("");
         setShowModal(false);
@@ -130,10 +112,10 @@ const Coupon = () => {
 
   const toggleButton = (button) => {
     // console.log(button)
-    if (button == "All") {
+    if (button === "All") {
       // setUserData(allData)
       setCoupons(allData);
-    } else if (button == "Active") {
+    } else if (button === "Active") {
       setCoupons(activeData);
     } else {
       setCoupons(InactiveData);
@@ -159,8 +141,6 @@ const Coupon = () => {
   }, []);
 
   const [showModalUpdate, setShowModalUpdate] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
 
   const handleInputChange = (e) => {
     const searchTerm = e.target.value;
@@ -183,16 +163,10 @@ const Coupon = () => {
       setCoupons(filteredItems);
     }
   };
-  const handleClick = (e) => {
-    setAnchorEl(e.target._id);
-  };
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
-  const handleDotMenu = () => {
-    setShowModalUpdate(!showModalUpdate);
-  };
-  const handleOpenUpdate = (index, value) => {
+  
+  
+ 
+  const handleOpenUpdate = (index) => {
     setShowModalUpdate((prevShowModalUpdate) => ({
       ...prevShowModalUpdate,
       [index]: true,
@@ -232,7 +206,7 @@ const Coupon = () => {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  }, [showModalUpdate]);
+  }, [showModalUpdate, active, allActive ]);
   
   
   return (
@@ -351,7 +325,7 @@ const Coupon = () => {
                       <option>First limited users</option>
                     </select>
                   <input
-                  className={`${ctype == "One time apply" || ""? "d-none": "" }`}
+                  className={`${ctype === "One time apply" || ""? "d-none": "" }`}
                     placeholder="limit"
                     value={limits}
                     onChange={(e) => {
@@ -377,7 +351,7 @@ const Coupon = () => {
                        {subscription.map((data, i)=>{
                             const {_id, name, amount, period} = data
                             return(
-                                <option style={{textTransform:'capitalize'}} value={_id}key={i}>
+                                <option style={{textTransform:'capitalize'}} value={_id} key={i}>
                                     <span>{name}</span>
                                     <span> ₹{amount} / {period} </span>
                                 </option>

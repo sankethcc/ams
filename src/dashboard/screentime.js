@@ -13,7 +13,7 @@ const ScreenTimeChart = ({ activeData }) => {
           zoomin: true,
           zoomout: true,
           pan: false,
-          reset: false,
+          reset: true,
           download: false,
           customIcons: [],
         },

@@ -41,13 +41,13 @@ const ModalUpdate = ({ setShowModalUpdate, id }) => {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  }, []);
+  }, [id]);
   const deleteHandler = async () => {
     try {
       const response = await deleteCoupon(id);
       console.log(response);
       enqueueSnackbar(
-        `Coupon ${btn == true ? "Activated" : "Deactivated"} successfully.`,
+        `Coupon ${btn === true ? "Activated" : "Deactivated"} successfully.`,
         { variant: "success" }
       );
       setShowModalUpdate(true);
@@ -81,7 +81,7 @@ const ModalUpdate = ({ setShowModalUpdate, id }) => {
       formData.append("subscription", selectedSubscription);
 
       try {
-        const response = await updateCoupon(id, formData);
+        await updateCoupon(id, formData);
         console.log("Coupon updated successfully.");
         enqueueSnackbar(`Coupon updated successfully.`, { variant: "success" });
         setShowModalUpdate(true);
@@ -161,7 +161,7 @@ const ModalUpdate = ({ setShowModalUpdate, id }) => {
               <option>First limited users</option>
             </select>
             <input
-              className={`${ctype == "One time apply" || "" ? "d-none" : ""}`}
+              className={`${ctype === "One time apply" || "" ? "d-none" : ""}`}
               placeholder="limit"
               value={limits}
               onChange={(e) => {
@@ -233,7 +233,7 @@ const ModalUpdate = ({ setShowModalUpdate, id }) => {
             Update
           </button>
           <button className="modal-create" onClick={deleteHandler}>
-            {btn == true ? "Active" : "InActive"}
+            {btn === true ? "Active" : "InActive"}
           </button>
           <button
             className="modal-cancel"

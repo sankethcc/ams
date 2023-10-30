@@ -151,8 +151,6 @@
   width: 100%;
 }
 
-.dashboard-wrap-2 {
-}
 
 .rectangle,
 .rectangle-2,
@@ -188,9 +186,6 @@
   font-weight: 700;
 }
 
-.group {
-  
-}
 
 .text-wrapper-8 {
   align-self: flex-start;
@@ -245,7 +240,7 @@
   gap: 10px;
   justify-content: center;
   overflow: hidden;
-  padding: 10px 25px;
+  padding: 13px 25px;
   position: relative;
   align-items: center;
   color: #707070;
@@ -346,10 +341,7 @@
   width: 100%;
 }
 
-.active-subscription,
-.expired-subscription {
 
-}
 
 .active-subscription .heading,
 .expired-subscription .heading {

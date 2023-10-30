@@ -132,7 +132,6 @@ export default function MyTable() {
     // console.log(record)
      setShowModalUpdate(!showModalUpdate)
     setUser({...user,user_id:record.user_id,_id:record._id,role:record.role })
-    console.log(record)
   };
 
   const rowSelection = {
@@ -208,9 +207,9 @@ export default function MyTable() {
           <Column
             title="Action"
             key="action"
-            render={(text, record) => (
+            render={(text, record, index) => (
               
-              <Space size="middle" className="middle">
+              <Space size="middle" key={index} className="middle">
                 <div>
                   <FontAwesomeIcon
                     icon={faBan}
