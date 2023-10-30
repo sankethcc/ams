@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import boy from './img/rectangle-54.png'
-import chart from './img/graph1.png'
-import search from './img/searchsymbol.png'
+
 import './Management1.css'
 import SideNav from './SideNav'
 import './components/subscription-data/table-data.css'
 import { getAllmanagement ,getpending} from '../API/apis';
-import { Table, Tag, Space, Button, Checkbox } from "antd";
+import { Table, Space } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBan,
-  faPause,
-  faEdit,
-  faExclamationCircle,
   faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom'
@@ -36,8 +30,8 @@ const Management1 = () => {
       .then((data) => {
         setUserData(data);
         // console.log(data)
-        const act = data.filter((data) => ((data.subscription=="Active")))
-        const inact = data.filter((data) => ((data.subscription=="InActive")))
+        const act = data.filter((data) => ((data.subscription==="Active")))
+        const inact = data.filter((data) => ((data.subscription==="InActive")))
         setallData(data);
         setactiveData(act);
         setInactiveData(inact);
@@ -61,19 +55,19 @@ const Management1 = () => {
     setSearchItem(searchTerm)
     console.log(activeButton)
 
-    if (activeButton == 'Active') {
+    if (activeButton === 'Active') {
       const filteredItems = allData.filter((user) =>
         user.username.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setUserData(filteredItems);
     }
-    else if (activeButton == 'Request') {
+    else if (activeButton === 'Request') {
       const filteredItems = requests.filter((user) =>
         user.username.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setUserData(filteredItems);
     }
-    else if (activeButton == 'Inactive') {
+    else if (activeButton === 'Inactive') {
       const filteredItems = activeData.filter((user) =>
         user.username.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -87,13 +81,13 @@ const Management1 = () => {
     }
   }
   const handleButtonClick = (buttonText) => {
-    if(buttonText=="Active"){
+    if(buttonText==="Active"){
       setUserData(allData)
     }
-    else if (buttonText == 'Request') {
+    else if (buttonText === 'Request') {
       setUserData(requests)
     }
-    else if(buttonText=="Inactive"){
+    else if(buttonText==="Inactive"){
       setUserData(activeData)
     }
     else{
@@ -130,7 +124,7 @@ const Management1 = () => {
               <BScreenTimeChart />
         </div>
       </div>
-        <SubscriptionStastic />
+        <SubscriptionStastic total={allData.length} active={activeData.length} expired={InactiveData.length} />
       </div>
 
 

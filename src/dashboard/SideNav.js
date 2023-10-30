@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import LOGO from "./img/logo.svg";
 import "./css/usersidebar.css";
 import {
@@ -96,11 +95,11 @@ const SideNav = ({ xyz }) => {
       active:xyz==="billing"?true: false, 
     },
   ];
-  const [sidebar, setSidebar] = useState(true);
+  // const [sidebar, setSidebar] = useState(true);
 
   return (
     <>
-      <SidebarNav sidebar={sidebar}>
+      <SidebarNav sidebar={true}>
         <div className="top_section">
           <img alt="SP" src={LOGO} className="logo_icon" />
         </div>

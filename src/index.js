@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@mui/material';
-import { SnackbarProvider, closeSnackbar, useSnackbar } from 'notistack';
+import { SnackbarProvider, closeSnackbar } from 'notistack';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 

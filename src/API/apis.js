@@ -1,19 +1,8 @@
 import axios from 'axios';
-import { useSnackbar } from 'notistack';
-
-export const Error = ({errorName}) => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-return enqueueSnackbar(`${errorName}`, { variant: 'error' })
-}
-export const Success = ({successName}) =>{
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  return (
-     enqueueSnackbar(`${successName}`, { variant: 'success' })
-  )
-}
 
 
-export const apiUrl = 'http://34.131.103.255/'; // Replace with your API URL
+
+export const apiUrl = 'http://localhost:5000/'; // Replace with your API URL
 
 export const login = (Data) => {
   return axios.post(`${apiUrl}/login_AMS`, Data)

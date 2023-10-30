@@ -8,7 +8,6 @@ import Billing from "./dashboard/Billing";
 import Coupon from "./dashboard/Coupons/Coupon";
 import Subscription from "./dashboard/Subscription";
 
-import { Divider } from "antd";
 import Management1 from "./dashboard/Management1";
 import Student from "./dashboard/Student";
 import Student1 from "./dashboard/Student1";

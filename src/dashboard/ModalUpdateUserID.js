@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { editUserDetails } from "../API/apis";
 import { enqueueSnackbar } from "notistack";
 
@@ -13,12 +13,12 @@ const ModalUpdateUserID = ({ setShowModalUpdate, id, user }) => {
       enqueueSnackbar(`Enter User ID`, { variant: 'error' })
     }else{
     const formData = new FormData();
-    if(user.role =='student'){
+    if(user.role ==='student'){
       formData.append('user_id', userid);
     }
-    else if(user.role == 'parent'){
+    else if(user.role === 'parent'){
       formData.append('user_id', userid)
-    }else if(user.role == 'teacher'){
+    }else if(user.role === 'teacher'){
       formData.append('user_id', userid)
     }else{
       formData.append('user_id', userid)

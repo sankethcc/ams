@@ -8,7 +8,7 @@ import {
   parentData,
   managementData,
 } from "./data.js";
-import { getAllCoupons, getAllPlatformUsers, getAllStudents, getAllTeachers, getAllParents, getAllmanagement } from "../API/apis";
+import { getAllCoupons, getAllPlatformUsers, getAllStudents, getAllTeachers, getAllParents, getAllmanagement, getpending } from "../API/apis";
 import FilterImage from "./img/icons8-filter-96-1.png";
 import ScreenTimeChart from "./screentime";
 import SideNav from "./SideNav";
@@ -24,6 +24,9 @@ const Dashboard = () => {
   const [activeButton, setActiveButton] = useState("All");
   const [totalCoupons, setTotalCoupons] = useState(0);
   const [allUsersCount, setAllUsersCount] = useState(0);
+  const [activeUsersCount, setActiveUsersCount] = useState(0);
+  const [inActiveUsersCount, setInActiveUsersCount] = useState(0)
+  const [request, setRequest] = useState(0)
   const [activeData, setActiveData] = useState(totalData);
   const [activeButtonToApiFunctionMap] = useState({
     All: getAllPlatformUsers,
@@ -50,11 +53,32 @@ const Dashboard = () => {
         .then((response) => {
           const users = response;
           setAllUsersCount(users.length);
+          users.filter((user)=> {
+            let tempActive = 0
+            let tempInactive = 0
+            if(user.subscription === 'Active'){
+              tempActive++
+              
+            }else if(user.subscription === 'InActive'){
+              tempInactive++
+            }
+            setInActiveUsersCount(tempInactive)
+            setActiveUsersCount(tempActive)
+
+          })
         })
         .catch((error) => {
           console.error(`Error fetching total ${activeButton.toLowerCase()}s:`, error);
         });
     }
+    getpending()
+      .then((data) => {
+        // console.log(data)
+        setRequest(data.length)
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
   }, [activeButton, activeButtonToApiFunctionMap]);
 
   const toggleButton = (button) => {
@@ -108,7 +132,7 @@ const Dashboard = () => {
           <div className="rectangle-2 b-radius1">
             <div className="group">
               <div className="font-main2">Active user</div>
-              <div className="font-main1">{activeData.activeUsers}</div>
+              <div className="font-main1">{activeUsersCount}</div>
           </div>
         </div>
           <div className="rectangle-3 b-radius1">
@@ -171,7 +195,7 @@ const Dashboard = () => {
               Active <br />
               Subscription
             </div>
-            <div className="text-wrapper-33">{activeData.activeSub}</div>
+            <div className="text-wrapper-33">{activeUsersCount}</div>
           </div>
           <div className="expired-subscription">
             <div className="heading">
@@ -179,7 +203,7 @@ const Dashboard = () => {
               Expired <br />
               Subscription
             </div>
-            <div className="text-wrapper-34">{activeData.expiredSub}</div>
+            <div className="text-wrapper-34">{inActiveUsersCount}</div>
           </div>
         </div>
       </div>
@@ -191,7 +215,7 @@ const Dashboard = () => {
       <div className="right-wrapper ">
       <div className="outer b-radius1">
         <div className="text-wrapper-3">Verification request</div>{" "}
-        <div className="text-wrapper-5">{activeData.requests}*</div>
+        <div className="text-wrapper-5">{request}*</div>
         <p className="p">
           The requests should be completed under 24 hours
         </p>{" "}
@@ -200,12 +224,12 @@ const Dashboard = () => {
           <div className="bar-wrap b-radius2">
             <div className="bartext-wrapper">Document verification needed</div>
             <div className="bartext-wrapper-2">
-              {activeData.documentVerification}
+              {request}
             </div>
           </div>
           <div className="bar-wrap b-radius2">
             <div className="bartext-wrapper">Send code</div>
-            <div className="bartext-wrapper-2">{activeData.sendCode}</div>
+            <div className="bartext-wrapper-2">0</div>
           </div>
         </div>
       </div>

@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-// import 'antd/dist/antd.css';
 import "./table-data.css";
-import { Table, Tag, Space, Button, Checkbox } from "antd";
+import { Table, Tag, Space} from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBan,
-  faPause,
   faEdit,
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { getAllPlatformUsers,blockOrUnblockUser } from "../../../API/apis.js";
-import axios from 'axios'
 import ModalUpdateUserID from '../../ModalUpdateUserID'
 import { enqueueSnackbar } from 'notistack'
 
@@ -32,8 +29,8 @@ export default function MyTable() {
     getAllPlatformUsers()
       .then((data) => {
         setUserData(data);
-        const act = data.filter((data) => ((data.subscription=="Active")))
-        const inact = data.filter((data) => ((data.subscription=="InActive")))
+        const act = data.filter((data) => ((data.subscription==="Active")))
+        const inact = data.filter((data) => ((data.subscription==="InActive")))
         setallData(data);
         setactiveData(act);
         setInactiveData(inact);
@@ -50,13 +47,13 @@ export default function MyTable() {
     setSearchItem(searchTerm)
     console.log(activeButton)
 
-    if (activeButton == 'Active') {
+    if (activeButton === 'Active') {
       const filteredItems = allData.filter((user) =>
         user.username.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setUserData(filteredItems);
     }
-    else if (activeButton == 'Inactive') {
+    else if (activeButton ==='Inactive') {
       const filteredItems = activeData.filter((user) =>
         user.username.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -70,10 +67,10 @@ export default function MyTable() {
     }
   }
   const handleButtonClick = (buttonText) => {
-    if(buttonText=="Active"){
+    if(buttonText==="Active"){
       setUserData(allData)
     }
-    else if(buttonText=="Inactive"){
+    else if(buttonText==="Inactive"){
       setUserData(activeData)
     }
     else{
@@ -88,7 +85,6 @@ export default function MyTable() {
     setSelectedRowKeys(selectedKeys);
   };
   
-  const [isBlocked, setIsBlocked] = useState()
   const [user, setUser] = useState({
     user_id:'',
     _id:'',
@@ -100,7 +96,6 @@ export default function MyTable() {
       const response = await blockOrUnblockUser(record._id, record.role)
       setbool(!bool)
       if(response.blocked){
-        setIsBlocked(response.blocked)
          
         enqueueSnackbar(`User Blocked Successfully`, { variant: 'success' })
         
@@ -223,7 +218,7 @@ export default function MyTable() {
                     onClick={() => handleBlock(record)}
                     style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
                   />
-                  <div>{record.blocked ==true? 'Un Block':'Block'}</div>
+                  <div>{record.blocked ===true? 'Un Block':'Block'}</div>
                 </div>
                 <div>
                   <FontAwesomeIcon
@@ -235,7 +230,7 @@ export default function MyTable() {
                       color: "rgba(79, 120, 254, 1",
                     }}
                   />
-                  <div>{record.blocked ==true? 'Un Suspend':'Suspend'}</div>
+                  <div>{record.blocked ===true? 'Un Suspend':'Suspend'}</div>
                 </div>
                 <div>
                   <FontAwesomeIcon

@@ -1,11 +1,12 @@
+
 export const studentData = {
-    requests: 30,
-    documentVerification: 20,
+    requests: 0,
+    documentVerification: 0,
     sendCode: 15,
     totalCoupons: 1200,
     totalUsers: "3 lakh",
     activeUsers: "1.2 lakh",
-    totalBilling: "3 lakh",
+    totalBilling: "0",
     activeSub: "55 k",
     expiredSub:"800",
     values : [5, 1, 0, 5, 3, 2, 4]
@@ -13,13 +14,13 @@ export const studentData = {
   };
   
   export const teacherData = {
-    requests: 40,
+    requests: 0,
     documentVerification: 25,
     sendCode: 18,
     totalCoupons: 1500,
     totalUsers: "2.8 lakh",
     activeUsers: "1.1 lakh",
-    totalBilling: "2.8 lakh",
+    totalBilling: "0",
     activeSub: "10 k",
     expiredSub:"200",
     values : [5, 0, 7, 0, 3, 2, 4]
@@ -27,13 +28,13 @@ export const studentData = {
   };
   
   export const parentData = {
-    requests: 20,
+    requests: 0,
     documentVerification: 12,
     sendCode: 8,
     totalCoupons: 900,
     totalUsers: "2 lakh",
-    activeUsers: "90000",
-    totalBilling: "2 lakh",
+    activeUsers: "0",
+    totalBilling: "0",
     activeSub: "51 k",
     expiredSub:"700",
     values : [1, 6, 7, 0, 3, 2, 4]
@@ -41,13 +42,13 @@ export const studentData = {
   };
   
   export const managementData = {
-    requests: 50,
+    requests: 0,
     documentVerification: 30,
     sendCode: 20,
     totalCoupons: 1800,
-    totalUsers: "3.2 lakh",
+    totalUsers: "0",
     activeUsers: "1.3 lakh",
-    totalBilling: "3.2 lakh",
+    totalBilling: "0",
     activeSub: "15 k",
     expiredSub:"91",    
     values : [5, 6, 7, 0, 3, 2, 4]
@@ -77,7 +78,7 @@ export const studentData = {
       managementData.totalCoupons,
     totalUsers: "8.3 lakh", 
     activeUsers: "3.6 lakh", 
-    totalBilling: "8 lakh", 
+    totalBilling: "0", 
     activeSub: "1.31 lakh",
     expiredSub:"800",
     values : [5, 6, 7, 2, 6, 7, 4]

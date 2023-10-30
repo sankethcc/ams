@@ -1,20 +1,12 @@
 import './Student.css'
 import SideNav from './SideNav'
-import boy from './img/rectangle-54.png'
-import chart from './img/graph1.png'
-import block from './img/block.png'
-import suspend from './img/suspend.png'
-import edit from './img/edit.png'
-import search from './img/searchsymbol.png'
-import axios from 'axios'
 import React, { useState, useEffect } from "react";
 import { blockOrUnblockUser, getAllTeachers} from "../API/apis.js";
 
-import { Table, Tag, Space, Button, Checkbox } from "antd";
+import { Table, Tag, Space} from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBan,
-  faPause,
   faEdit,
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
@@ -41,13 +33,13 @@ const Teacher = () => {
     setSearchItem(searchTerm)
     console.log(activeButton)
 
-    if (activeButton == 'Active') {
+    if (activeButton === 'Active') {
       const filteredItems = allData.filter((user) =>
         user.username.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setUserData(filteredItems);
     }
-    else if (activeButton == 'Inactive') {
+    else if (activeButton === 'Inactive') {
       const filteredItems = activeData.filter((user) =>
         user.username.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -61,10 +53,10 @@ const Teacher = () => {
     }
   }
   const handleButtonClick = (buttonText) => {
-    if(buttonText=="Active"){
+    if(buttonText==="Active"){
       setUserData(allData)
     }
-    else if(buttonText=="Inactive"){
+    else if(buttonText==="Inactive"){
       setUserData(activeData)
     }
     else{
@@ -143,8 +135,8 @@ const Teacher = () => {
       .then((data) => {
         setUserData(data);
         // console.log(data)
-        const act = data.filter((data) => ((data.subscription=="Active")))
-        const inact = data.filter((data) => ((data.subscription=="InActive")))
+        const act = data.filter((data) => ((data.subscription==="Active")))
+        const inact = data.filter((data) => ((data.subscription==="InActive")))
         setallData(data);
         setactiveData(act);
         setInactiveData(inact);
@@ -165,7 +157,7 @@ const Teacher = () => {
               <BScreenTimeChart />
         </div>
       </div>
-      <SubscriptionStastic />
+      <SubscriptionStastic total={allData.length} active={activeData.length} expired={InactiveData.length} />
       </div>
 
 
@@ -244,7 +236,7 @@ const Teacher = () => {
                     onClick={() => handleBlock(record)}
                     style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
                   />
-                <div>{record.blocked ==true? 'Un Block':'Block'}</div>
+                <div>{record.blocked ===true? 'Un Block':'Block'}</div>
 
                 </div>
                 <div>
@@ -257,7 +249,7 @@ const Teacher = () => {
                       color: "rgba(79, 120, 254, 1",
                     }}
                   />
-                  <div>{record.blocked ==true? 'Un Suspend':'Suspend'}</div>
+                  <div>{record.blocked ===true? 'Un Suspend':'Suspend'}</div>
 
                 </div>
                 <div>

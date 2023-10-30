@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { updateSubscription,getSubscriptionById,deleteSubscription} from "../API/apis.js";
 import { enqueueSnackbar } from "notistack";
 
-import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faRemove } from "@fortawesome/free-solid-svg-icons";
 
 const SubscriptionModalUpdate = (props) => {
-  const { showModalUpdate, setShowModalUpdate, dataHandler, index } = props;
+  const { setShowModalUpdate, index } = props;
   // console.log(index)
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
@@ -26,7 +25,7 @@ const SubscriptionModalUpdate = (props) => {
       try {
         const response = await deleteSubscription(index)
         console.log(response)
-        enqueueSnackbar(`Subscription ${btn==true?"Activated": "Deactivated"} Successfully`, { variant: 'success' })
+        enqueueSnackbar(`Subscription ${btn===true?"Activated": "Deactivated"} Successfully`, { variant: 'success' })
         setShowModalUpdate(true)
 
       }catch (error) {
@@ -69,9 +68,10 @@ const SubscriptionModalUpdate = (props) => {
       .catch((error) => {
         console.error("Error fetching coupons:", error);
       });
-  }, []);
+  }, [index]);
   const submitHandler = async (e) => {
     e.preventDefault();
+    console.log(TotalAmount)
     // console.log(feature);
     // const lines = await feature.split('\n').map((line) => line.trim());
     // console.log(lines);
@@ -266,7 +266,7 @@ const SubscriptionModalUpdate = (props) => {
               Update
             </button>
             <button className="modal1-create" style={{marginLeft:2, marginRight:2} } onClick={deleteHandler}>
-              {btn==true?"Active": "InActive"}
+              {btn===true?"Active": "InActive"}
             </button>
             <button
               className="modal1-cancel"

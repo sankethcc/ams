@@ -53,28 +53,28 @@ export default function Total() {
             <div className="group">
               <div className="text-wrapper-8">Total Management</div>
               <div className="text-wrapper-9">{management}</div>
-              <div className="small-text">10% increase in last 28 days</div>
+              {/* <div className="small-text">10% increase in last 28 days</div> */}
             </div>
           </div>
           <div className="rectangle-2 b-radius1">
             <div className="group">
               <div className="text-wrapper-8">Total Teacher</div>
               <div className="text-wrapper-9">{teachers}</div>
-              <div className="small-text">10% increase in last 28 days</div>
+              {/* <div className="small-text">10% increase in last 28 days</div> */}
             </div>
           </div>
           <div className="rectangle-3 b-radius1">
             <div className="group">
               <div className="text-wrapper-8">Total Student</div>
               <div className="text-wrapper-9">{students}</div>
-              <div className="small-text">10% increase in last 28 days</div>
+              {/* <div className="small-text">10% increase in last 28 days</div> */}
             </div>
           </div>
           <div className="rectangle-4 b-radius1">
             <div className="group">
               <div className="text-wrapper-8">Total Parent</div>
               <div className="text-wrapper-9">{parents}</div>
-              <div className="small-text">10% increase in last 28 days</div>
+              {/* <div className="small-text">10% increase in last 28 days</div> */}
             </div>
       </div>
         </div>

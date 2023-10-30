@@ -76,14 +76,7 @@ const Subscription = () => {
     }
   };
   const [showModalUpdate, setShowModalUpdate] = useState(false)
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
   const handleOpenUpdate = (index) => {
     setShowModalUpdate(prevShowModalUpdate => ({
       ...prevShowModalUpdate,
@@ -113,7 +106,7 @@ const Subscription = () => {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-  }, [showModalUpdate]);
+  }, [showModalUpdate, allActive, Active]);
   return (
 
     <div className="screen">
@@ -235,7 +228,6 @@ const Subscription = () => {
                   <p
                     style={{
                       fontSize: "15px",
-                      textTransform:'capitalize',
                       display: "inline",
                       color:'#707070',
                       textTransform:'lowercase'

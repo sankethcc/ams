@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./css/style.css";
-import RectangleImage from "./img/rectangle-54.png";
+import userImg from "./img/userImg.png";
 import VectorImage from "./img/vector.svg";
 const Head = ({pageName}) => {
 
@@ -8,7 +8,7 @@ const Head = ({pageName}) => {
     <div className="head-main">
       <div className="text-wrapper-7">{pageName}</div>
     <div className="group-11">
-      <img className="profile" alt="Rectangle" src={RectangleImage} />
+      <img className="profile" alt="Rectangle" src={userImg} />
       <div className="notification-wrapper">
         <img className="notification" alt="Vector" src={VectorImage} />
       </div>

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { createSubscription} from "../API/apis.js";
 
-import Select from "react-select";
 import { enqueueSnackbar } from "notistack";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { faRemove } from "@fortawesome/free-solid-svg-icons";
 
 const SubscriptionModal = (props) => {
-  const { showModal, setShowModal, dataHandler } = props;
+  const { setShowModal, dataHandler } = props;
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [period, setPeriod] = useState("");

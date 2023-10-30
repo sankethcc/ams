@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./css/syyle.css";
-import VectorImage from "./img/vector.svg";
-import Profile from "./img/rectangle-54.png";
 import Piechart from "./Billingpiechart";
 import Barchart from "./Billingbarchart";
 import BScreenTimeChart from "./BillingScreenTime";
@@ -25,10 +23,10 @@ const Billing = () => {
           >
             <div className="billing_text-wrapper">
               <div className=" font-main2">Total amount</div>
-              <div className="font-main1">$ 2.5 lakh</div>
+              <div className="font-main1">₹ 0</div>
 
               <div className="font-main2">Total users</div>
-              <div className="font-main1">5 lakh</div>
+              <div className="font-main1">0</div>
 
               <div
                 style={{
@@ -40,12 +38,12 @@ const Billing = () => {
               >
                 <div className="billing_text-wrapper-5 b-radius1">
                   <div className="font-main2">Total Users</div>
-                  <div className="font-main1">5 lakh</div>
+                  <div className="font-main1">0</div>
                 </div>
 
                 <div className="billing_text-wrapper-5 b-radius1">
                   <div className="font-main2">Total Users</div>
-                  <div className="font-main1">5 lakh</div>
+                  <div className="font-main1">0</div>
                 </div>
               </div>
             </div>

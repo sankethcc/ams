@@ -1,19 +1,11 @@
 import './Student.css'
 import SideNav from './SideNav'
-import boy from './img/rectangle-54.png'
-import chart from './img/graph1.png'
-import block from './img/block.png'
-import suspend from './img/suspend.png'
-import edit from './img/edit.png'
-import search from './img/searchsymbol.png'
-import axios from 'axios'
 import React, { useState, useEffect } from "react";
 import { blockOrUnblockUser, getAllStudents } from "../API/apis.js";
-import { Table, Tag, Space, Button, Checkbox } from "antd";
+import { Table, Tag, Space } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBan,
-  faPause,
   faEdit,
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
@@ -40,13 +32,13 @@ const Student = () => {
     setSearchItem(searchTerm)
     console.log(activeButton)
 
-    if (activeButton == 'Active') {
+    if (activeButton === 'Active') {
       const filteredItems = allData.filter((user) =>
         user.username.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setUserData(filteredItems);
     }
-    else if (activeButton == 'Inactive') {
+    else if (activeButton === 'Inactive') {
       const filteredItems = activeData.filter((user) =>
         user.username.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -60,10 +52,10 @@ const Student = () => {
     }
   }
   const handleButtonClick = (buttonText) => {
-    if(buttonText=="Active"){
+    if(buttonText==="Active"){
       setUserData(allData)
     }
-    else if(buttonText=="Inactive"){
+    else if(buttonText==="Inactive"){
       setUserData(activeData)
     }
     else{
@@ -75,7 +67,6 @@ const Student = () => {
    const onSelectChange = (selectedKeys) => {
     setSelectedRowKeys(selectedKeys);
   };
-  const [isBlocked, setIsBlocked] = useState()
   const [bool, setbool] = useState(false)
 
   const handleBlock = async (record) => {
@@ -84,7 +75,6 @@ const Student = () => {
       const response = await blockOrUnblockUser(record._id, 'student')
       setbool(!bool)
       if(response.blocked){
-        setIsBlocked(response.blocked)
          
         enqueueSnackbar(`User Blocked Successfully`, { variant: 'success' })
         
@@ -140,8 +130,8 @@ const Student = () => {
       .then((data) => {
         setUserData(data);
         // console.log(data)
-        const act = data.filter((data) => ((data.subscription=="Active")))
-        const inact = data.filter((data) => ((data.subscription=="InActive")))
+        const act = data.filter((data) => ((data.subscription==="Active")))
+        const inact = data.filter((data) => ((data.subscription==="InActive")))
         setallData(data);
         setactiveData(act);
         setInactiveData(inact);
@@ -165,7 +155,7 @@ const Student = () => {
               <BScreenTimeChart />
         </div>
       </div>
-      <SubscriptionStastic />
+      <SubscriptionStastic total={allData.length} active={activeData.length} expired={InactiveData.length} />
       </div>
 
 
@@ -245,7 +235,7 @@ const Student = () => {
                     onClick={() => handleBlock(record)}
                     style={{ cursor: "pointer", color: "rgba(79, 120, 254, 1" }}
                   />
-                  <div>{record.blocked ==true? 'Un Block':'Block'}</div>
+                  <div>{record.blocked ===true? 'Un Block':'Block'}</div>
                   
                 </div>
                 {/* <Column title="blocked" dataIndex="blocked" key="blocked" render={(val) => (
@@ -261,7 +251,7 @@ const Student = () => {
                       color: "rgba(79, 120, 254, 1",
                     }}
                   />
-                  <div>{record.blocked ==true? 'Un Suspend':'Suspend'}</div>
+                  <div>{record.blocked ===true? 'Un Suspend':'Suspend'}</div>
                   
                 </div>
                 <div>

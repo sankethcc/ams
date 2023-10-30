@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import './Management1.css'
 import SideNav from './SideNav'
 import { useParams } from 'react-router-dom'
-import { getManagement,sendcode,resendcode,getdocument, apiUrl,verify} from '../API/apis';
+import { getManagement,sendcode,resendcode,apiUrl,verify} from '../API/apis';
 import Head from './Head';
 import { enqueueSnackbar } from 'notistack';
 import LoadingSpinner from './ComponentsCommon/LoadingSpin';
@@ -10,7 +10,6 @@ import LoadingSpinner from './ComponentsCommon/LoadingSpin';
 const ManagementDocument = () => {
   const {doc_id} = useParams()
   const [data, setdata] = useState({});
-  const [url, seturl] = useState('');
   const [isSending, setIsSending] = useState(false)
 
   const [btn, setbtn] = useState("Send");
@@ -34,7 +33,7 @@ const ManagementDocument = () => {
     setIsSending(true)
     const formData = new FormData();
       formData.append('username', data.user_id);
-    if (btn == "Send") {
+    if (btn === "Send") {
       sendcode(formData)
         .then((Data) => {
           setbtn("Resend")
@@ -62,14 +61,13 @@ const ManagementDocument = () => {
     
     getManagement(doc_id)
       .then((Data) => {
-        console.log(data)
         setdata(Data)
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
 
-  }, []);
+  }, [doc_id]);
   return (
     <div className="AMS screen">
         <SideNav xyz={'management'}/>
