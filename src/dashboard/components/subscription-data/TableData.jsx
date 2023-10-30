@@ -23,7 +23,6 @@ export default function MyTable() {
   const [searchItem, setSearchItem] = useState('')
   const [showModalUpdate, setShowModalUpdate] = useState(false)
   const [bool, setbool] = useState(false)
-  console.log(userData)
   useEffect(() => {
     // Fetch user data from the API
     getAllPlatformUsers()
