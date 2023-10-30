@@ -5,11 +5,13 @@ import { useParams } from 'react-router-dom'
 import { getManagement,sendcode,resendcode,getdocument, apiUrl,verify} from '../API/apis';
 import Head from './Head';
 import { enqueueSnackbar } from 'notistack';
+import LoadingSpinner from './ComponentsCommon/LoadingSpin';
 
 const ManagementDocument = () => {
   const {doc_id} = useParams()
   const [data, setdata] = useState({});
   const [url, seturl] = useState('');
+  const [isSending, setIsSending] = useState(false)
 
   const [btn, setbtn] = useState("Send");
 
@@ -29,6 +31,7 @@ const ManagementDocument = () => {
     setIsDocumentView(!isDocumentView)
   }
   const sendCode = () => {
+    setIsSending(true)
     const formData = new FormData();
       formData.append('username', data.user_id);
     if (btn == "Send") {
@@ -37,6 +40,7 @@ const ManagementDocument = () => {
           setbtn("Resend")
           console.log(data)
           enqueueSnackbar(`Code Sent`, {variant:'success'})
+          setIsSending(false)
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
@@ -47,6 +51,7 @@ const ManagementDocument = () => {
         .then((Data) => {
           console.log(Data)
           enqueueSnackbar(`${Data.message}`, {variant:'success'})
+          setIsSending(false)
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
@@ -114,7 +119,10 @@ const ManagementDocument = () => {
         </div>
         {!data.is_document_verified?
         <div className='button-wrapper'>
-              <button className="send-button" onClick={sendCode}>{`${btn} Code`}</button>
+              <button className="send-button" onClick={sendCode}>
+                {isSending?<LoadingSpinner />:
+                `${btn} Code`}
+              </button>
         </div>
         :null}
       </div>

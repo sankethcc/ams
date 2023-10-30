@@ -189,10 +189,10 @@ const Management1 = () => {
       <div className="itachi-wrapper">
         <Table rowSelection={rowSelection} dataSource={userData}>
           <Column title="User ID" dataIndex="user_id" key="user_id" />
-          <Column title="Name" dataIndex="username" key="username" />
+          <Column title="School Name" dataIndex="username" key="username" />
           <Column title="Email" dataIndex="email" key="email" />
           <Column title="Mobile" dataIndex="phone" key="phone" />
-          <Column title="School Name" dataIndex="school_name" key="school_name" />
+          {/* <Column title="School Name" dataIndex="school_name" key="school_name" /> */}
           <Column title="Address" dataIndex="address" key="address" />
           <Column title="UDISE Code" dataIndex="udise_code" key="udise_code" />
                    

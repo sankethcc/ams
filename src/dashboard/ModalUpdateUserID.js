@@ -20,6 +20,8 @@ const ModalUpdateUserID = ({ setShowModalUpdate, id, user }) => {
       formData.append('user_id', userid)
     }else if(user.role == 'teacher'){
       formData.append('user_id', userid)
+    }else{
+      formData.append('user_id', userid)
     }
     try{
       const response = await editUserDetails(user._id,user.role, formData );
@@ -28,7 +30,7 @@ const ModalUpdateUserID = ({ setShowModalUpdate, id, user }) => {
       
       setShowModalUpdate(false);
     }catch (error){
-      console.error("Error updating user:", error.response.data);
+      console.error("Error updating user:", error);
       enqueueSnackbar(`Network Error`, { variant: 'error' })
     }
   }

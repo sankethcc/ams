@@ -26,6 +26,7 @@ export default function MyTable() {
   const [searchItem, setSearchItem] = useState('')
   const [showModalUpdate, setShowModalUpdate] = useState(false)
   const [bool, setbool] = useState(false)
+  console.log(userData)
   useEffect(() => {
     // Fetch user data from the API
     getAllPlatformUsers()
@@ -129,6 +130,7 @@ export default function MyTable() {
 
     }
   };
+  
 
   const handleEdit = (record) => {
     // Handle the edit action here
@@ -136,6 +138,7 @@ export default function MyTable() {
     // console.log(record)
      setShowModalUpdate(!showModalUpdate)
     setUser({...user,user_id:record.user_id,_id:record._id,role:record.role })
+    console.log(record)
   };
 
   const rowSelection = {
@@ -212,6 +215,7 @@ export default function MyTable() {
             title="Action"
             key="action"
             render={(text, record) => (
+              
               <Space size="middle" className="middle">
                 <div>
                   <FontAwesomeIcon
