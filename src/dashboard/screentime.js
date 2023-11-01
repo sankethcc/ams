@@ -42,7 +42,7 @@ const ScreenTimeChart = ({ activeData }) => {
   const series = [
     {
       name: 'Units Consumed',
-      data: activeData.values,
+      data: activeData,
     },
   ];
 

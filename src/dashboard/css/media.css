@@ -1,0 +1,38 @@
+@media (max-width: 1200px) {
+
+    /* nav.sc-hLclGa.iecNOA.menu-cont {
+        width: 25%;
+    }
+    .main-container {
+        width: 75%;
+      } */
+    .menu-cont .bdLXjF {
+        padding: 15px 10px;
+    }
+    .main-container {
+        padding: 25px 25px;
+    }
+    .middle {
+        gap: 25px;
+    }
+
+    .table-wrapper .ant-table{
+        overflow-x: scroll;
+    }
+    .coupon1-items1 {
+        width: 30%;
+    }
+    .billing-data1{
+        width: 30%;
+      }
+      .billing-data2{
+        width: 65%;
+      }
+      .details-wrapper{
+        display: block;
+      }
+    .box{
+        padding:62px
+    }
+    
+}

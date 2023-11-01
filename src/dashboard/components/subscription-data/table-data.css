@@ -30,6 +30,7 @@ body {
 
 :where(.css-dev-only-do-not-override-18iikkb).ant-table-wrapper .ant-table-thead >tr>th {
   text-align: center;
+  text-wrap: nowrap;
 }
 :where(.css-dev-only-do-not-override-18iikkb).ant-table-wrapper .ant-table-tbody >tr >td {
   text-align: center;
@@ -70,7 +71,7 @@ margin-top: 25px
   background: white;
   padding: 10px 10px 10px 30px;
   border-radius: 5px;
-  width: 22rem;
+  width: 17rem;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   font-family: "Poppins", sans-serif;
   border-radius: 0.7rem;

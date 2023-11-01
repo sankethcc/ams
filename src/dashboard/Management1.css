@@ -15,7 +15,7 @@
   }
   .managment-document{
     display: flex;
-     gap: 10%;
+     gap: 50px;
   }
  
   .AMS .overlap {
@@ -28,7 +28,7 @@
 .AMS .overlap-2 {
   background-color: #ffffff;
   border-radius: 24px;
-  width: 100%;
+  width: 48%;
   padding: 30px 31px 16px;
   display: flex;
   flex-direction: column;

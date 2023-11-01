@@ -1,4 +1,5 @@
 
+
 export const studentData = {
     requests: 0,
     documentVerification: 0,
@@ -107,4 +108,4 @@ export const studentData = {
   ];
 
 
-export  const dataPoints = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+export  const dataPoints = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];

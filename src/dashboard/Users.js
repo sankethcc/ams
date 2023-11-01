@@ -7,7 +7,7 @@ function Users() {
   return (
     <div className="screen" style={{ backgroundColor: "#eff3f4" }}>
       <SideNav xyz={"users"} />
-      <div style={{width:'85%', padding:'25px 45px'}} >
+      <div className="main-container" >
       <Head pageName="Users"/>
       <Total />
       <TableData />

@@ -78,6 +78,40 @@ export const verify = (subscriptionData) => {
     });
 };
 // Fetch all users on the platform
+export const getGraphData = () => {
+  return axios.get(`${apiUrl}/platform_users_graph`)
+    .then((response) => {
+      return response.data; // Return the response data
+    })
+    .catch((error) => {
+      throw error; // Handle errors
+    });
+};
+// Fetch all users on the platform
+export const getBillingData = () => {
+  return axios.get(`${apiUrl}/get_all_users_billing`)
+    .then((response) => {
+      return response.data; // Return the response data
+    })
+    .catch((error) => {
+      throw error; // Handle errors
+    });
+};
+export const getGraphDataRole = (role) => {
+  let temp = role
+  if(role === 'all'){
+    temp = ''
+  }
+  return axios.get(`${apiUrl}/platform_users_graph/${temp}`)
+    .then((response) => {
+      return response.data; // Return the response data
+    })
+    .catch((error) => {
+      throw error; // Handle errors
+    });
+};
+
+// Fetch all users on the platform
 export const getAllPlatformUsers = () => {
   return axios.get(`${apiUrl}/get_all_platform/users`)
     .then((response) => {

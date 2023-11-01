@@ -1,9 +1,10 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 
 import './Management1.css'
 import SideNav from './SideNav'
 import './components/subscription-data/table-data.css'
-import { getAllmanagement ,getpending} from '../API/apis';
+import { getAllmanagement ,getGraphDataRole,getpending} from '../API/apis';
 import { Table, Space } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,6 +14,7 @@ import { Link } from 'react-router-dom'
 import Head from './Head'
 import SubscriptionStastic from './ComponentsCommon/SubscriptionStastic'
 import BScreenTimeChart from './BillingScreenTime'
+import ScreenTimeChart from './screentime';
 const { Column } = Table;
 const Management1 = () => {
   const [userData, setUserData] = useState([]);
@@ -23,15 +25,32 @@ const Management1 = () => {
   const [requests, setrequests] = useState([]);
   const [activeButton, setActiveButton] = useState("Active");
   const [searchItem, setSearchItem] = useState('')
+  const [graphValue, setGraphValue] = useState()
 
+  useEffect(()=>{
+   let dataPoint = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+   getGraphDataRole('management')
+       .then((data)=>{
+         const orderedData = dataPoint.map(day => ({
+           day,
+           value: data[day] || 0, // Set the value from the API response, or default to 0
+         }));
+ 
+         const graphValue = orderedData.map((val)=>val.value)
+         setGraphValue(graphValue)
+       })
+       .catch((error)=>{
+         console.log('Error Fetching Graph Data:', error)
+       })
+  },[])
   useEffect(() => {
-    
+    const date = new Date().toJSON();
     getAllmanagement()
       .then((data) => {
         setUserData(data);
         // console.log(data)
-        const act = data.filter((data) => ((data.subscription==="Active")))
-        const inact = data.filter((data) => ((data.subscription==="InActive")))
+        const act = data.filter((data) => data.subscription && date< data.subscription_expiry && !data.blocked)
+        const inact = data.filter((data) => !data.subscription || date> data.subscription_expiry || data.blocked)
         setallData(data);
         setactiveData(act);
         setInactiveData(inact);
@@ -53,7 +72,6 @@ const Management1 = () => {
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
     setSearchItem(searchTerm)
-    console.log(activeButton)
 
     if (activeButton === 'Active') {
       const filteredItems = allData.filter((user) =>
@@ -115,13 +133,13 @@ const Management1 = () => {
   return (
     <div className="AMS-1 screen">
         <SideNav xyz={'management'}/>
-        <div style={{width:'85%', padding:'25px 45px'}} >
+        <div className="main-container">
       <Head pageName="Management"/>
     <div className="main">
     <div className='head-main'>
       <div className="overlap-group-wrapper-190">
       <div style={{ padding:'20px' }} className="outer-group-2 b-radius1">
-              <BScreenTimeChart />
+      <ScreenTimeChart activeData={graphValue} />
         </div>
       </div>
         <SubscriptionStastic total={allData.length} active={activeData.length} expired={InactiveData.length} />
@@ -180,7 +198,7 @@ const Management1 = () => {
       </div>
      
       
-      <div className="itachi-wrapper">
+      <div className="itachi-wrapper table-wrapper table-wrapper">
         <Table rowSelection={rowSelection} dataSource={userData}>
           <Column title="User ID" dataIndex="user_id" key="user_id" />
           <Column title="School Name" dataIndex="username" key="username" />

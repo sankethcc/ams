@@ -7,7 +7,7 @@ display: flex;
 color: #707070;
 justify-content: space-between;
 align-items: center;
-padding: 12px 17px;
+padding: 12px 15px;
 list-style: none;
 width: 100%;
 text-decoration: none;

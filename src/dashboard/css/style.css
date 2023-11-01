@@ -161,7 +161,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px 30px;
+    padding: 20px;
 }
 .rectangle {
   background-color: var(--green);
@@ -201,6 +201,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   width: 100%;
+  gap: 20px;
 }
 
 .dashboard-wrap-4 {
@@ -371,6 +372,11 @@
 
 
 /* modify css for responsive */
+.main-container {
+  width: 85%;
+  padding: 25px 45px;
+}
+
 .b-radius1{
   border-radius: 20px;
 }
@@ -413,10 +419,15 @@
   /* margin-top: 32px; */
 }
 
-.right-wrapper{
+.right-wrapper {
   display: flex;
   flex-direction: column;
   width: 30%;
   justify-content: space-between;
+  gap: 10px;
+}
 
+/* menu css */
+nav.sc-iBAaJG.eTfhcP.menu-cont {
+  width: 15%;
 }

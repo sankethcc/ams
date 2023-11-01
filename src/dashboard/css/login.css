@@ -22,17 +22,20 @@
 .left {
   background-image: url("/src/dashboard/img/left.png"); 
   background-size: cover;
-  width: 58vw;
+  width: 58%;
+  background-position: center;
 }
 
 .box {
   background-color: #ffffff;
-  width: 42vw;
+  width: 42%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative; /* Added position relative */
+  position: relative;
+  gap: 8px;
+  padding: 132px;
 }
 
 .main-title {
@@ -40,10 +43,6 @@
   font-family: "Poppins", Helvetica;
   font-size: 40px;
   font-weight: 600;
-  position: absolute;
-  top: 22.7vh;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .text {
@@ -51,10 +50,6 @@
   font-family: "Poppins", Helvetica;
   font-size: 15px;
   font-weight: 400;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 32.2vh;
 }
 
 .inputs {
@@ -62,32 +57,28 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  position: absolute;
-  top: 42vh;
-  gap: 2.5vh; 
+  gap: 20px;
+  padding: 40px 0px;
 }
 
 .box2 {
   background-color: #eff3f4;
   border: none;
   border-radius: 14px;
-  height: 8vh;
-  width: 24.3vw;
   display: flex;
   justify-content: space-between;
-  align-items: center; 
-  padding: 0 10px; 
+  align-items: center;
+  padding: 17px 25px;
+  outline: none;
+  width: 100%;
 }
 .login {
-  background-color:  #4F78FE;
+  background-color: #4F78FE;
   border: none;
   border-radius: 14px;
-  color: white;
-  height: 8.1vh;
-  width: 24.3vw;
-  position: absolute;
-  top: 69vh;
-  align-items: center; 
+  color: #fff;
+  padding: 15px 0px;
+  width: 100%;
 }
 
 .text-wrapper-2 {
@@ -95,8 +86,6 @@
   font-family: "Poppins", Helvetica;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0;
-  line-height: normal;
 }
 
 .forgot {
@@ -104,9 +93,6 @@
   font-family: "Poppins", Helvetica;
   font-size: 12px;
   font-weight: 700;
-  right: 8.6vw;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 20vh;
+  align-self: flex-end;
+  padding-right: 5px;
 }

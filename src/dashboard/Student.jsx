@@ -1,7 +1,8 @@
+/* eslint-disable */
 import './Student.css'
 import SideNav from './SideNav'
 import React, { useState, useEffect } from "react";
-import { blockOrUnblockUser, getAllStudents } from "../API/apis.js";
+import { blockOrUnblockUser, getAllStudents, getGraphDataRole } from "../API/apis.js";
 import { Table, Tag, Space } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,6 +15,7 @@ import { enqueueSnackbar } from 'notistack'
 import Head from './Head'
 import SubscriptionStastic from './ComponentsCommon/SubscriptionStastic'
 import BScreenTimeChart from './BillingScreenTime'
+import ScreenTimeChart from './screentime';
 const { Column } = Table;
 
 
@@ -25,12 +27,27 @@ const Student = () => {
   const [InactiveData, setInactiveData] = useState([]);
   const [activeButton, setActiveButton] = useState("Active");
   const [searchItem, setSearchItem] = useState('')
+  const [graphValue, setGraphValue] = useState()
 
- 
+ useEffect(()=>{
+  let dataPoint = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  getGraphDataRole('student')
+      .then((data)=>{
+        const orderedData = dataPoint.map(day => ({
+          day,
+          value: data[day] || 0, // Set the value from the API response, or default to 0
+        }));
+
+        const graphValue = orderedData.map((val)=>val.value)
+        setGraphValue(graphValue)
+      })
+      .catch((error)=>{
+        console.log('Error Fetching Graph Data:', error)
+      })
+ },[])
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
     setSearchItem(searchTerm)
-    console.log(activeButton)
 
     if (activeButton === 'Active') {
       const filteredItems = allData.filter((user) =>
@@ -124,14 +141,14 @@ const Student = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+  const date = new Date().toJSON();
   useEffect(() => {
-    
     getAllStudents()
       .then((data) => {
         setUserData(data);
         // console.log(data)
-        const act = data.filter((data) => ((data.subscription==="Active")))
-        const inact = data.filter((data) => ((data.subscription==="InActive")))
+        const act = data.filter((data) => data.subscription && date< data.subscription_expiry && !data.blocked)
+        const inact = data.filter((data) => !data.subscription || date> data.subscription_expiry || data.blocked)
         setallData(data);
         setactiveData(act);
         setInactiveData(inact);
@@ -146,13 +163,13 @@ const Student = () => {
     
     <div className="AMS-1 screen">
     <SideNav xyz={'student'}/>
-    <div style={{width:'85%', padding:'25px 45px'}} >
+    <div className="main-container" >
       <Head pageName="Student"/>
       <div className="main">
     <div className='head-main'>
       <div className="overlap-group-wrapper-190">
       <div style={{ padding:'20px' }} className="outer-group-2 b-radius1">
-              <BScreenTimeChart />
+      <ScreenTimeChart activeData={graphValue} />
         </div>
       </div>
       <SubscriptionStastic total={allData.length} active={activeData.length} expired={InactiveData.length} />
@@ -205,7 +222,7 @@ const Student = () => {
       <ModalUpdateUserID showModalUpdate={showModalUpdate}
                         setShowModalUpdate={setShowModalUpdate} user={user} />
                         :null}
-      <div className="itachi-wrapper">
+      <div className="itachi-wrapper table-wrapper">
         <Table rowSelection={rowSelection} dataSource={userData}>
           <Column title="User ID" dataIndex="user_id" key="user_id" />
           <Column title="Name" dataIndex="username" key="username" />
@@ -215,9 +232,12 @@ const Student = () => {
             title="Subscription Status"
             dataIndex="subscription"
             key="subscription"
-            render={(subscriptionStatus) => (
-              <Tag color={subscriptionStatus === "Active" ? "green" : "red"}>{subscriptionStatus}</Tag>
-            )}
+            render={(subscriptionStatus, record) => {
+              return (
+              <Tag 
+              color={subscriptionStatus === true && record.blocked === false && date< record.subscription_expiry ? "green" : "red"}>
+                {subscriptionStatus && record.blocked === false && date< record.subscription_expiry ?'Active':'InActive'}</Tag>
+            )}}
           />
           <Column
             title="Subscription Expiry"

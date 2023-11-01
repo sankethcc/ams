@@ -8,14 +8,14 @@ function Piechart()
     
     return(
         <React.Fragment>
-            <div className="container-fluid b-radius1" style={{padding:'40px', background:'#fff'}}>
+            <div className="container-fluid b-radius1" style={{padding:'20px', background:'#fff'}}>
 
             <div className="row">               
                 <div>
                 <h3 className="font-main2">Sourcse</h3>
             <Pie 
-                 width={350}
-                height={300}
+                //  width={350}
+                height={250}
                 data={{                                          
                 labels: ['Razor pay'],
                 datasets: [

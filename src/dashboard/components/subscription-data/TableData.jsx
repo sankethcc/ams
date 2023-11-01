@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import "./table-data.css";
 import { Table, Tag, Space} from "antd";
@@ -23,13 +24,15 @@ export default function MyTable() {
   const [searchItem, setSearchItem] = useState('')
   const [showModalUpdate, setShowModalUpdate] = useState(false)
   const [bool, setbool] = useState(false)
+  const date = new Date().toJSON();
   useEffect(() => {
     // Fetch user data from the API
     getAllPlatformUsers()
       .then((data) => {
+        console.log(data)
         setUserData(data);
-        const act = data.filter((data) => ((data.subscription==="Active")))
-        const inact = data.filter((data) => ((data.subscription==="InActive")))
+        const act = data.filter((data) => data.subscription && date< data.subscription_expiry && !data.blocked)
+        const inact = data.filter((data) => !data.subscription || date> data.subscription_expiry || data.blocked)
         setallData(data);
         setactiveData(act);
         setInactiveData(inact);
@@ -44,7 +47,6 @@ export default function MyTable() {
   const handleInputChange = (e) => { 
     const searchTerm = e.target.value;
     setSearchItem(searchTerm)
-    console.log(activeButton)
 
     if (activeButton === 'Active') {
       const filteredItems = allData.filter((user) =>
@@ -195,9 +197,12 @@ export default function MyTable() {
             title="Subscription Status"
             dataIndex="subscription"
             key="subscription"
-            render={(subscriptionStatus) => (
-              <Tag color={subscriptionStatus === "Active" ? "green" : "red"}>{subscriptionStatus}</Tag>
-            )}
+            render={(subscriptionStatus, record) => {
+              return (
+              <Tag 
+              color={subscriptionStatus === true && record.blocked === false && date< record.subscription_expiry ? "green" : "red"}>
+                {subscriptionStatus && record.blocked === false && date< record.subscription_expiry ?'Active':'InActive'}</Tag>
+            )}}
           />
           <Column
             title="Subscription Expiry"

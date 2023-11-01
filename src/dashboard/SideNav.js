@@ -99,7 +99,7 @@ const SideNav = ({ xyz }) => {
 
   return (
     <>
-      <SidebarNav sidebar={true}>
+      <SidebarNav className="menu-cont" sidebar={true}>
         <div className="top_section">
           <img alt="SP" src={LOGO} className="logo_icon" />
         </div>

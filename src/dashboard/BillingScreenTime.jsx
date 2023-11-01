@@ -3,9 +3,8 @@ import ReactApexChart from 'react-apexcharts';
 
 
 
-const BScreenTimeChart = () => {
+const BScreenTimeChart = ({activeData}) => {
     const dataPoints = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const values = [5, 1, 0, 5, 3, 2, 4]
   const options = {
     chart: {
       id: 'screenTimeChart',
@@ -51,7 +50,7 @@ const BScreenTimeChart = () => {
   const series = [
     {
       name: 'Units Consumed',
-      data: values,
+      data: activeData,
     },
   ];
 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import "./css/subscription1.css";
 import { Card, Col, Row } from "react-bootstrap";
@@ -107,6 +108,7 @@ const Subscription = () => {
         console.error("Error fetching user data:", error);
       });
   }, [showModalUpdate, allActive, Active]);
+  const date = new Date().toJSON().slice(0, 10);;
   return (
 
     <div className="screen">
@@ -141,9 +143,8 @@ const Subscription = () => {
       </div>
       </div>
 
-      <Row className="coupon-card">
-        <Col >
-          <Card className="subscription1-card1-create1">
+      <div style={{justifyContent:`${data.length<3?'flex-start':''}`}} className="coupon-card">
+          <Card className="subscription1-card1-create1 coupon1-items1">
             <button className="button" onClick={(e) => setShowModal(true)}>
               <span>+</span>
               <br />
@@ -158,18 +159,27 @@ const Subscription = () => {
               />
             )}
           </Card>
-        </Col>
         {data &&
           data.length > 0 &&
           data?.map((couponData, index) => {
             const features = JSON.parse(couponData?.feature_offering)
           return (
-            <Col key={index} className="coupon1-items1" >
+            <div key={index} className="coupon1-items1" >
+              {showModalUpdate[index] && showModalUpdate?
+                  <SubscriptionModalUpdate 
+                  showModalUpdate={showModalUpdate}
+                  setShowModalUpdate={setShowModalUpdate}
+                  dataHandler={dataHandler}
+                  index={couponData._id}
+                  
+                  />
+                  :null}
 
               <Card
+                style={{position:'relative', padding:'25px', opacity:`${couponData.blocked || date >= couponData.expire_date ?'0.6':'1'}`}}
                 key={index}
                 className={`subscription1-card1 ${activeCardIndex === index ? "active" : "" }`}
-                  style={{position:'relative', padding:'25px'}}
+
                   onMouseEnter={() => handleCardClick(index)}
                   onMouseLeave={handleCardClick}
               >
@@ -193,15 +203,7 @@ const Subscription = () => {
                     </div>
                 </div>
                   
-                  {showModalUpdate[index] && showModalUpdate?
-                  <SubscriptionModalUpdate 
-                  showModalUpdate={showModalUpdate}
-                  setShowModalUpdate={setShowModalUpdate}
-                  dataHandler={dataHandler}
-                  index={couponData._id}
                   
-                  />
-                  :null}
 
               <div className="sub-details">
                 <p
@@ -262,7 +264,11 @@ const Subscription = () => {
                   <ul style={{ padding: "0px", textTransform:'capitalize' }}>
                     {features.map((item, index1) => {
                     return (
-                      <li className="li" key={index1}><span style={{ marginRight: "10px", verticalAlign:'middle' }}><IoIosCheckmarkCircleOutline /></span>{item}</li>
+                      <li style={{display:'flex'}} className="li" key={index1}>
+                        <span style={{ marginRight: "10px", verticalAlign:'middle' }}><IoIosCheckmarkCircleOutline /></span>
+                        <span>{item}</span>
+                      
+                      </li>
                     )})}
                   </ul>
 
@@ -273,7 +279,7 @@ const Subscription = () => {
                 <p className="left-entry">
                   <small>Tax regime</small>
                   <br />
-                  {couponData?.tax_regime ?? "0"}%  {couponData?.tax_excluded ?? '-'}
+                  {couponData?.tax_regime ?? "0"}%  {couponData?.tax_excluded ? 'Excluded':'Included'}
                 </p>
                 <p className="right-entry">
                   <small>Total amount</small>
@@ -283,9 +289,9 @@ const Subscription = () => {
                   </div>
                 
               </Card>
-            </Col>
+            </div>
           )})}
-      </Row>
+      </div>
       </div>
     </div>
   );

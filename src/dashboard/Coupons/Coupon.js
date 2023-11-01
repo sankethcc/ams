@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { Card, Col } from "react-bootstrap";
@@ -172,15 +173,14 @@ const Coupon = () => {
       [index]: true,
     }));
   };
-
+  const date = new Date().toJSON().slice(0, 10);;
   useEffect(() => {
     getAllCoupons()
       .then((response) => {
         setallData(response.data)
-        const date = new Date().toJSON().slice(0, 10);;
         const data = response.data;
-        const act = data.filter((data) => ((date >= data.start_date && date <= data.expire_date && !data.blocked)))
-        const inact = data.filter((data) => ((date > data.expire_date || data.blocked)))
+        const act = data.filter((data) => ((date < data.expire_date && !data.blocked)))
+        const inact = data.filter((data) => ((date >= data.expire_date || data.blocked)))
         setactiveData(act)
         setInactiveData(inact)
         if (allActive) {
@@ -245,9 +245,8 @@ const Coupon = () => {
             />
           </div>
         </div>
-        <div className="coupon-card">
-          <Col >
-            <div className="subscription-card-create">
+        <div style={{justifyContent:`${coupons.length<3?'flex-start':''}`}} className="coupon-card">
+            <div className="subscription-card-create coupon1-items1">
               <button className="button" onClick={(e) => setShowModal(true)}>
                 <span>+</span>
                 <span style={{fontSize:'20px', color:'#707070'}}>Create new Coupon</span>
@@ -400,20 +399,20 @@ const Coupon = () => {
                 </div>
               )}
             </div>
-          </Col>
 
           {coupons &&
             coupons.length > 0 &&
             coupons.map((couponData, index) => (
-              <Col
+              <div
                 key={index}
-                className="coupon-items"
+                className="coupon1-items1"
                 style={{ position: "relative" }}
               >
                 <Card
+                style={{opacity:`${couponData.blocked || date >= couponData.expire_date ?'0.6':'1'}`}}
                   key={index}
                   className={`subscription-card ${
-                    activeCardIndex === index ? "active" : ""
+                    activeCardIndex === index && !couponData?.blocked && date < couponData.expire_date ? "active" : ""
                   }`}
                   onMouseEnter={() => handleCardClick(index)}
                   onMouseLeave={handleCardClick}
@@ -503,7 +502,7 @@ const Coupon = () => {
                     id={couponData._id}
                   />
                 )}
-              </Col>
+              </div>
             ))}
         </div>
       </div>

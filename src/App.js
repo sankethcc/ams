@@ -13,8 +13,12 @@ import Student from "./dashboard/Student";
 import Student1 from "./dashboard/Student1";
 import Teacher from "./dashboard/Teacher";
 import ManagementDocument from "./dashboard/ManagementDocument";
-//ekmekek
-//sjnjdnjdddidn
+
+
+// imported all css here
+import './dashboard/css/media.css'
+
+
 function App() {
   return (
     

@@ -9,6 +9,19 @@
     --purple: rgba(205, 195, 255, 1);
     --stroke: rgba(216, 216, 216, 1);
   }
+
+  .billing-wrapper{
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+  .billing-data1{
+    width: 22%;
+  }
+  .billing-data2{
+    width: 72%;
+  }
+  
   
    .billing_screen {
     background-color: #eff3f4;
