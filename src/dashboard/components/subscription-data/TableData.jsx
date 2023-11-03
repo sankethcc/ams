@@ -29,7 +29,6 @@ export default function MyTable() {
     // Fetch user data from the API
     getAllPlatformUsers()
       .then((data) => {
-        console.log(data)
         setUserData(data);
         const act = data.filter((data) => data.subscription && date< data.subscription_expiry && !data.blocked)
         const inact = data.filter((data) => !data.subscription || date> data.subscription_expiry || data.blocked)

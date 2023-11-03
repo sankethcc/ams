@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 
-export const apiUrl = 'http://localhost:5000/'; // Replace with your API URL
+export const apiUrl = 'http://34.131.103.255/'; // Replace with your API URL
 
 export const login = (Data) => {
   return axios.post(`${apiUrl}/login_AMS`, Data)

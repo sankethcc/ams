@@ -49,7 +49,7 @@ const BScreenTimeChart = ({activeData}) => {
 
   const series = [
     {
-      name: 'Units Consumed',
+      name: 'User Created',
       data: activeData,
     },
   ];

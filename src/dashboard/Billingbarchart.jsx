@@ -5,10 +5,19 @@ import ReactApexChart from 'react-apexcharts';
 const colors = ['#008FFB', '#00E396'];
 
 const Barchart = ({activeData}) => {
+  const series = [
+    {
+      name: 'Total Amount',
+      data: activeData,
+    },
+  ]
   const [chartData, setChartData] = useState({
-    series: [{
-      data: activeData
-    }],
+     series: [
+      {
+        name: 'Total Amount',
+        data: activeData,
+      },
+    ],
     options: {
       chart: {
         height: 350,
@@ -59,7 +68,7 @@ const Barchart = ({activeData}) => {
 
   return (
     <div id="chart">
-      <ReactApexChart options={chartData.options} series={chartData.series} type="bar" height={350} />
+      <ReactApexChart options={chartData.options} series={series} type="bar" height={350} />
     </div>
   );
 };

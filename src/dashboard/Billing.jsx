@@ -17,7 +17,6 @@ const Billing = () => {
     .then((data)=>{
       const screenGraph = data[0]
       const barGraph = data[1]
-      console.log(screenGraph)
 
       const orderedData = dataPoint.map(day => ({
         day,
